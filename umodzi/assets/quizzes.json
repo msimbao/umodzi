@@ -1,0 +1,36 @@
+[
+  {
+    "id": "g7-1",
+    "title": "Math Basics",
+    "grade": 7,
+    "questions": [
+      {
+        "question": "What is 5 + 3?",
+        "options": ["6", "7", "8", "9"],
+        "answer": "8"
+      },
+            {
+        "question": "What is 3 + 3?",
+        "options": ["6", "7", "8", "9"],
+        "answer": "6"
+      },
+        {
+        "question": "What is 4 + 3?",
+        "options": ["6", "7", "8", "9"],
+        "answer": "7"
+      }
+    ]
+  },
+  {
+    "id": "g9-1",
+    "title": "Biology Basics",
+    "grade": 9,
+    "questions": [
+      {
+        "question": "What part of the cell contains DNA?",
+        "options": ["Nucleus", "Ribosome", "Membrane", "Mitochondria"],
+        "answer": "Nucleus"
+      }
+    ]
+  }
+]
