@@ -3,13 +3,13 @@ import { View, Text, Button } from 'react-native';
 import { getLocalQuizzes } from '../utils/quizStore';
 
 export default function QuizListScreen({ route, navigation }) {
-  const { grade } = route.params;
+  const { grade, subject } = route.params;
   const [quizzes, setQuizzes] = useState([]);
 
   useEffect(() => {
     (async () => {
       const data = await getLocalQuizzes();
-      const filtered = data.filter(q => q.grade === grade);
+      const filtered = data.filter((q) => q.grade === grade && q.subject === subject);
       setQuizzes(filtered);
     })();
   }, []);

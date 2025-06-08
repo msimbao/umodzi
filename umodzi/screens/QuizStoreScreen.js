@@ -1,7 +1,7 @@
 import React from 'react';
 import { View, Button, Text } from 'react-native';
 import { saveQuizzesToLocal } from '../utils/quizStore';
-import quizzesData from '../assets/quizzes.json'; // Adjust if importing fails in Expo
+import quizzesData from '@/data/quizzes.json'; // Adjust if importing fails in Expo
 
 export default function QuizStoreScreen() {
   const downloadQuizzes = async () => {

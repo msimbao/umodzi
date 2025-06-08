@@ -9,7 +9,7 @@ export default function GradeSelectionScreen({ navigation }) {
         <Button
           key={grade}
           title={`Grade ${grade}`}
-          onPress={() => navigation.navigate('QuizList', { grade })}
+         onPress={() => navigation.navigate('SubjectSelection', { grade })}
         />
       ))}
 
