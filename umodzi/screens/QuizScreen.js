@@ -21,6 +21,8 @@ export default function QuizScreen({ route, navigation }) {
 
   const currentQuestion = quiz.questions[currentIndex];
   const correctIndex = currentQuestion.answer;
+  const [currentRate, setcurrentRate] = useState(0.2);
+
 
   const handleSubmit = () => {
     if (isSubmitted || selectedOption === null) return;
@@ -30,6 +32,13 @@ export default function QuizScreen({ route, navigation }) {
 
     setIsSubmitted(true);
   };
+
+  const handlePlay = (inputValue) => {
+        // const inputValue = currentWord
+        Speech.speak(inputValue, {
+            rate:currentRate,
+        });
+    }
 
   const handleNext = () => {
     setSelectedOption(null);
@@ -75,7 +84,7 @@ export default function QuizScreen({ route, navigation }) {
       )}
 
       <Text style={styles.question}>{currentQuestion.question}</Text>
-
+      <Button title="Read Question" onPress={() => handlePlay(currentQuestion.question)}/>
       {currentQuestion.options.map((option, index) => (
         <TouchableOpacity
           key={index}
@@ -83,6 +92,8 @@ export default function QuizScreen({ route, navigation }) {
           onPress={() => !isSubmitted && setSelectedOption(index)}
         >
           <Text style={styles.optionText}>{option}</Text>
+          <Button title="Read Question" onPress={() => handlePlay(option)}/>
+
         </TouchableOpacity>
       ))}
 
@@ -98,6 +109,8 @@ export default function QuizScreen({ route, navigation }) {
             {selectedOption === correctIndex ? '✅ Correct!' : '❌ Incorrect.'}
           </Text>
           <Text style={styles.hint}>Hint: {currentQuestion.hint}</Text>
+          <Button title="Read Hint" onPress={() => handlePlay(currentQuestion.hint)}/>
+
           <Button
             title={currentIndex + 1 < quiz.questions.length ? 'Next' : 'Finish'}
             onPress={handleNext}
