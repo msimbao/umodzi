@@ -11,8 +11,10 @@ An app and platform to provide fully offline educational content and quizzes to 
 
 4. NOTE: You have to be in the INNER umodzi directory not the outer
 
-5. run: npx expo start
+5. Run: npm install
+
+6. run: npx expo start
   
-6. Open the Expo Go app on phone
+7. Open the Expo Go app on phone
    
-7. Scan QR Code in terminal
+8. Scan QR Code in terminal
