@@ -109,7 +109,7 @@ export default function QuizScreen({ route, navigation }) {
             {selectedOption === correctIndex ? '✅ Correct!' : '❌ Incorrect.'}
           </Text>
           <Text style={styles.hint}>Hint: {currentQuestion.hint}</Text>
-          <Button title="Read Hint" onPress={() => handlePlay(currentQuestion.hint)}/>
+          <Button title="Read Hint" onPress={() => handlePlay(currentQuestion)}/>
 
           <Button
             title={currentIndex + 1 < quiz.questions.length ? 'Next' : 'Finish'}
