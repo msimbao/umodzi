@@ -11,26 +11,28 @@ import {
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import { Ionicons } from "@expo/vector-icons";
 
+import Autumn from "@/assets/svg/autumn.svg"
+
 const { width, height } = Dimensions.get("window");
 
 const slides = [
   {
     key: "one",
-    iconName: "leaf-outline",
+    iconName: "checkmark-outline",
     title: "Welcome to EduSavanna!",
     description:
       "Explore engaging quizzes crafted for African learners with rich visuals and local flair.",
   },
   {
     key: "two",
-    iconName: "library-outline",
+    iconName: "checkmark-outline",
     title: "Learn & Earn",
     description:
       "Unlock diorama rewards and cute characters as you complete lessons and challenges.",
   },
   {
     key: "three",
-    iconName: "ribbon-outline",
+    iconName: "checkmark-done-outline",
     title: "Track Your Growth",
     description:
       "View your progress and revisit lessons anytime in your personalized dashboard.",
@@ -61,24 +63,31 @@ export default function IntroScreen({ navigation }) {
     return (
       <View style={styles.slideContainer}>
         <Animated.View style={[styles.card]}>
-          <Ionicons name={item.iconName} size={100} color={"white"} />
+          {/* <Ionicons name={item.iconName} size={100} color={"white"} /> */}
 
           <View style={styles.footer}>
             {/* <Text style={styles.title}>{item.title}</Text> */}
             <Text style={styles.description}>{item.description}</Text>
             {item.key === "one" && (
               <Pressable style={styles.button} onPress={handleNext}>
-                <Text style={styles.buttonText}>Next</Text>
+                <Text style={styles.buttonText}>
+                            <Ionicons name={item.iconName} size={50} color={"black"} />
+                </Text>
               </Pressable>
             )}
             {item.key === "two" && (
               <Pressable style={styles.button} onPress={handleNext}>
-                <Text style={styles.buttonText}>Next</Text>
+                <Text style={styles.buttonText}>
+                                              <Ionicons name={item.iconName} size={50} color={"black"} />
+                </Text>
               </Pressable>
             )}
             {item.key === "three" && (
               <Pressable style={styles.button} onPress={handleContinue}>
-                <Text style={styles.buttonText}>Get Started</Text>
+                <Text style={styles.buttonText}>
+                                              <Ionicons name={item.iconName} size={50} color={"black"} />
+
+                </Text>
               </Pressable>
             )}
           </View>
@@ -111,7 +120,7 @@ export default function IntroScreen({ navigation }) {
 
 const styles = StyleSheet.create({
   slideContainer: {
-    backgroundColor: "#222431",
+    backgroundColor: "#000",
     width,
     justifyContent: "center",
     alignItems: "center",
@@ -119,18 +128,17 @@ const styles = StyleSheet.create({
     flex: 1,
   },
   card: {
-    backgroundColor: "#fff",
     borderRadius: 20,
     padding: 30,
     width: width * 0.9,
-    // shadowColor: '#000',
-    // shadowOpacity: 0.1,
-    // shadowRadius: 20,
+    shadowColor: '#000',
+    shadowOpacity: 0.1,
+    shadowRadius: 20,
     elevation: 8,
     alignItems: "center",
     height: height * 0.9,
     borderColor: "white",
-    // borderWidth:2,
+    borderWidth:1,
     backgroundColor: "#222431",
   },
   footer: {
@@ -153,12 +161,12 @@ const styles = StyleSheet.create({
     marginBottom: 20,
   },
   button: {
-    // backgroundColor: "#2196F3",
-    paddingVertical: 10,
+    backgroundColor: "#fff",
+    paddingVertical: 5,
     paddingHorizontal: 30,
     borderRadius: 10,
-    bottom: 10,
-    
+    bottom: 20,
+    marginTop:50,
   },
   buttonText: {
     color: "#fff",
