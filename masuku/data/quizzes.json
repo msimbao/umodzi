@@ -1,0 +1,472 @@
+[
+  {
+    "id": "g7-1",
+    "title": "Math Basics",
+    "grade": 7,
+    "subject": "Mathematics",
+    "questions": [
+      {
+        "question": "What is 5 + 3?",
+        "options": ["6", "7", "8", "9"],
+        "answer": 2,
+        "hint": "Add the numbers carefully",
+        "image": "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABgAAAAYCAYAAADgdz34AAAABHNCSVQICAgIfAhkiAAAAAlwSFlzAAAApgAAAKYB3X3/OAAAABl0RVh0U29mdHdhcmUAd3d3Lmlua3NjYXBlLm9yZ5vuPBoAAANCSURBVEiJtZZPbBtFFMZ/M7ubXdtdb1xSFyeilBapySVU8h8OoFaooFSqiihIVIpQBKci6KEg9Q6H9kovIHoCIVQJJCKE1ENFjnAgcaSGC6rEnxBwA04Tx43t2FnvDAfjkNibxgHxnWb2e/u992bee7tCa00YFsffekFY+nUzFtjW0LrvjRXrCDIAaPLlW0nHL0SsZtVoaF98mLrx3pdhOqLtYPHChahZcYYO7KvPFxvRl5XPp1sN3adWiD1ZAqD6XYK1b/dvE5IWryTt2udLFedwc1+9kLp+vbbpoDh+6TklxBeAi9TL0taeWpdmZzQDry0AcO+jQ12RyohqqoYoo8RDwJrU+qXkjWtfi8Xxt58BdQuwQs9qC/afLwCw8tnQbqYAPsgxE1S6F3EAIXux2oQFKm0ihMsOF71dHYx+f3NND68ghCu1YIoePPQN1pGRABkJ6Bus96CutRZMydTl+TvuiRW1m3n0eDl0vRPcEysqdXn+jsQPsrHMquGeXEaY4Yk4wxWcY5V/9scqOMOVUFthatyTy8QyqwZ+kDURKoMWxNKr2EeqVKcTNOajqKoBgOE28U4tdQl5p5bwCw7BWquaZSzAPlwjlithJtp3pTImSqQRrb2Z8PHGigD4RZuNX6JYj6wj7O4TFLbCO/Mn/m8R+h6rYSUb3ekokRY6f/YukArN979jcW+V/S8g0eT/N3VN3kTqWbQ428m9/8k0P/1aIhF36PccEl6EhOcAUCrXKZXXWS3XKd2vc/TRBG9O5ELC17MmWubD2nKhUKZa26Ba2+D3P+4/MNCFwg59oWVeYhkzgN/JDR8deKBoD7Y+ljEjGZ0sosXVTvbc6RHirr2reNy1OXd6pJsQ+gqjk8VWFYmHrwBzW/n+uMPFiRwHB2I7ih8ciHFxIkd/3Omk5tCDV1t+2nNu5sxxpDFNx+huNhVT3/zMDz8usXC3ddaHBj1GHj/As08fwTS7Kt1HBTmyN29vdwAw+/wbwLVOJ3uAD1wi/dUH7Qei66PfyuRj4Ik9is+hglfbkbfR3cnZm7chlUWLdwmprtCohX4HUtlOcQjLYCu+fzGJH2QRKvP3UNz8bWk1qMxjGTOMThZ3kvgLI5AzFfo379UAAAAASUVORK5CYII="
+      },
+            {
+        "question": "What is 3 + 3?",
+        "options": ["6", "7", "8", "9"],
+        "answer": 0,
+        "hint" : "Add the numbers carefully"
+      },
+        {
+        "question": "What is 4 + 3?",
+        "options": ["6", "7", "8", "9"],
+        "answer": 1,
+        "hint" : "Add the numbers carefully"
+      }
+    ]
+  },
+
+  {
+    "id": "g7-English-2010",
+    "title": "G7 English 2010 ECZ",
+    "grade" : 7,
+    "subject": "English",
+    "questions" : [
+   {
+    "question": "Put your books . . . that desk.",
+    "options": ["A.on", "B.of", "C.in", "D.to"],
+    "answer": 0,
+    "hint": "Preposition indicating placement on a surface"
+  },
+  {
+    "question": "I bought a blue dress . . . I like blue.",
+    "options": ["A.or", "B.but", "C.even", "D.because"],
+    "answer": 3,
+    "hint": "Word used to give a reason"
+  },
+  {
+    "question": "There are . . . books in this box.",
+    "options": ["A.plenty", "B.many", "C.much", "D.lots"],
+    "answer": 1,
+    "hint": "Used with countable nouns"
+  },
+  {
+    "question": "Will you please come . . . me to town?",
+    "options": ["A.by", "B.with", "C.on", "D.to"],
+    "answer": 1,
+    "hint": "Preposition indicating accompaniment"
+  },
+  {
+    "question": "I know you ... like swimming.",
+    "options": ["A.don't", "B.doesn't", "C.does", "D.doing"],
+    "answer": 0,
+    "hint": "Negative form for 'you'"
+  },
+  {
+    "question": "The headteacher sat ... two pupils.",
+    "options": ["A.besides", "B.between", "C.in", "D.through"],
+    "answer": 1,
+    "hint": "Preposition used for two items"
+  },
+  {
+    "question": "The thief ... stole the bicycle has been arrested.",
+    "options": ["A.which", "B.whom", "C.who", "D.whose"],
+    "answer": 2,
+    "hint": "Relative pronoun for a person (subject)"
+  },
+  {
+    "question": "All the girls came to check for the examination results, I don't know who told ...",
+    "options": ["A.her.", "B.them.", "C.him.", "D.us."],
+    "answer": 1,
+    "hint": "Pronoun referring to 'all the girls'"
+  },
+  {
+    "question": "My mother ... nice scones.",
+    "options": ["A.cooks", "B.boils", "C.bakes", "D.roasts"],
+    "answer": 2,
+    "hint": "Action related to making scones"
+  },
+  {
+    "question": "... did not grow maize because they had no fertilizer.",
+    "options": ["A.Their", "B.There", "C.Them", "D.They"],
+    "answer": 3,
+    "hint": "Subject pronoun for the sentence"
+  },
+  {
+    "question": "Yesterday we ... to the market to buy soap.",
+    "options": ["A.go", "B.going", "C.goes", "D.went"],
+    "answer": 3,
+    "hint": "Past tense of 'go'"
+  },
+  {
+    "question": "The log was too ... for a small boy to lift.",
+    "options": ["A.heavier", "B.heavy", "C.heavily", "D.heaviest"],
+    "answer": 1,
+    "hint": "Adjective describing the log"
+  },
+  {
+    "question": "Mulenga has the ... car in town.",
+    "options": ["A.good", "B.bad", "C.better", "D.best"],
+    "answer": 3,
+    "hint": "Superlative form indicating the highest quality"
+  },
+  {
+    "question": "It is either Peter goes to the market ... he cleans the kitchen.",
+    "options": ["A.or", "B.but", "C.nor", "D.and"],
+    "answer": 0,
+    "hint": "Used with 'either' to present alternatives"
+  },
+  {
+    "question": "A.large crowd came to watch the game between Zambia and Congo ... of the bad weather.",
+    "options": ["A.but", "B.unless", "C.despite", "D.in spite"],
+    "answer": 2,
+    "hint": "Preposition meaning 'in spite of'"
+  },
+  {
+    "question": "The words 'at a loss' mean ...",
+    "options": ["A.money making", "B.realised profit", "C.did not realise profit", "D.did not sell enough"],
+    "answer": 2,
+    "hint": "Phrase indicating financial loss"
+  },
+  {
+    "question": "The word 'denominations' means ...",
+    "options": ["A.Muslim groups", "B.Hindu groups", "C.Religious groups", "D.Christian groups"],
+    "answer": 3,
+    "hint": "Specific to Christian subgroups"
+  },
+  {
+    "question": "The word 'stranger' means ...",
+    "options": ["A.unknown", "B.known", "C.unexpected", "D.expected"],
+    "answer": 0,
+    "hint": "Someone not known or familiar"
+  },
+  {
+    "question": "The words 'no attention or care' mean ...",
+    "options": ["A.avoided", "B.upset", "C.neglected", "D.crying"],
+    "answer": 2,
+    "hint": "Lack of care or attention"
+  },
+  {
+    "question": "The word 'ignorant' means ...",
+    "options": ["A.annoyed", "B.unaware", "C.scared", "D.know"],
+    "answer": 1,
+    "hint": "Lacking knowledge or awareness"
+  },
+  {
+    "question": "This sentence means she ...",
+    "options": ["A.was late for lessons", "B.did not come for lessons", "C.will not come for lessons", "D.came for lessons"],
+    "answer": 0,
+    "hint": "Conditional sentence about being late"
+  },
+  {
+    "question": "This sentence means ...",
+    "options": ["A.I am free to be with other people", "B.I am not comfortable in the company of people", "C.I don't like people", "D.people don't like me"],
+    "answer": 1,
+    "hint": "Describes social discomfort"
+  },
+  {
+    "question": "This sentence means the ...",
+    "options": ["A.mother found the baby crying", "B.baby cried only when the mother arrived", "C.baby was crying before the mother arrived", "D.baby cried sometime after the mother arrived"],
+    "answer": 1,
+    "hint": "Action happening at the same time as another"
+  },
+  {
+    "question": "This means the computer is ...",
+    "options": ["A.very good", "B.very harmful", "C.more harmful than useful", "D.more useful than harmful"],
+    "answer": 3,
+    "hint": "Comparison of benefits and drawbacks"
+  },
+  {
+    "question": "This sentence means rice ...",
+    "options": ["A.is the only crop grown in Zambia", "B.is not grown in Zambia", "C.is only grown in Zambia", "D.and other crops are grown in Zambia"],
+    "answer": 3,
+    "hint": "Implies rice is among multiple crops"
+  },
+  {
+    "question": "A.... should be kept clean all the time.",
+    "options": ["A.classroom", "B.classrom", "C.clasroom", "D.classrom"],
+    "answer": 0,
+    "hint": "Correct spelling of the word"
+  },
+  {
+    "question": "Donald is a ... young man. He will not leave the room dirty.",
+    "options": ["A.responsible", "B.responsble", "C.resposible", "D.responsibel"],
+    "answer": 0,
+    "hint": "Correct spelling of the adjective"
+  },
+  {
+    "question": "My story has only one ...",
+    "options": ["A.paragraph", "B.paragraf", "C.paragrapgh", "D.paraghraph"],
+    "answer": 0,
+    "hint": "Correct spelling of the word"
+  },
+  {
+    "question": "Zambia is a ... because it is ruled by a president.",
+    "options": ["A.republic", "B.ripublec", "C.republik", "D.republc"],
+    "answer": 0,
+    "hint": "Correct spelling of the form of government"
+  },
+  {
+    "question": "The wedding parcel was ... in a colourful paper.",
+    "options": ["A.wrapped", "B.wrappd", "C.wrappped", "D.wraped"],
+    "answer": 0,
+    "hint": "Correct spelling of the past tense verb"
+  },
+  {
+    "question": "Choose the correctly punctuated sentence:",
+    "options": [
+      "A.Put, mangoes, guavas and bananas in the same basket.",
+      "B.Put mangoes, guavas and bananas in the same basket.",
+      "C.Put mangoes guavas, and bananas, in the same basket.",
+      "D.Put mangoes guavas and bananas in the same basket."
+    ],
+    "answer": 1,
+    "hint": "Look for correct comma usage in lists"
+  },
+  {
+    "question": "Choose the correctly punctuated sentence:",
+    "options": [
+      "A.As it started, raining people came running into the room.",
+      "B.As it started raining, people, came running into the room.",
+      "C.As it started raining people came running into the room.",
+      "D.As it started raining, people came running into the room."
+    ],
+    "answer": 3,
+    "hint": "Look for correct comma placement"
+  },
+  {
+    "question": "Choose the correctly punctuated sentence:",
+    "options": [
+      "A.\"I am very sorry my friend,\" said Mrs Mwape.",
+      "B.\"I am very sorry, my friend,\" said Mrs Mwape.",
+      "C.I am very sorry, \"my friend said Mrs Mwape.\"",
+      "D.\"I am very sorry,\" my friend, said Mrs Mwape."
+    ],
+    "answer": 1,
+    "hint": "Look for correct comma placement within quotes"
+  },
+  {
+    "question": "Choose the correctly punctuated sentence:",
+    "options": [
+      "A.Our \"School\" Motto is Together we stand.",
+      "B.Our School\" Motto is Together we stand.\"",
+      "C.\"Our School Motto\" is Together we stand.",
+      "D.Our School motto is, \"Together we stand.\""
+    ],
+    "answer": 3,
+    "hint": "Look for correct quotation mark and comma usage"
+  },
+  {
+    "question": "Choose the correctly punctuated sentence:",
+    "options": [
+      "A.\"Yes, Sir, he said, there's nobody else here.\"",
+      "B.Yes, Sir, he said, \"There's nobody else here.\"",
+      "C.\"Yes, Sir\" he said, \"there's nobody else here.\"",
+      "D.\"Yes, Sir,\" he said, \"there's nobody else here.\""
+    ],
+    "answer": 3,
+    "hint": "Look for correct comma placement in dialogue"
+  },
+  {
+    "question": "Choose the paragraph with the best sentence order:",
+    "options": [
+      "A.Mr Tembo is 60 years old. He has been driving for the last 40 years. He has never been involved in road accident. He always keeps his vehicle in good condition.",
+      "B.He always keeps his vehicle in good condition. He has been driving for the last 40 years. Mr Tembo is 60 years old. He has never been involved in road accident.",
+      "C.He has never been involved in road accident. He has been driving for the last 40 years. He always keeps his vehicle in good condition. Mr Tembo is 60 years old.",
+      "D.He has been driving for the last 40 years. He has never been involved in road accident. Mr Tembo is 60 years old. He always keeps his vehicle in good condition."
+    ],
+    "answer": 0,
+    "hint": "Look for logical sequence from general to specific"
+  },
+  {
+    "question": "Choose the paragraph with the best sentence order:",
+    "options": [
+      "A.Farming is good business. After selling the maize, she bought a grinding meal. Mrs Banda is a hard working farmer. She used some of the money to send her children to school.Last year she produced one thousand bags of maize.",
+      "B.Last year she produced one thousand bags of maize. She used some of the money to send her children to school. Farming is good business. Mrs Banda is a hard working farmer. After selling the maize, she bought a grinding meal.",
+      "C.After selling the maize, she bought a grinding meal. Last year she produced one thousand bags of maize. Mrs Banda is a hard working farmer. She used some of the money to send her children to school. Farming is good business.",
+      "D.Mrs Banda is a hard working farmer. Last year she produced one thousand bags of maize. After selling the maize, she bought a grinding meal. She used some of the money to send her children to school. Farming is good business."
+    ],
+    "answer": 3,
+    "hint": "Look for logical sequence introducing subject first"
+  },
+  {
+    "question": "Choose the paragraph with the best sentence order:",
+    "options": [
+      "A.He saw a bad accident. Longwani was playing by the road side. When he went to sleep he had a nightmare. This has never come out of his mind.",
+      "B.This has never come out of his mind. Longwani was playing by the road side. When he went to sleep he had a nightmare. He saw a terrible accident.",
+      "C.Longwani was playing by the road side. He saw a terrible accident. When he went to sleep he had a nightmare. This has never come out of his mind.",
+      "D.He saw a terrible accident. This has never come out of his mind. When he went to sleep he had a nightmare. Longwani was playing by the road side."
+    ],
+    "answer": 2,
+    "hint": "Look for chronological sequence of events"
+  },
+  {
+    "question": "Choose the paragraph with the best sentence order:",
+    "options": [
+      "A.I got a phone call from Lusaka that I was needed to attend a workshop in Siavonga. I started off from Ndola at 10.00 hours. After travelling for 10 hours, I eventually arrived in Siavonga around 20.00 hours.",
+      "B.I started off from Ndola at 10.00 hours. After travelling for 10 hours, I eventually arrived in Siavonga around 20.00 hours. I got a phone call from Lusaka that I was needed to attend a workshop in Siavonga.",
+      "C.After travelling for 10 hours, I eventually arrived in Siavonga around 20.00 hours. I started off from Ndola at 10.00 hours. I got a phone call from Lusaka that I was needed to attend a workshop in Siavonga.",
+      "D.I got a phone call from Lusaka that I was needed to attend a workshop in Siavonga. After travelling for 10 hours, I eventually arrived in Siavonga around 20.00 hours. I started off from Ndola at 10.00 hours."
+    ],
+    "answer": 0,
+    "hint": "Look for cause-effect sequence"
+  },
+  {
+    "question": "Choose the paragraph with the best sentence order:",
+    "options": [
+      "A.Dabwitso was very rich. They had everything they needed. He was so rich that he bought a big house where he lived with his family. His house and property were destroyed. One day an earthquake occurred.",
+      "B.One day an earthquake occurred. His house and property were destroyed. Dabwitso was very rich. He was so rich that he bought a big house where he lived with his family. They had everything they needed.",
+      "C.Dabwitso was very rich. He was so rich that he bought a big house where he lived with his family. They had everything they needed. One day an earthquake occurred. His house and property were destroyed.",
+      "D.Dabwitso was very rich. One day an earthquake occurred. His house and property were destroyed. They had everything they needed. He was so rich that he bought a big house where he lived with his family."
+    ],
+    "answer": 2,
+    "hint": "Look for logical sequence ending with the disaster"
+  },
+  {
+    "question": "Choose the paragraph with the best sentence order:",
+    "options": [
+      "A.He was imprisoned for 27 years. He then became the first black president of South Africa. He was finally released from prison in 1990. Mandela was a true freedom fighter.",
+      "B.Mandela was a true freedom fighter. He then became the first black president of South Africa. He was imprisoned for 27 years. He was finally released from prison in 1990.",
+      "C.Mandela was a true freedom fighter. He was imprisoned for 27 years. He was finally released from prison in 1990. He then became the first black president of South Africa.",
+      "D.He then became the first black president of South Africa. He was imprisoned for 27 years. Mandela was a true freedom fighter. He was finally released from prison in 1990."
+    ],
+    "answer": 2,
+    "hint": "Look for chronological sequence of Mandela's life"
+  },
+  {
+    "question": "Choose the paragraph with the best sentence order:",
+    "options": [
+      "A.Write a letter to the radio broadcaster. Thank him for the good work he is doing. In the letter, remember to say that his music selection is good. Tell him of the things you would want to hear more in future.",
+      "B.In the letter, remember to say that his music selection is good. Thank him for the good work he is doing. Write a letter to the radio broadcaster. Tell him of the things you would want to hear more in future.",
+      "C.Tell him of the things you would want to hear more in future. Write a letter to the radio broadcaster. In the letter, remember to say that his music selection is good. Thank him for the good work he is doing.",
+      "D.Thank him for the good work he is doing. In the letter, remember to say that his music selection is good. Tell him of the things you would want to hear more in future. Write a letter to the radio broadcaster."
+    ],
+    "answer": 0,
+    "hint": "Look for logical sequence of writing instructions"
+  },
+  {
+    "question": "Name the two main nutrients found in pineapple",
+    "options": ["A.carbohydrates and vitamins", "B.proteins and minerals", "C.vitamins and minerals", "D.fats and manganese"],
+    "answer": 2,
+    "hint": "Look for nutrients mentioned in the text"
+  },
+  {
+    "question": "A.pineapple has ... elements that help keep the body healthy.",
+    "options": ["A.more", "B.many", "C.less", "D.few"],
+    "answer": 1,
+    "hint": "Look for quantity word describing health elements"
+  },
+  {
+    "question": "Calcium and potassium in pineapple are required for ...",
+    "options": ["A.eye and ears", "B.hair and skin", "C.hands and legs", "D.bones and teeth"],
+    "answer": 3,
+    "hint": "Think about what calcium is important for"
+  },
+  {
+    "question": "The word 'juice' in the story means ...",
+    "options": ["A.liquid", "B.solid", "C.water", "D.fresh"],
+    "answer": 0,
+    "hint": "Think about the form of extracted fruit liquid"
+  },
+  {
+    "question": "It is true to say that pineapples can be used as ...",
+    "options": ["A.medicine", "B.enzymes", "C.cholesterol", "D.fibre"],
+    "answer": 0,
+    "hint": "Consider the healing properties mentioned"
+  },
+  {
+    "question": "The best title for this story can be ...",
+    "options": ["A.Pineapples are sweet", "B.Pineapple have all nutrients", "C.Minerals in pineapple", "D.Importance of pineapple"],
+    "answer": 3,
+    "hint": "Choose the most comprehensive option"
+  },
+  {
+    "question": "Slaves were used to ...",
+    "options": ["A.operate machines", "B.work in factories", "C.work on the plantations", "D.drive cars"],
+    "answer": 2,
+    "hint": "Look for where slaves worked according to the text"
+  },
+  {
+    "question": "The word 'era' means ...",
+    "options": ["A.period of time", "B.decade", "C.century", "D.millennium"],
+    "answer": 0,
+    "hint": "General term for a historical period"
+  },
+  {
+    "question": "In the Triangular Slave Trade, America supplied ...",
+    "options": ["A.raw materials", "B.slave labour", "C.manufactured goods", "D.machinery"],
+    "answer": 2,
+    "hint": "Think about what America produced"
+  },
+  {
+    "question": "The Triangular Slave Trade involved ... continents.",
+    "options": ["A.four", "B.three", "C.five", "D.seven"],
+    "answer": 1,
+    "hint": "Think about the 'triangular' nature"
+  },
+  {
+    "question": "Which continent did not benefit from the trade?",
+    "options": ["A.Europe", "B.America", "C.Africa", "D.Asia"],
+    "answer": 3,
+    "hint": "Find the continent not mentioned in the text"
+  },
+  {
+    "question": "\"quantity and quality were not considered\" means trade was ...",
+    "options": ["A.unfairly done", "B.fairly done", "C.good", "D.profitable"],
+    "answer": 0,
+    "hint": "Think about implications of not considering these factors"
+  },
+  {
+    "question": "The word 'unique' means ...",
+    "options": ["A.same", "B.different", "C.alone", "D.uniform"],
+    "answer": 1,
+    "hint": "Opposite of ordinary or common"
+  },
+  {
+    "question": "Leaders guide young people because ...",
+    "options": ["A.young people cannot see", "B.young people don't go in camp", "C.leaders have money", "D.leaders are experienced"],
+    "answer": 3,
+    "hint": "Think about why leaders would guide others"
+  },
+  {
+    "question": "The Scout Movement is ...",
+    "options": ["A.an organisation for boys", "B.a spiritual movement", "C.a youth organisation", "D.found in the Promise and Law"],
+    "answer": 2,
+    "hint": "Look for the most inclusive description"
+  },
+  {
+    "question": "Young people are attracted to the Scout Movement by...",
+    "options": ["A.the spirit", "B.youth organisations", "C.activities and camping", "D.the spirit and camping"],
+    "answer": 2,
+    "hint": "Look for what directly attracts them"
+  },
+  {
+    "question": "The word 'so' refers to the word ...",
+    "options": ["A.scouting", "B.unique", "C.ethos", "D.spirit"],
+    "answer": 1,
+    "hint": "Find what makes Scouting special"
+  },
+  {
+    "question": "What is the best title of this story?",
+    "options": ["A.Young People's Movement", "B.Boys' Organisation", "C.The Scout Movement", "D.The Spirit of Scouting"],
+    "answer": 3,
+    "hint": "Choose the title that captures the essence"
+  }
+    ]
+  },
+  {
+    "id": "g9-1",
+    "title": "Biology Basics",
+    "grade": 9,
+    "subject": "Science",
+    "questions": [
+      {
+        "question": "What part of the cell contains DNA?",
+        "options": ["Nucleus", "Ribosome", "Membrane", "Mitochondria"],
+        "answer": 0,
+        "hint" : "The part of the cell that contains all information"
+      }
+    ]
+  }
+]
