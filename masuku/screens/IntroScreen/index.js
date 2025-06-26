@@ -20,8 +20,8 @@ import * as SplashScreen from 'expo-splash-screen';
 import { useFonts } from "expo-font";
 
 const imagePath1 = require("@/assets/1.png");
-const imagePath2 = require("@/assets/images/NeoStickers/6.png");
-const imagePath3 = require("@/assets/images/NeoStickers/11.png");
+const imagePath2 = require("@/assets/2.png");
+const imagePath3 = require("@/assets/3.png");
 
 const { width, height } = Dimensions.get("window");
 
@@ -30,48 +30,47 @@ const slides = [
     key: "one",
     iconName: "arrow-forward-outline",
     image: imagePath1,
-    title: "BECOME TOP OF YOUR CLASS!",
+    title: "STUDY SMARTER",
     description:
-      "Explore engaging quizzes crafted for African learners with rich visuals and local flair.",
-    backgroundColor: "#D0F0C0",
+      "Access thousands of digital resources to learn, revise, and practice—wherever you are, whenever you need.",
+    backgroundColor: "#e0d5e6",
   },
   {
     key: "two",
     iconName: "checkmark-outline",
     image: imagePath2,
-    title: "Learn & Earn",
+    title: "STUDY CORRECTLY",
     description:
-      "Unlock diorama rewards and cute characters as you complete lessons and challenges.",
-    backgroundColor: "#B0E0E6",
+      "Take tests & quizzes, get graded immediately, and understand your mistakes through instant corrections",
+    backgroundColor: "#dbedf7",
   },
   {
     key: "three",
     iconName: "checkmark-done-outline",
     image: imagePath3,
-    title: "Track Your Growth",
+    title: "STUDY BEYOND",
     description:
-      "View your progress and revisit lessons anytime in your personalized dashboard.",
-    backgroundColor: "#FFDAB9",
+      "Explore topics like saving, investing, and building a future—because education is more than passing tests.",
+    backgroundColor: "#fae7eb",
   },
 ];
 
 export default function IntroScreen({ navigation }) {
-
 
     const [loaded, error] = useFonts({
     Fredoka_400Regular,
     Jersey25_400Regular,
   });
 
-  // useEffect(() => {
-  //   if (loaded || error) {
-  //     SplashScreen.hideAsync();
-  //   }
-  // }, [loaded, error]);
+  useEffect(() => {
+    if (loaded || error) {
+      SplashScreen.hideAsync();
+    }
+  }, [loaded, error]);
 
-  // if (!loaded && !error) {
-  //   return null;
-  // }
+  if (!loaded && !error) {
+    return null;
+  }
 
   const handleContinue = async () => {
     await AsyncStorage.setItem("hasSeenIntro", "true");
@@ -96,12 +95,19 @@ export default function IntroScreen({ navigation }) {
           { backgroundColor: item.backgroundColor },
         ]}
       >
+                  {/* <View style={styles.introHeader}> */}
+                      {/* <Text style={styles.introHeader}>umodzi</Text> */}
+                  {/* </View> */}
+
         <Animated.View style={[styles.card]}>
           {/* <Ionicons name={item.iconName} size={100} color={"white"} /> */}
           <Image
             style={styles.image}
             source={item.image}
           />
+
+          <View style={styles.background}>
+          </View>
 
           <View style={styles.footer}>
             <Text style={styles.title}>{item.title}</Text>
@@ -119,11 +125,6 @@ export default function IntroScreen({ navigation }) {
               // <AwesomeButton onPress={handleNext}>Next</AwesomeButton>
             )}
             {item.key === "two" && (
-              // <Pressable style={styles.button} onPress={handleNext}>
-              //   <Text style={styles.buttonText}>
-              //     <Ionicons name={item.iconName} size={40} color={"black"} />
-              //   </Text>
-              // </Pressable>
                        <ThemedButton
                 style={styles.button}
                 onPress={handleNext}
@@ -186,6 +187,12 @@ const styles = StyleSheet.create({
     flex: 1,
   },
   card: {
+    width: width * 0.9,
+    alignItems: "center",
+    height: height * 0.9,
+    bottom:50,
+  },
+    background: {
     borderRadius: 20,
     // padding: 30,
     width: width * 0.9,
@@ -194,11 +201,23 @@ const styles = StyleSheet.create({
     // shadowRadius: 20,
     elevation: 10,
     alignItems: "center",
-    height: height * 0.9,
-    borderColor: "white",
-    borderWidth: 0,
+    height: height * 0.75,
     backgroundColor: "white",
     // backgroundColor: "#fff",
+    position:'absolute',
+    bottom:0,
+    zIndex:-1,
+  },
+  introHeader:{
+    fontSize: 40,
+    marginBottom: 10,
+    textAlign: "center",
+    color: "black",
+    fontFamily: "Jersey25_400Regular",
+    width: 300,
+    fontWeight: 600,
+    position:"absolute",
+    top:100,
   },
   footer: {
     flex: 1,
@@ -207,7 +226,7 @@ const styles = StyleSheet.create({
     alignItems: "center",
   },
   title: {
-    fontSize: 30,
+    fontSize: 40,
     marginBottom: 10,
     textAlign: "center",
     color: "black",
@@ -218,30 +237,20 @@ const styles = StyleSheet.create({
   description: {
     fontSize: 20,
     color: "#000",
-    textAlign: "center",
+    textAlign: "justify",
     marginBottom: 20,
-    width: 300,
+    width: 250,
     fontFamily: "Fredoka_400Regular",
     fontWeight: 600,
   },
   button: {
-    // backgroundColor: "",
-    paddingVertical: 5,
-    paddingHorizontal: 30,
-    borderRadius: 10,
     bottom: 50,
     marginTop: 50,
   },
-  buttonText: {
-    color: "#fff",
-    fontWeight: "600",
-    fontSize: 20,
-  },
-
   image: {
     flex: 1,
-    top: 50,
-    width: 400,
+    top: height * 0.15,
+    width: 500,
     height: null,
     resizeMode: "contain",
     // backgroundColor: '#0553',

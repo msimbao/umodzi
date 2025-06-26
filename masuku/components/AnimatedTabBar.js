@@ -10,7 +10,7 @@ import Animated, {
 import { Ionicons } from '@expo/vector-icons';
 
 import HomeScreen from '../screens/HomeScreen';
-import DetailsScreen from '../screens/SubjectsScreen';
+import SubjectsScreen from '../screens/SubjectsScreen';
 import StoreScreen from '../screens/StoreScreen';
 import HistoryScreen from '../screens/HistoryScreen';
 import SettingsScreen from '../screens/SettingsScreen';
@@ -24,15 +24,15 @@ export default function MainTabs() {
     <Tab.Navigator
       tabBarPosition="bottom"
       tabBar={(props) => <PlainTabBar {...props} />}
-      swipeEnabled={true}
+      swipeEnabled={false}
       screenOptions={{
         tabBarShowLabel: false,
-        swipeEnabled: true,
+        swipeEnabled: false,
       }}
     >
-      <Tab.Screen name="Home" component={HomeScreen} />
-      <Tab.Screen name="Details" component={DetailsScreen} />
+      {/* <Tab.Screen name="Home" component={HomeScreen} /> */}
       <Tab.Screen name="Store" component={StoreScreen} />
+      <Tab.Screen name="Subjects" component={SubjectsScreen} />
       <Tab.Screen name="History" component={HistoryScreen} />
       <Tab.Screen name="Settings" component={SettingsScreen} />
     </Tab.Navigator>
@@ -45,10 +45,10 @@ function PlainTabBar({ state, descriptors, navigation }) {
       {state.routes.map((route, index) => {
         const isFocused = state.index === index;
         const iconName = {
-          Home: 'home-outline',
-          Details: 'document-text-outline',
-          Store: 'cart-outline',
-          History: 'time-outline',
+          // Home: 'home',
+          Subjects: 'document-text',
+          Store: 'cart',
+          History: 'time',
           Settings: 'settings-outline',
         }[route.name];
 
@@ -85,12 +85,12 @@ function PlainTabBar({ state, descriptors, navigation }) {
               <Animated.View style={[styles.iconBackground, bgAnimatedStyle]} />
               <Ionicons
                 name={iconName}
-                size={24}
-                color={isFocused ? '#2196F3' : 'gray'}
+                size={32}
+                color={isFocused ? '#fff' : '#ccc'}
               />
-              <Text style={[styles.label, { color: isFocused ? '#2196F3' : 'gray' }]}> 
+              {/* <Text style={[styles.label, { color: isFocused ? '#2196F3' : 'gray' }]}> 
                 {route.name}
-              </Text>
+              </Text> */}
             </Animated.View>
           </Pressable>
         );
@@ -102,29 +102,40 @@ function PlainTabBar({ state, descriptors, navigation }) {
 const styles = StyleSheet.create({
   container: {
     flexDirection: 'row',
-    backgroundColor: '#fff',
+    backgroundColor: '#f4f3ee',
     height: 70,
-    borderTopColor: '#eee',
-    borderTopWidth: 1,
     elevation: 5,
+    padding:width*0.05,
+    backgroundColor:'#fff',
+    width:width*0.90,
+    alignSelf:'center',
+    borderTopStartRadius:10,
+    borderTopEndRadius:10,
+    // bottom:10,
   },
   tabButton: {
     flex: 1,
     alignItems: 'center',
     justifyContent: 'center',
+      top:-10,
   },
   iconWrapper: {
     alignItems: 'center',
     justifyContent: 'center',
+    width:50,
+    height:50,
+    // backgroundColor:'white',
+    elevation:0,
+    borderRadius:5,
   },
   iconBackground: {
     position: 'absolute',
-    top: -5,
-    width: 40,
-    height: 40,
-    borderRadius: 8,
-    backgroundColor: 'rgba(33, 150, 243, 0.1)',
-    zIndex: -1,
+    top: 0,
+    width: 70,
+    height: 50,
+    borderRadius: 5,
+    backgroundColor: '#333',
+    elevation: 3,
   },
   label: {
     fontSize: 12,

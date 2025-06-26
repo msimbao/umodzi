@@ -1,11 +1,11 @@
 {
   "expo": {
-    "name": "masuku",
-    "slug": "masuku",
+    "name": "umodzi",
+    "slug": "umodzi",
     "version": "1.0.0",
     "orientation": "portrait",
-    "icon": "./assets/images/icon.png",
-    "scheme": "masuku",
+    "icon": "./assets/images/adaptive-icon.png",
+    "scheme": "umodzi",
     "userInterfaceStyle": "automatic",
     "newArchEnabled": true,
     "ios": {
@@ -31,7 +31,7 @@
           "image": "./assets/images/splash-icon.png",
           "imageWidth": 200,
           "resizeMode": "contain",
-          "backgroundColor": "#ffffff"
+          "backgroundColor": "#D5D4FC"
         }
       ],
       "expo-font"
