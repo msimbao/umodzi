@@ -5,18 +5,18 @@
 ---
 
 ## 🧱 Tech Stack
--React Native (via Expo)
--React Navigation – screen navigation
--AsyncStorage – offline local storage
--Reanimated – animations
--SQLite / Local JSON – for offline resources
+- React Native (via Expo)
+- React Navigation – screen navigation
+- AsyncStorage – offline local storage
+- Reanimated – animations
+- SQLite / Local JSON – for offline resources
 
 ## 🇿🇲 Why "Umodzi"?
 "Umodzi" means Unity in several Zambian languages.
--This app is built to unite and empower learners across Zambia by offering:
--Equal access to academic support
--Resources aligned to local syllabi
--A bridge to life skills and real-world knowledge
+- This app is built to unite and empower learners across Zambia by offering:
+- Equal access to academic support
+- Resources aligned to local syllabi
+- A bridge to life skills and real-world knowledge
     
 ## ✨ Features
 
@@ -79,9 +79,8 @@ npx expo start
 Scan the QR Code on the Expo Go App (Find it on Google Play!)
 
 ## 🛣️ Roadmap
-
--Leaderboards & group study challenges
--In-app resource store (downloadable quizzes and notes)
--Parental dashboard and reporting
--Vernacular language support
--Progressive Web App (PWA) support
+- Leaderboards & group study challenges
+- In-app resource store (downloadable quizzes and notes)
+- Parental dashboard and reporting
+- Vernacular language support
+- Progressive Web App (PWA) support
