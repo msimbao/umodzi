@@ -10,6 +10,7 @@ import {
 } from "react-native";
 import { getLocalQuizzes } from "@/utils/QuizStore";
 
+
 import { ThemedButton } from "react-native-really-awesome-button";
 import { Fredoka_400Regular } from "@expo-google-fonts/fredoka";
 import { Jersey25_400Regular } from "@expo-google-fonts/jersey-25";
@@ -113,6 +114,9 @@ export default function SubjectsScreen({ navigation }) {
           horizontal={true} // This prop makes the FlatList horizontal
           showsHorizontalScrollIndicator={false} // Optional: hides the horizontal scroll indicator
           contentContainerStyle={styles.listContainer} // Optional: styles for the content container
+          snapToAlignment="start"
+          decelerationRate={"fast"}
+          snapToInterval={Dimensions.get("window").width}
         />
 
         {/* {quizzes.map((subject) => (

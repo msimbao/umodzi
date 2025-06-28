@@ -119,6 +119,7 @@ export default function IntroScreen({ navigation }) {
                 onPress={handleNext}
                 name="bruce"
                 type="primary"
+                height={40}
               >
                 NEXT
               </ThemedButton>
@@ -130,6 +131,7 @@ export default function IntroScreen({ navigation }) {
                 onPress={handleNext}
                 name="bruce"
                 type="primary"
+                height={40}
               >
                 NEXT
               </ThemedButton>
@@ -145,6 +147,8 @@ export default function IntroScreen({ navigation }) {
                 onPress={handleContinue}
                 name="bruce"
                 type="primary"
+                  height={40}
+
               >
                 START!
               </ThemedButton>
@@ -207,6 +211,7 @@ const styles = StyleSheet.create({
     position:'absolute',
     bottom:0,
     zIndex:-1,
+    
   },
   introHeader:{
     fontSize: 40,

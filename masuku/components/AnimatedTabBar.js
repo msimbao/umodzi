@@ -112,6 +112,10 @@ const styles = StyleSheet.create({
     borderTopStartRadius:10,
     borderTopEndRadius:10,
     // bottom:10,
+    shadowOffset: {
+	width: 0,
+	height: 5,
+},
   },
   tabButton: {
     flex: 1,

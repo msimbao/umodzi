@@ -12,6 +12,7 @@ import {
 import { saveScore } from "@/utils/ScoreTracker";
 import * as Speech from "expo-speech";
 
+import * as Progress from "react-native-progress";
 import { ThemedButton } from "react-native-really-awesome-button";
 import { Fredoka_400Regular } from "@expo-google-fonts/fredoka";
 import { Jersey25_400Regular } from "@expo-google-fonts/jersey-25";
@@ -28,7 +29,7 @@ export default function QuizScreen({ route, navigation }) {
 
   const currentQuestion = quiz.questions[currentIndex];
   const correctIndex = currentQuestion.answer;
-  const [currentRate, setcurrentRate] = useState(0.2);
+  const [currentRate, setcurrentRate] = useState(0.7);
 
   const handleSubmit = () => {
     if (isSubmitted || selectedOption === null) return;
@@ -82,32 +83,42 @@ export default function QuizScreen({ route, navigation }) {
   return (
     <View style={styles.container}>
       <Text style={styles.header}>{quiz.title} </Text>
-      <Text style={styles.subHeader}>{quiz.subject} Tests</Text>
+      <Text style={styles.subHeader}>{quiz.subject} Test</Text>
 
+      <Text style={styles.questionCount}>
+        Question {currentIndex}/{quiz.questions.length}
+      </Text>
+      <Progress.Bar
+        style={styles.quizProgress}
+        progress={currentIndex / quiz.questions.length}
+        width={width * 0.8}
+        height={20}
+        color={"black"}
+      />
       <ScrollView contentContainerStyle={styles.card}>
         {/* Show image if available */}
 
-        {currentQuestion.image && (
+        {/*  {currentQuestion.image && (
           <Image
             source={{ uri: currentQuestion.image }}
             style={styles.image}
             resizeMode="contain"
           />
         )}
-
+          */}
 
         <View style={styles.questionView}>
-        <Text style={styles.questionText}>{currentQuestion.question}</Text>
-        <ThemedButton
-          style={styles.speechButton}
-          onPress={() => handlePlay(currentQuestion.question)}
-          name="bruce"
-          type="primary"
-          width={30}
-          height={30}
-        >
-        
-        </ThemedButton>
+          <Text style={styles.questionText}>{currentQuestion.question}</Text>
+          <ThemedButton
+            style={styles.questionSpeechButton}
+            onPress={() => handlePlay(currentQuestion.question)}
+            name="bruce"
+            type="secondary"
+            width={50}
+            height={40}
+          >
+            ▶
+          </ThemedButton>
         </View>
 
         {currentQuestion.options.map((option, index) => (
@@ -118,14 +129,14 @@ export default function QuizScreen({ route, navigation }) {
           >
             <Text style={styles.optionText}>{option}</Text>
             <ThemedButton
-              style={styles.speechButton}
+              style={styles.optionSpeechButton}
               onPress={() => handlePlay(option)}
               name="bruce"
               type="primary"
-              width={30}
-              height={30}
+              width={50}
+              height={35}
             >
-              🗨
+              ▶
             </ThemedButton>
           </Pressable>
         ))}
@@ -153,18 +164,9 @@ export default function QuizScreen({ route, navigation }) {
               style={styles.button}
               name="bruce"
               type="primary"
-              onPress={() => handlePlay(currentQuestion)}
-            >
-              READ HINT
-            </ThemedButton>
-
-            <ThemedButton
-              style={styles.button}
-              name="bruce"
-              type="primary"
               onPress={handleNext}
             >
-              {currentIndex + 1 < quiz.questions.length ? "Next" : "Finish"}
+              {currentIndex + 1 < quiz.questions.length ? "NEXT" : "FINISH"}
             </ThemedButton>
           </>
         )}
@@ -176,14 +178,23 @@ export default function QuizScreen({ route, navigation }) {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    padding: 20,
-    paddingLeft: 30,
+    padding: 30,
+    paddingLeft: 40,
     paddingTop: height * 0.08,
-    alignItems: "left",
-    backgroundColor: "#f4f3ee",
+    alignContent: "center",
+    backgroundColor: "#E9C46A",
+  },
+  questionCount: {
+    fontSize: 20,
+    marginTop: 10,
+    alignContent: "left",
+    color: "black",
+    fontFamily: "Fredoka_400Regular",
+    width: width * 0.5,
+    fontWeight: 600,
   },
   header: {
-    fontSize: 40,
+    fontSize: 35,
     marginBottom: 0,
     textAlign: "left",
     color: "black",
@@ -204,11 +215,12 @@ const styles = StyleSheet.create({
     borderRadius: 5,
     width: width * 0.8,
     marginVertical: 10,
-    elevation: 3,
+    elevation: 5,
     alignItems: "center",
     padding: 20,
-    backgroundColor: "white",
-    top: 20,
+    paddingTop: 30,
+    backgroundColor: "#f4f3ee",
+    top: 0,
   },
   questionText: {
     fontSize: 20,
@@ -216,16 +228,18 @@ const styles = StyleSheet.create({
     textAlign: "left",
     color: "black",
     fontFamily: "Fredoka_400Regular",
-    width: 300,
+    width: width * 0.7,
     fontWeight: 600,
   },
   button: {
     bottom: 50,
-    marginTop: 50,
+    marginTop: 70,
   },
-  speechButton: {
-    bottom: 50,
-    marginTop: 50,
+
+  optionSpeechButton: {
+    bottom: -5,
+    position: "absolute",
+    right: 0,
   },
   image: {
     width: "100%",
@@ -237,58 +251,67 @@ const styles = StyleSheet.create({
     fontSize: 20,
     marginBottom: 20,
   },
-  questionView:{
-    padding:15,
-    flexDirection:'row',
-    justifyContent:'space-between',
-      width:0.7 * width,
+  questionView: {
+    padding: 15,
+    marginVertical: 5,
+    borderRadius: 5,
+    elevation: 5,
+    width: 0.7 * width,
+    backgroundColor: "white",
+    borderColor: "white",
+    flex: "1",
+  },
+  questionSpeechButton: {
+    left: 0,
+    top: 0,
+    alignSelf: "right",
+    marginLeft: "auto",
   },
   option: {
     padding: 15,
     marginVertical: 5,
     borderRadius: 5,
     elevation: 3,
-    width:0.7 * width,
-    backgroundColor:'white',
+    width: 0.7 * width,
+    backgroundColor: "white",
     borderColor: "white",
-    flexDirection:'row',
-    justifyContent:'space-between'
   },
   selectedOption: {
-    backgroundColor: "#d0ebff",
-    padding: 20,
+    backgroundColor: "#E9C46A",
+    padding: 15,
     marginVertical: 5,
     borderRadius: 5,
     elevation: 3,
-    width:0.7 * width,
+    width: 0.7 * width,
     borderColor: "white",
-    flexDirection:'row',
-        justifyContent:'space-between'
+    flexDirection: "row",
+    justifyContent: "space-between",
   },
   correctOption: {
-    backgroundColor: "#d3f9d8",
+    backgroundColor: "#2A9D8F",
     padding: 15,
     marginVertical: 5,
     borderRadius: 5,
     elevation: 3,
-    width:0.7 * width,
+    width: 0.7 * width,
     borderColor: "white",
-    flexDirection:'row',
-        justifyContent:'space-between'
+    flexDirection: "row",
+    justifyContent: "space-between",
   },
   wrongOption: {
-    backgroundColor: "#ffa8a8",
+    backgroundColor: "#E76F51",
     padding: 15,
     marginVertical: 5,
     borderRadius: 5,
     elevation: 3,
-    width:0.7 * width,
+    width: 0.7 * width,
     borderColor: "white",
-    flexDirection:'row',
-        justifyContent:'space-between'
+    flexDirection: "row",
+    justifyContent: "space-between",
   },
   optionText: {
     fontSize: 16,
+    width: width * 0.45,
   },
   feedback: {
     fontSize: 18,
@@ -300,5 +323,11 @@ const styles = StyleSheet.create({
     fontStyle: "italic",
     color: "#555",
     marginBottom: 20,
+  },
+  quizProgress: {
+    borderRadius: 2,
+    marginVertical: 10,
+    borderWidth: 0,
+    backgroundColor: "#fff",
   },
 });
