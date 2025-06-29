@@ -42,6 +42,8 @@ export default function MainTabs() {
 function PlainTabBar({ state, descriptors, navigation }) {
   return (
     <View style={styles.container}>
+          <View style={styles.background}>
+                </View>
       {state.routes.map((route, index) => {
         const isFocused = state.index === index;
         const iconName = {
@@ -102,16 +104,14 @@ function PlainTabBar({ state, descriptors, navigation }) {
 const styles = StyleSheet.create({
   container: {
     flexDirection: 'row',
-    backgroundColor: '#f4f3ee',
+    backgroundColor: '#e5e6fa',
     height: 70,
     elevation: 5,
     padding:width*0.05,
-    backgroundColor:'#fff',
-    width:width*0.90,
+    // width:width*0.90,
     alignSelf:'center',
     borderTopStartRadius:10,
     borderTopEndRadius:10,
-    // bottom:10,
     shadowOffset: {
 	width: 0,
 	height: 5,
@@ -135,7 +135,7 @@ const styles = StyleSheet.create({
   iconBackground: {
     position: 'absolute',
     top: 0,
-    width: 70,
+    width: 80,
     height: 50,
     borderRadius: 5,
     backgroundColor: '#333',
@@ -144,5 +144,14 @@ const styles = StyleSheet.create({
   label: {
     fontSize: 12,
     marginTop: 4,
+  },
+      background: {
+    borderRadius: 5,
+    width: width * 0.9,
+    elevation: 10,
+        height: 50,
+    backgroundColor: "white",
+position: 'absolute', 
+left:width * 0.05
   },
 });

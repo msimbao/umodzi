@@ -67,7 +67,7 @@ const styles = StyleSheet.create({
     paddingLeft:30,
     paddingTop:height * 0.08,
     alignItems: 'left',
-    backgroundColor: '#f4f3ee'
+    backgroundColor: '#e5e6fa'
   },
     header: {
     fontSize: 40,

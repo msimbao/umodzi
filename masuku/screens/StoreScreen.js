@@ -83,7 +83,7 @@ const styles = StyleSheet.create({
     paddingLeft:0,
     paddingTop:height * 0.08,
     alignItems: 'center',
-    backgroundColor: '#f4f3ee'
+    backgroundColor: '#e5e6fa'
   },
     header: {
     fontSize: 40,

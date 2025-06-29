@@ -68,7 +68,7 @@ const styles = StyleSheet.create({
     paddingLeft:0,
     paddingTop:height * 0.08,
     alignItems: 'center',
-    backgroundColor: '#f4f3ee'
+    backgroundColor: '#e5e6fa'
   }, 
       header: {
     fontSize: 40,
@@ -92,7 +92,7 @@ const styles = StyleSheet.create({
     paddingHorizontal: 10, // Add padding to the sides of the list
   },
   card: {
-    backgroundColor: '#fff',
+    backgroundColor: '#e5e6fa',
     padding: 10,
     marginVertical: 10,
     marginHorizontal: 10,

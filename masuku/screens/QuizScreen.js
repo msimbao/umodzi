@@ -113,7 +113,7 @@ export default function QuizScreen({ route, navigation }) {
             style={styles.questionSpeechButton}
             onPress={() => handlePlay(currentQuestion.question)}
             name="bruce"
-            type="secondary"
+            type="primary"
             width={50}
             height={40}
           >
@@ -132,7 +132,7 @@ export default function QuizScreen({ route, navigation }) {
               style={styles.optionSpeechButton}
               onPress={() => handlePlay(option)}
               name="bruce"
-              type="primary"
+              type="secondary"
               width={50}
               height={35}
             >
@@ -182,7 +182,7 @@ const styles = StyleSheet.create({
     paddingLeft: 40,
     paddingTop: height * 0.08,
     alignContent: "center",
-    backgroundColor: "#E9C46A",
+    backgroundColor: "#e5e6fa",
   },
   questionCount: {
     fontSize: 20,
@@ -219,7 +219,7 @@ const styles = StyleSheet.create({
     alignItems: "center",
     padding: 20,
     paddingTop: 30,
-    backgroundColor: "#f4f3ee",
+    backgroundColor: "#FCF4F6",
     top: 0,
   },
   questionText: {
@@ -255,9 +255,9 @@ const styles = StyleSheet.create({
     padding: 15,
     marginVertical: 5,
     borderRadius: 5,
-    elevation: 5,
+    elevation: 0,
     width: 0.7 * width,
-    backgroundColor: "white",
+    backgroundColor: "#FCF4F6",
     borderColor: "white",
     flex: "1",
   },
@@ -275,39 +275,48 @@ const styles = StyleSheet.create({
     width: 0.7 * width,
     backgroundColor: "white",
     borderColor: "white",
+    borderWidth: 2,
   },
   selectedOption: {
-    backgroundColor: "#E9C46A",
+    backgroundColor: "#e5e6fa",
     padding: 15,
     marginVertical: 5,
     borderRadius: 5,
     elevation: 3,
     width: 0.7 * width,
-    borderColor: "white",
+    borderColor: "black",
     flexDirection: "row",
     justifyContent: "space-between",
+    borderWidth:2,
+    borderStyle:"dashed"
   },
   correctOption: {
-    backgroundColor: "#2A9D8F",
+    backgroundColor: "#94EC94",
     padding: 15,
     marginVertical: 5,
     borderRadius: 5,
-    elevation: 3,
+    elevation: 5,
     width: 0.7 * width,
-    borderColor: "white",
+    borderColor: "black",
     flexDirection: "row",
     justifyContent: "space-between",
+    borderWidth:1,
+      borderStyle:"solid"
+
   },
   wrongOption: {
-    backgroundColor: "#E76F51",
+    backgroundColor: "#FC7C7C",
     padding: 15,
     marginVertical: 5,
     borderRadius: 5,
-    elevation: 3,
+    elevation: 5,
     width: 0.7 * width,
-    borderColor: "white",
+    borderColor: "black",
     flexDirection: "row",
     justifyContent: "space-between",
+        borderWidth:1,
+            borderStyle:"solid"
+
   },
   optionText: {
     fontSize: 16,

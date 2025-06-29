@@ -33,7 +33,7 @@ const slides = [
     title: "STUDY SMARTER",
     description:
       "Access thousands of digital resources to learn, revise, and practice—wherever you are, whenever you need.",
-    backgroundColor: "#e0d5e6",
+    backgroundColor: "#e5e6fa",
   },
   {
     key: "two",
@@ -42,7 +42,7 @@ const slides = [
     title: "STUDY CORRECTLY",
     description:
       "Take tests & quizzes, get graded immediately, and understand your mistakes through instant corrections",
-    backgroundColor: "#dbedf7",
+    backgroundColor: "#d8bfd8",
   },
   {
     key: "three",
@@ -51,7 +51,7 @@ const slides = [
     title: "STUDY BEYOND",
     description:
       "Explore topics like saving, investing, and building a future—because education is more than passing tests.",
-    backgroundColor: "#fae7eb",
+    backgroundColor: "#fddab8",
   },
 ];
 
