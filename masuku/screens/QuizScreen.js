@@ -11,6 +11,7 @@ import {
 } from "react-native";
 import { saveScore } from "@/utils/ScoreTracker";
 import * as Speech from "expo-speech";
+import { Audio } from "expo-av";
 
 import * as Progress from "react-native-progress";
 import { ThemedButton } from "react-native-really-awesome-button";
@@ -27,6 +28,7 @@ export default function QuizScreen({ route, navigation }) {
   const [isSubmitted, setIsSubmitted] = useState(false);
   const [score, setScore] = useState(0);
 
+  const [startTime, setStartTime] = useState(new Date().toISOString());
   const currentQuestion = quiz.questions[currentIndex];
   const correctIndex = currentQuestion.answer;
   const [currentRate, setcurrentRate] = useState(0.7);
@@ -56,10 +58,12 @@ export default function QuizScreen({ route, navigation }) {
     } else {
       saveScore({
         title: quiz.title,
+        subject: quiz.subject,
         grade: quiz.grade,
         quizId: quiz.id,
         score,
         total: quiz.questions.length,
+        start: startTime,
       });
       navigation.navigate("Result", {
         score,
@@ -73,12 +77,28 @@ export default function QuizScreen({ route, navigation }) {
       return selectedOption === index ? styles.selectedOption : styles.option;
     }
 
-    if (index === correctIndex) return styles.correctOption;
-    if (index === selectedOption && selectedOption !== correctIndex)
+    if (index === correctIndex) {
+      playFeedbackSound(true);
+      return styles.correctOption;
+    }
+    if (index === selectedOption && selectedOption !== correctIndex) {
+      playFeedbackSound(false);
       return styles.wrongOption;
+    }
 
     return styles.option;
   };
+
+  async function playFeedbackSound(isCorrect) {
+    const file = isCorrect
+      ? require("@/assets/correct.mp3")
+      : require("@/assets/wrong.mp3");
+
+    const { sound } = await Audio.Sound.createAsync(file, { shouldPlay: true });
+
+    await sound.setPositionAsync(0);
+    await sound.playAsync();
+  }
 
   return (
     <View style={styles.container}>
@@ -287,8 +307,8 @@ const styles = StyleSheet.create({
     borderColor: "black",
     flexDirection: "row",
     justifyContent: "space-between",
-    borderWidth:2,
-    borderStyle:"dashed"
+    borderWidth: 2,
+    borderStyle: "dashed",
   },
   correctOption: {
     backgroundColor: "#94EC94",
@@ -300,9 +320,8 @@ const styles = StyleSheet.create({
     borderColor: "black",
     flexDirection: "row",
     justifyContent: "space-between",
-    borderWidth:1,
-      borderStyle:"solid"
-
+    borderWidth: 1,
+    borderStyle: "solid",
   },
   wrongOption: {
     backgroundColor: "#FC7C7C",
@@ -314,9 +333,8 @@ const styles = StyleSheet.create({
     borderColor: "black",
     flexDirection: "row",
     justifyContent: "space-between",
-        borderWidth:1,
-            borderStyle:"solid"
-
+    borderWidth: 1,
+    borderStyle: "solid",
   },
   optionText: {
     fontSize: 16,

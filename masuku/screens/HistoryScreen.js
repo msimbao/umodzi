@@ -1,5 +1,5 @@
 // screens/MyScoresScreen.js
-import React, { useEffect, useState, useRef } from "react";
+import React, { useEffect, useState, useRef, useMemo } from "react";
 import {
   View,
   Button,
@@ -8,9 +8,10 @@ import {
   Dimensions,
   Image,
   FlatList,
+  TouchableOpacity,
 } from "react-native";
-import { getScores } from '@/utils/ScoreTracker';
-import * as Progress from 'react-native-progress';
+import { getScores } from "@/utils/ScoreTracker";
+import * as Progress from "react-native-progress";
 
 import { ThemedButton } from "react-native-really-awesome-button";
 import { Fredoka_400Regular } from "@expo-google-fonts/fredoka";
@@ -21,6 +22,14 @@ const { width, height } = Dimensions.get("window");
 
 export default function HistoryScreen() {
   const [scores, setScores] = useState([]);
+  const [selectedSubject, setSelectedSubject] = useState("All");
+
+  // const subjects = ['All', 'Math', 'Science', 'English'];
+
+  const subjects = useMemo(() => {
+    const uniqueSubjects = [...new Set(scores.map((item) => item.subject))];
+    return ["All", ...uniqueSubjects];
+  }, []);
 
   useEffect(() => {
     const fetchScores = async () => {
@@ -30,27 +39,68 @@ export default function HistoryScreen() {
     fetchScores();
   }, []);
 
+  const filteredData =
+    selectedSubject === "All"
+      ? scores
+      : scores.filter((item) => item.subject === selectedSubject);
+
+  const renderFilterButtons = () => (
+    <View style={styles.filterContainer}>
+      {subjects.map((subject) => (
+        <TouchableOpacity
+          key={subject}
+          onPress={() => setSelectedSubject(subject)}
+          style={[
+            styles.button,
+            selectedSubject === subject && styles.buttonActive,
+          ]}
+        >
+          <Text
+            style={[
+              styles.buttonText,
+              selectedSubject === subject && styles.buttonTextActive,
+            ]}
+          >
+            {subject}
+          </Text>
+        </TouchableOpacity>
+      ))}
+    </View>
+  );
+
   const renderItem = ({ item }) => (
     <View style={styles.cards}>
-      <Text style={styles.scoreTitle}>Grade {item.grade} - {item.title}</Text>
-      <Text>Score: {item.score} / {item.total}</Text>
-        <Progress.Bar style={styles.historyProgress} progress={item.score/item.total} width={200} height={20} color={'black'} />
+      <Text style={styles.scoreTitle}>
+        Grade {item.grade} - {item.title}
+      </Text>
+      <Text style={{ fontSize: 20 }}>
+        {Math.floor((100 * item.score) / item.total)} %
+      </Text>
+      <Text style={{ fontSize: 15 }}>
+        Score: {item.score} / {item.total}
+      </Text>
+      <Progress.Bar
+        style={styles.historyProgress}
+        progress={item.score / item.total}
+        width={200}
+        height={15}
+        color={"black"}
+      />
       <Text>{new Date(item.date).toLocaleString()}</Text>
     </View>
   );
 
   return (
     <View style={styles.container}>
+      <Text style={styles.header}>Recent History</Text>
+      <Text style={styles.subHeader}>Track your performance</Text>
 
-           <Text style={styles.header}>Recent History</Text>
-            <Text style={styles.subHeader}>Track your performance</Text>
-      
-      
+      {renderFilterButtons()}
       {scores.length === 0 ? (
         <Text style={styles.emptyText}>No scores yet. Try a quiz!</Text>
       ) : (
         <FlatList
-          data={scores}
+          data={filteredData}
           keyExtractor={(item) => item.id.toString()}
           renderItem={renderItem}
         />
@@ -59,17 +109,16 @@ export default function HistoryScreen() {
   );
 }
 
-
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    padding:20,
-    paddingLeft:30,
-    paddingTop:height * 0.08,
-    alignItems: 'left',
-    backgroundColor: '#e5e6fa'
+    padding: 20,
+    paddingLeft: 30,
+    paddingTop: height * 0.08,
+    alignItems: "left",
+    backgroundColor: "#e5e6fa",
   },
-    header: {
+  header: {
     fontSize: 40,
     marginBottom: 0,
     textAlign: "left",
@@ -78,7 +127,7 @@ const styles = StyleSheet.create({
     width: 300,
     fontWeight: 600,
   },
-    subHeader: {
+  subHeader: {
     fontSize: 15,
     marginBottom: 10,
     textAlign: "left",
@@ -95,16 +144,16 @@ const styles = StyleSheet.create({
   cards: {
     borderRadius: 5,
     width: width * 0.8,
-    marginVertical:10,
+    marginVertical: 10,
     elevation: 3,
     alignItems: "center",
-    padding:20,
+    padding: 20,
     borderColor: "white",
     borderWidth: 0,
     backgroundColor: "white",
-    top:20,
+    top: 20,
   },
-    scoreTitle: {
+  scoreTitle: {
     fontSize: 20,
     marginBottom: 10,
     textAlign: "center",
@@ -118,10 +167,33 @@ const styles = StyleSheet.create({
     marginTop: 50,
   },
   historyProgress: {
-    borderRadius:2,
-    marginVertical:10,
-    borderWidth:0,
-    backgroundColor:'#ccc',
+    borderRadius: 2,
+    marginVertical: 10,
+    borderWidth: 0,
+    backgroundColor: "#ccc",
     // height:100,
-  }
+  },
+  filterContainer: {
+    flexDirection: "row",
+    justifyContent: "center",
+    marginBottom: 16,
+    flexWrap: "wrap",
+  },
+  button: {
+    paddingVertical: 6,
+    paddingHorizontal: 12,
+    borderRadius: 20,
+    backgroundColor: "#ddd",
+    marginHorizontal: 4,
+    marginBottom: 8,
+  },
+  buttonActive: {
+    backgroundColor: "#5e60ce",
+  },
+  buttonText: {
+    color: "#333",
+  },
+  buttonTextActive: {
+    color: "#fff",
+  },
 });
