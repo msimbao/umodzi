@@ -20,18 +20,25 @@ const { width, height } = Dimensions.get("window");
 export default function QuizListScreen({ route, navigation }) {
   const { grade, item } = route.params;
   const [quizzes, setQuizzes] = useState([]);
+  const [DATA, setData] = useState([]);
+
 
     const goBack = () => {
     navigation.goBack();
   }
 
   useEffect(() => {
+              // console.log(item)
     (async () => {
       const data = await getLocalQuizzes();
+      setData(data)
       const filtered = data.filter(
         (q) => q.grade === grade && q.subject === item
       );
-      setQuizzes(filtered);
+      setQuizzes(data);
+              console.log(quizzes)
+
+
     })();
   }, []);
 
@@ -40,6 +47,17 @@ export default function QuizListScreen({ route, navigation }) {
       <Text style={styles.header}>
          <Ionicons name={'arrow-back-circle'} onPress={goBack} size={25} color={"#333"}/> Grade {grade} </Text>
       <Text style={styles.subHeader}>{item} Tests</Text>
+
+         <ThemedButton
+            style={styles.button}
+            onPress={() => console.log(DATA)}
+            name="bruce"
+            type="primary"
+            height={40}
+            width={width * 0.7}
+          >
+            TEST
+          </ThemedButton>
 
       {quizzes.map((quiz) => (
         <View style={styles.cards} key={quiz.id}>

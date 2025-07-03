@@ -11,6 +11,9 @@ import QuizScreen from '@/screens/QuizScreen'
 import ResultScreen from '@/screens/ResultScreen'
 import HistoryListScreen from '@/screens/HistoryListScreen'
 import StoreListScreen from '@/screens/StoreListScreen'
+import StoreTestScreen from '@/screens/StoreTestScreen'
+import SubjectListScreen from '@/screens/SubjectListScreen'
+
 
 const Stack = createNativeStackNavigator();
 
@@ -45,6 +48,8 @@ export default function App() {
         <Stack.Screen name="Result" component={ResultScreen} />
         <Stack.Screen name="History" component={HistoryListScreen} />
         <Stack.Screen name="StoreList" component={StoreListScreen} />
+        <Stack.Screen name="StoreTest" component={StoreTestScreen} />
+        <Stack.Screen name="SubjectList" component={SubjectListScreen} />
 
       </Stack.Navigator>
     </>

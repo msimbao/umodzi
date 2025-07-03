@@ -52,7 +52,7 @@ export default function QuizScreen({ route, navigation }) {
     }
 
     onModalOpen();
-    setExplanation(currentQuestion.hint);
+    setExplanation(currentQuestion.explanation);
     setIsSubmitted(true);
   };
 
@@ -463,7 +463,7 @@ const styles = StyleSheet.create({
     alignItems: "center",
     padding: 20,
     paddingTop: 30,
-    backgroundColor: "#FCF4F6",
+    backgroundColor: "#fff",
     top: 0,
     borderWidth: 0,
   },

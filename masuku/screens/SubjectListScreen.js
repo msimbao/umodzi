@@ -21,8 +21,9 @@ import { useFonts } from "expo-font";
 const { width, height } = Dimensions.get("window");
 import { Ionicons } from "@expo/vector-icons";
 
-export default function StoreListScreen({route, navigation}) {
-  const { grade } = route.params;
+export default function SubjectListScreen({route, navigation}) {
+  const { item } = route.params;
+  const grade = item;
 
     const goBack = () => {
     navigation.goBack();
@@ -40,12 +41,12 @@ export default function StoreListScreen({route, navigation}) {
   
 
   useEffect(() => {
-
+    // console.log((item))
   }, []);
 
   const renderItem = ({ item }) => (
     <TouchableOpacity style={styles.cards}
-     onPress={() => navigation.navigate("StoreTest")
+     onPress={() => navigation.navigate("Quizzes", {grade, item})
      }>
       <Text style={styles.scoreTitle}>
         {item}
@@ -65,11 +66,10 @@ export default function StoreListScreen({route, navigation}) {
       <Text style={styles.subHeader}>Select a Subject</Text>
 
         <FlatList
-          data={subjects[grade]}
-        //   keyExtractor={(subjects)}
+          data={subjects[item]}
+        //   keyExtractor={(item)}
           renderItem={renderItem}
           contentContainerStyle={styles.listContainer} // Optional: styles for the content container
-
         />
 
     </View>

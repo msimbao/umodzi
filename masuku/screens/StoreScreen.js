@@ -45,30 +45,30 @@ export default function StoreScreen({ navigation }) {
       title: "Grade 7",
       grade: 7,
     },
-    {
-      id: "2",
-      image: g8Image,
-      title: "Grade 8",
-      grade: 8,
-    },
+    // {
+    //   id: "2",
+    //   image: g8Image,
+    //   title: "Grade 8",
+    //   grade: 8,
+    // },
     {
       id: "3",
       image: g9Image,
       title: "Grade 9",
       grade: 9,
     },
-    {
-      id: "4",
-      image: g10Image,
-      title: "Grade 10",
-      grade: 10,
-    },
-    {
-      id: "5",
-      image: g11Image,
-      title: "Grade 11",
-      grade: 11,
-    },
+    // {
+    //   id: "4",
+    //   image: g10Image,
+    //   title: "Grade 10",
+    //   grade: 10,
+    // },
+    // {
+    //   id: "5",
+    //   image: g11Image,
+    //   title: "Grade 11",
+    //   grade: 11,
+    // },
     {
       id: "6",
       image: g12Image,
@@ -116,7 +116,7 @@ export default function StoreScreen({ navigation }) {
         style={styles.subjectImage}
         source={item.image}
         width={width * 0.5}
-        height={height * 0.17}
+        height={height * 0.19}
       />
       <Text style={styles.title}>{item.title}</Text>
     </TouchableOpacity>
@@ -233,13 +233,14 @@ const styles = StyleSheet.create({
     alignItems: "center",
     textAlign: "left",
     padding: 5,
-    margin: 20,
+    margin: 10,
     backgroundColor: "#fff",
-    height: height * 0.23,
+    height: height * 0.25,
     zIndex:3,
   },
     listContainer: {
     paddingHorizontal: 10, // Add padding to the sides of the list
+    marginLeft:10,
   },
   title: {
     fontSize: 30,

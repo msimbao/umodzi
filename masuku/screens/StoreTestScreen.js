@@ -12,6 +12,9 @@ import {
 } from "react-native";
 import { getScores } from "@/utils/ScoreTracker";
 import * as Progress from "react-native-progress";
+import { saveQuizzesToLocal } from "@/utils/QuizStore";
+import { getLocalQuizzes } from "@/utils/QuizStore";
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
 import { ThemedButton } from "react-native-really-awesome-button";
 import { Fredoka_400Regular } from "@expo-google-fonts/fredoka";
@@ -21,37 +24,69 @@ import { useFonts } from "expo-font";
 const { width, height } = Dimensions.get("window");
 import { Ionicons } from "@expo/vector-icons";
 
-export default function StoreListScreen({route, navigation}) {
-  const { grade } = route.params;
+
+export default function StoreTestScreen({route, navigation}) {
+//   const { grade } = route.params;
+    const [DATA, setDATA] = useState(null);
+  
 
     const goBack = () => {
     navigation.goBack();
   };
 
-  const subjects =
-  {
-    7: ['Science', 'English', 'Special Paper 1', 'Special Paper 2', 'Mathematics', 'Social Studies'],
-    8: ['Science', 'English', 'History', 'Social Studies', 'Geography' , 'Mathematics','Civics', 'Religious Education', 'French'],
-    9: ['Science', 'English', 'History', 'Social Studies', 'Geography' , 'Mathematics','Civics', 'Religious Education', 'French'],
-    10: ['Science', 'English', 'Biology', 'Chemistry', 'Physics', 'Civic Education', 'Geography', 'History', 'Commerce', 'Mathematics', 'Additional Math',],
-    11: ['Science', 'English', 'Biology', 'Chemistry', 'Physics', 'Civic Education', 'Geography', 'History', 'Commerce', 'Mathematics', 'Additional Math',],
-    12: ['Science', 'English', 'Biology', 'Chemistry', 'Physics', 'Civic Education', 'Geography', 'History', 'Commerce', 'Mathematics', 'Additional Math',]
-  }
-  
+    const downloadQuizzes = async (link) => {
+    fetch(link)
+    .then((response) => response.json())
+    .then((responseJson) => {
+        saveQuizzesToLocal(responseJson);
+    })
+    
+    await saveQuizzesToLocal(quizzesData);
+    alert("Quizzes downloaded!");
+  };
 
   useEffect(() => {
-
+getList()
   }, []);
 
+      const getList = () => fetch('https://raw.githubusercontent.com/msimbao/umodziLibrary/refs/heads/main/tests/grade7/english/list.json')
+     .then((response) => response.json())
+     .then((responseJson) => {
+        setDATA(responseJson)
+        console.log(DATA)
+        // this.setState({ result: responseJson.Cat });
+     })
+     .catch((error) => {
+        console.error(error);
+     })
+
   const renderItem = ({ item }) => (
-    <TouchableOpacity style={styles.cards}
-     onPress={() => navigation.navigate("StoreTest")
-     }>
+    <View style={styles.cards}>
       <Text style={styles.scoreTitle}>
-        {item}
+        {item.title}
       </Text>
-    
-    </TouchableOpacity>
+          <ThemedButton
+            style={styles.button}
+            name="bruce"
+            type="primary"
+            progress
+            onPress={async (next) =>{
+                    
+
+                    fetch(item.link)
+                .then((response) => response.json())
+                .then((responseJson) => {
+                    
+                    saveQuizzesToLocal(responseJson);
+                    // console.log(responseJson)
+                })
+                alert("Quizzes downloaded!");
+                next()
+            }}
+          >
+            CONTINUE
+          </ThemedButton>
+    </View>
   );
 
   return (
@@ -65,7 +100,7 @@ export default function StoreListScreen({route, navigation}) {
       <Text style={styles.subHeader}>Select a Subject</Text>
 
         <FlatList
-          data={subjects[grade]}
+          data={DATA}
         //   keyExtractor={(subjects)}
           renderItem={renderItem}
           contentContainerStyle={styles.listContainer} // Optional: styles for the content container
