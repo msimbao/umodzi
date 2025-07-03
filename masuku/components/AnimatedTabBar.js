@@ -1,22 +1,24 @@
-import React from 'react';
-import { createMaterialTopTabNavigator } from '@react-navigation/material-top-tabs';
-import { View, Text, Pressable, StyleSheet, Dimensions } from 'react-native';
+import React from "react";
+import { createMaterialTopTabNavigator } from "@react-navigation/material-top-tabs";
+import { View, Text, Pressable, StyleSheet, Dimensions } from "react-native";
 import Animated, {
   useSharedValue,
   useAnimatedStyle,
   withTiming,
   Easing,
-} from 'react-native-reanimated';
-import { Ionicons } from '@expo/vector-icons';
+} from "react-native-reanimated";
+import { Ionicons } from "@expo/vector-icons";
 
-import HomeScreen from '../screens/HomeScreen';
-import SubjectsScreen from '../screens/SubjectsScreen';
-import StoreScreen from '../screens/StoreScreen';
-import HistoryScreen from '../screens/HistoryScreen';
-import SettingsScreen from '../screens/SettingsScreen';
+import HomeScreen from "../screens/HomeScreen";
+import SubjectsScreen from "../screens/SubjectsScreen";
+import StoreScreen from "../screens/StoreScreen";
+import HistoryScreen from "../screens/HistoryScreen";
+import HistoryListScreen from "../screens/HistoryListScreen";
+
+import SettingsScreen from "../screens/SettingsScreen";
 
 const Tab = createMaterialTopTabNavigator();
-const { width } = Dimensions.get('window');
+const { width } = Dimensions.get("window");
 const TAB_WIDTH = width / 5;
 
 export default function MainTabs() {
@@ -33,7 +35,7 @@ export default function MainTabs() {
       {/* <Tab.Screen name="Home" component={HomeScreen} /> */}
       <Tab.Screen name="Store" component={StoreScreen} />
       <Tab.Screen name="Subjects" component={SubjectsScreen} />
-      <Tab.Screen name="History" component={HistoryScreen} />
+      <Tab.Screen name="History" component={HistoryListScreen} />
       <Tab.Screen name="Settings" component={SettingsScreen} />
     </Tab.Navigator>
   );
@@ -42,16 +44,15 @@ export default function MainTabs() {
 function PlainTabBar({ state, descriptors, navigation }) {
   return (
     <View style={styles.container}>
-          <View style={styles.background}>
-                </View>
+      <View style={styles.background}></View>
       {state.routes.map((route, index) => {
         const isFocused = state.index === index;
         const iconName = {
           // Home: 'home',
-          Subjects: 'document-text',
-          Store: 'cart',
-          History: 'time',
-          Settings: 'settings-outline',
+          Subjects: "document-text",
+          Store: "library",
+          History: "time",
+          Settings: "settings-outline",
         }[route.name];
 
         const scale = useSharedValue(isFocused ? 1.2 : 1);
@@ -88,7 +89,7 @@ function PlainTabBar({ state, descriptors, navigation }) {
               <Ionicons
                 name={iconName}
                 size={32}
-                color={isFocused ? '#fff' : '#ccc'}
+                color={isFocused ? "#fff" : "#ccc"}
               />
               {/* <Text style={[styles.label, { color: isFocused ? '#2196F3' : 'gray' }]}> 
                 {route.name}
@@ -103,55 +104,59 @@ function PlainTabBar({ state, descriptors, navigation }) {
 
 const styles = StyleSheet.create({
   container: {
-    flexDirection: 'row',
-    backgroundColor: '#e5e6fa',
+    flexDirection: "row",
+    backgroundColor: "#e5e6fa",
     height: 70,
+    // position:'absolute',
+    bottom:0,
     elevation: 5,
-    padding:width*0.05,
+    padding: width * 0.05,
     // width:width*0.90,
-    alignSelf:'center',
-    borderTopStartRadius:10,
-    borderTopEndRadius:10,
+    alignSelf: "left",
+    borderTopStartRadius: 10,
+    borderTopEndRadius: 10,
     shadowOffset: {
-	width: 0,
-	height: 5,
-},
+      width: 0,
+      height: 5,
+    },
   },
   tabButton: {
     flex: 1,
-    alignItems: 'center',
-    justifyContent: 'center',
-      top:-10,
+    alignItems: "center",
+    justifyContent: "center",
+    top: -10,
   },
   iconWrapper: {
-    alignItems: 'center',
-    justifyContent: 'center',
-    width:50,
-    height:50,
+    alignItems: "center",
+    justifyContent: "center",
+    width: 50,
+    height: 50,
     // backgroundColor:'white',
-    elevation:0,
-    borderRadius:5,
+    elevation: 0,
+    borderRadius: 5,
   },
   iconBackground: {
-    position: 'absolute',
+    position: "absolute",
     top: 0,
     width: 80,
     height: 50,
     borderRadius: 5,
-    backgroundColor: '#333',
+    backgroundColor: "#333",
     elevation: 3,
   },
   label: {
     fontSize: 12,
     marginTop: 4,
   },
-      background: {
+  background: {
     borderRadius: 5,
     width: width * 0.9,
     elevation: 10,
-        height: 50,
+    height: 50,
     backgroundColor: "white",
-position: 'absolute', 
-left:width * 0.05
+    position: "absolute",
+    left: width * 0.05,
+    borderWidth: 0,
+    borderColor: "#333",
   },
 });

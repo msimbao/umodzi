@@ -3,15 +3,16 @@ import {
   View,
   Text,
   Pressable,
-  Button,
   StyleSheet,
   Image,
   ScrollView,
   Dimensions,
+  Modal,
 } from "react-native";
 import { saveScore } from "@/utils/ScoreTracker";
 import * as Speech from "expo-speech";
 import { Audio } from "expo-av";
+import { Ionicons } from "@expo/vector-icons";
 
 import * as Progress from "react-native-progress";
 import { ThemedButton } from "react-native-really-awesome-button";
@@ -27,31 +28,56 @@ export default function QuizScreen({ route, navigation }) {
   const [selectedOption, setSelectedOption] = useState(null);
   const [isSubmitted, setIsSubmitted] = useState(false);
   const [score, setScore] = useState(0);
+  const [isModalVisible, setIsModalVisible] = useState(false);
 
   const [startTime, setStartTime] = useState(new Date().toISOString());
   const currentQuestion = quiz.questions[currentIndex];
   const correctIndex = currentQuestion.answer;
   const [currentRate, setcurrentRate] = useState(0.7);
+  const [explanation, setExplanation] = useState();
+  const [isCorrect, setIsCorrect] = useState();
 
   const handleSubmit = () => {
+    onModalOpen();
     if (isSubmitted || selectedOption === null) return;
 
     const isCorrect = selectedOption === correctIndex;
-    if (isCorrect) setScore(score + 1);
+    if (isCorrect) {
+      setIsCorrect(true);
+      setScore(score + 1);
+      playFeedbackSound(true);
+    } else {
+      setIsCorrect(false);
+      playFeedbackSound(false);
+    }
 
+    onModalOpen();
+    setExplanation(currentQuestion.hint);
     setIsSubmitted(true);
   };
 
   const handlePlay = (inputValue) => {
-    // const inputValue = currentWord
     Speech.speak(inputValue, {
       rate: currentRate,
     });
   };
 
+  const onModalOpen = () => {
+    setIsModalVisible(true);
+  };
+
+  const onModalClose = () => {
+    setIsModalVisible(false);
+  };
+
+  const goBack = () => {
+    navigation.goBack();
+  };
+
   const handleNext = () => {
     setSelectedOption(null);
     setIsSubmitted(false);
+    onModalClose();
 
     if (currentIndex + 1 < quiz.questions.length) {
       setCurrentIndex(currentIndex + 1);
@@ -78,11 +104,9 @@ export default function QuizScreen({ route, navigation }) {
     }
 
     if (index === correctIndex) {
-      playFeedbackSound(true);
       return styles.correctOption;
     }
     if (index === selectedOption && selectedOption !== correctIndex) {
-      playFeedbackSound(false);
       return styles.wrongOption;
     }
 
@@ -102,8 +126,16 @@ export default function QuizScreen({ route, navigation }) {
 
   return (
     <View style={styles.container}>
-      <Text style={styles.header}>{quiz.title} </Text>
-      <Text style={styles.subHeader}>{quiz.subject} Test</Text>
+      <Text style={styles.header}>
+        <Ionicons
+          name={"arrow-back-circle"}
+          onPress={goBack}
+          size={25}
+          color={"#333"}
+        />{" "}
+        {quiz.subject} Test
+      </Text>
+      <Text style={styles.subHeader}>{quiz.title} Test</Text>
 
       <Text style={styles.questionCount}>
         Question {currentIndex}/{quiz.questions.length}
@@ -115,6 +147,7 @@ export default function QuizScreen({ route, navigation }) {
         height={20}
         color={"black"}
       />
+
       <ScrollView contentContainerStyle={styles.card}>
         {/* Show image if available */}
 
@@ -136,6 +169,7 @@ export default function QuizScreen({ route, navigation }) {
             type="primary"
             width={50}
             height={40}
+            borderRadius={5}
           >
             ▶
           </ThemedButton>
@@ -155,6 +189,8 @@ export default function QuizScreen({ route, navigation }) {
               type="secondary"
               width={50}
               height={35}
+              borderRadius={4}
+              raiseLevel={5}
             >
               ▶
             </ThemedButton>
@@ -162,35 +198,180 @@ export default function QuizScreen({ route, navigation }) {
         ))}
 
         {!isSubmitted ? (
-          <ThemedButton
-            style={styles.button}
-            onPress={handleSubmit}
-            name="bruce"
-            type="primary"
-            disabled={selectedOption === null}
-          >
-            SUBMIT
-          </ThemedButton>
+          <View>
+            <ThemedButton
+              style={styles.button}
+              onPress={handleSubmit}
+              name="bruce"
+              type="primary"
+              disabled={selectedOption === null}
+              height={55}
+              width={width * 0.7}
+              borderRadius={5}
+            >
+              SUBMIT
+            </ThemedButton>
+          </View>
         ) : (
           <>
-            <Text style={styles.feedback}>
+            {/* <Text style={styles.feedback}>
               {selectedOption === correctIndex
                 ? "✅ Correct!"
                 : "❌ Incorrect."}
             </Text>
-            <Text style={styles.hint}>Hint: {currentQuestion.hint}</Text>
-
+            <Text style={styles.hint}>Hint: {currentQuestion.hint}</Text> */}
+          <View style={{marginTop:50}}>
             <ThemedButton
               style={styles.button}
               name="bruce"
               type="primary"
               onPress={handleNext}
+              width={width * 0.7}
+              height={55}
+              borderRadius={5}
             >
               {currentIndex + 1 < quiz.questions.length ? "NEXT" : "FINISH"}
             </ThemedButton>
+
+          
+            <ThemedButton
+              style={styles.button}
+              name="bruce"
+              type="secondary"
+              onPress={onModalOpen}
+              width={width * 0.7}
+              height={55}
+              borderRadius={4}
+              raiseLevel={5}
+              backgroundColor={"#eee"}
+            >
+              SHOW EXPLANATION
+            </ThemedButton>
+            </View>
           </>
+          
         )}
       </ScrollView>
+
+      <Modal
+        animationType="slide"
+        backdropColor={"#333"}
+        transparent={true}
+        visible={isModalVisible}
+      >
+        <View style={styles.backdrop}
+                onPress={onModalClose}
+>
+        </View>
+
+        {isCorrect ? (
+          <View
+            style={[
+              styles.modalContent,
+              { backgroundColor: "#ddffbe", borderColor: "#60bb08" },
+            ]}
+          >
+            <View style={styles.titleContainer}>
+              <Text style={[styles.title, { color: "#60bb08" }]}>
+                <Ionicons
+                  name={"checkmark-circle"}
+                  size={20}
+                  color={"#60bb08"}
+                />{" "}
+                Well Done!
+              </Text>
+              {/* <Text style={styles.subTitle}>Explanation: </Text> */}
+              <Text style={[styles.explanation, { color: "#046404" }]}>
+                {explanation}{" "}
+              </Text>
+              <ThemedButton
+                style={styles.nextButton}
+                name="bruce"
+                type="primary"
+                height={50}
+                width={width * 0.8}
+                backgroundColor={"#60bb08"}
+                borderColor={"#046404"}
+                textColor={"#ddffbe"}
+                backgroundDarker={"#046404"}
+                onPress={handleNext}
+                borderRadius={4}
+              >
+                {currentIndex + 1 < quiz.questions.length ? "NEXT" : "FINISH"}
+              </ThemedButton>
+
+              <ThemedButton
+                style={styles.nextButton}
+                name="bruce"
+                type="secondary"
+                height={50}
+                width={width * 0.8}
+                backgroundColor={"#ddffbe"}
+                borderColor={"#60bb08"}
+                textColor={"#046404"}
+                backgroundDarker={"#046404"}
+                onPress={onModalClose}
+                borderRadius={4}
+              >
+                REVIEW
+              </ThemedButton>
+
+            </View>
+          </View>
+        ) : (
+          <View
+            style={[
+              styles.modalContent,
+              {
+                backgroundColor: "#ffdfe3",
+                borderColor: "#ff4b4d",
+                borderRadius: 5,
+              },
+            ]}
+          >
+            <View style={styles.titleContainer}>
+              <Text style={[styles.title, { color: "#ea2a2e" }]}>
+                <Ionicons name={"close-circle"} size={20} color={"#ea2a2e"} />{" "}
+                Not correct
+              </Text>
+              <Text style={[styles.explanation, { color: "#ea2a2e" }]}>
+                {explanation}{" "}
+              </Text>
+              <ThemedButton
+                style={styles.nextButton}
+                name="bruce"
+                type="primary"
+                height={50}
+                width={width * 0.8}
+                backgroundColor={"#ff4b4d"}
+                borderColor={"#ff4b4d"}
+                backgroundDarker={"#ea2a2d"}
+                borderRadius={5}
+                onPress={handleNext}
+              >
+                {currentIndex + 1 < quiz.questions.length ? "NEXT" : "FINISH"}
+              </ThemedButton>
+
+                    <ThemedButton
+                style={styles.nextButton}
+                name="bruce"
+                type="primary"
+                height={50}
+                width={width * 0.8}
+                backgroundColor={"#ffdfe3"}
+                borderColor={"#ff4b4d"}
+                backgroundDarker={"#ea2a2d"}
+                borderRadius={5}
+                onPress={onModalClose}
+                textColor={"#ff4b4d"}
+              >
+               REVIEW
+              </ThemedButton>
+
+            </View>
+          </View>
+        )}
+      </Modal>
     </View>
   );
 }
@@ -204,6 +385,49 @@ const styles = StyleSheet.create({
     alignContent: "center",
     backgroundColor: "#e5e6fa",
   },
+  modalContent: {
+    width: "90%",
+    borderRadius: 5,
+    paddingBottom: 10,
+    alignSelf: "center",
+    position: "absolute",
+    bottom: 30,
+    borderWidth: 0,
+    // borderColor:'#333',
+    elevation: 5,
+  },
+    backdrop: {
+      width: width*0.95,
+      height: height*0.95,
+      backgroundColor:'#333',
+      opacity:0.2,
+      alignSelf:'center',
+      top:height * 0.0125,
+      borderRadius:5,
+    },
+  titleContainer: {
+    marginTop: 0,
+    padding: 15,
+  },
+  title: {
+    fontSize: 25,
+    textAlign: "center",
+    fontFamily: "Fredoka_400Regular",
+    fontWeight: "bold",
+  },
+  subTitle: {
+    textAlign: "left",
+    fontFamily: "Fredoka_400Regular",
+    fontWeight: "bold",
+    fontSize: 20,
+  },
+  explanation: {
+    textAlign: "center",
+    fontFamily: "Fredoka_400Regular",
+    fontSize: 18,
+    marginVertical: 10,
+  },
+
   questionCount: {
     fontSize: 20,
     marginTop: 10,
@@ -241,6 +465,7 @@ const styles = StyleSheet.create({
     paddingTop: 30,
     backgroundColor: "#FCF4F6",
     top: 0,
+    borderWidth: 0,
   },
   questionText: {
     fontSize: 20,
@@ -252,10 +477,15 @@ const styles = StyleSheet.create({
     fontWeight: 600,
   },
   button: {
-    bottom: 50,
-    marginTop: 70,
+    bottom: 0,
+    marginVertical: 5,
   },
 
+  nextButton: {
+    alignSelf: "center",
+    bottom: -10,
+    marginVertical:10,
+  },
   optionSpeechButton: {
     bottom: -5,
     position: "absolute",
@@ -291,14 +521,13 @@ const styles = StyleSheet.create({
     padding: 15,
     marginVertical: 5,
     borderRadius: 5,
-    elevation: 3,
+    elevation: 0,
     width: 0.7 * width,
-    backgroundColor: "white",
-    borderColor: "white",
-    borderWidth: 2,
+    backgroundColor: "#ddd",
+    borderWidth: 0,
   },
   selectedOption: {
-    backgroundColor: "#e5e6fa",
+    backgroundColor: "#fff",
     padding: 15,
     marginVertical: 5,
     borderRadius: 5,
@@ -307,20 +536,20 @@ const styles = StyleSheet.create({
     borderColor: "black",
     flexDirection: "row",
     justifyContent: "space-between",
-    borderWidth: 2,
+    borderWidth: 0,
     borderStyle: "dashed",
   },
   correctOption: {
-    backgroundColor: "#94EC94",
+    backgroundColor: "#ddffbe",
     padding: 15,
     marginVertical: 5,
     borderRadius: 5,
     elevation: 5,
     width: 0.7 * width,
-    borderColor: "black",
+    borderColor: "#60bb08",
     flexDirection: "row",
     justifyContent: "space-between",
-    borderWidth: 1,
+    borderWidth: 0,
     borderStyle: "solid",
   },
   wrongOption: {
@@ -330,10 +559,10 @@ const styles = StyleSheet.create({
     borderRadius: 5,
     elevation: 5,
     width: 0.7 * width,
-    borderColor: "black",
+    borderColor: "#ff4b4d",
     flexDirection: "row",
     justifyContent: "space-between",
-    borderWidth: 1,
+    borderWidth: 0,
     borderStyle: "solid",
   },
   optionText: {

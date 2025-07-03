@@ -13,9 +13,9 @@ import AsyncStorage from "@react-native-async-storage/async-storage";
 import { Ionicons } from "@expo/vector-icons";
 import { ThemedButton } from "react-native-really-awesome-button";
 
-import { Fredoka_400Regular } from '@expo-google-fonts/fredoka';
-import { Jersey25_400Regular } from '@expo-google-fonts/jersey-25';
-import * as SplashScreen from 'expo-splash-screen';
+import { Fredoka_400Regular } from "@expo-google-fonts/fredoka";
+import { Jersey25_400Regular } from "@expo-google-fonts/jersey-25";
+import * as SplashScreen from "expo-splash-screen";
 
 import { useFonts } from "expo-font";
 
@@ -56,21 +56,20 @@ const slides = [
 ];
 
 export default function IntroScreen({ navigation }) {
-
-    const [loaded, error] = useFonts({
+  const [loaded, error] = useFonts({
     Fredoka_400Regular,
     Jersey25_400Regular,
   });
 
-  useEffect(() => {
-    if (loaded || error) {
-      SplashScreen.hideAsync();
-    }
-  }, [loaded, error]);
+  // useEffect(() => {
+  //   if (loaded || error) {
+  //     SplashScreen.hideAsync();
+  //   }
+  // }, [loaded, error]);
 
-  if (!loaded && !error) {
-    return null;
-  }
+  // if (!loaded && !error) {
+  //   return null;
+  // }
 
   const handleContinue = async () => {
     await AsyncStorage.setItem("hasSeenIntro", "true");
@@ -95,19 +94,10 @@ export default function IntroScreen({ navigation }) {
           { backgroundColor: item.backgroundColor },
         ]}
       >
-                  {/* <View style={styles.introHeader}> */}
-                      {/* <Text style={styles.introHeader}>umodzi</Text> */}
-                  {/* </View> */}
-
         <Animated.View style={[styles.card]}>
-          {/* <Ionicons name={item.iconName} size={100} color={"white"} /> */}
-          <Image
-            style={styles.image}
-            source={item.image}
-          />
+          <Image style={styles.image} source={item.image} />
 
-          <View style={styles.background}>
-          </View>
+          <View style={styles.background}></View>
 
           <View style={styles.footer}>
             <Text style={styles.title}>{item.title}</Text>
@@ -119,36 +109,32 @@ export default function IntroScreen({ navigation }) {
                 onPress={handleNext}
                 name="bruce"
                 type="primary"
-                height={40}
+                height={50}
+                // borderRadius={0}
               >
                 NEXT
               </ThemedButton>
-              // <AwesomeButton onPress={handleNext}>Next</AwesomeButton>
             )}
             {item.key === "two" && (
-                       <ThemedButton
+              <ThemedButton
                 style={styles.button}
                 onPress={handleNext}
                 name="bruce"
                 type="primary"
-                height={40}
+                height={50}
+                // borderRadius={0}
               >
                 NEXT
               </ThemedButton>
             )}
             {item.key === "three" && (
-              // <Pressable style={styles.button} onPress={handleContinue}>
-              //   <Text style={styles.buttonText}>
-              //     <Ionicons name={item.iconName} size={40} color={"black"} />
-              //   </Text>
-              // </Pressable>
-                    <ThemedButton
+              <ThemedButton
                 style={styles.button}
                 onPress={handleContinue}
                 name="bruce"
                 type="primary"
-                  height={40}
-
+                height={50}
+                // borderRadius={0}
               >
                 START!
               </ThemedButton>
@@ -194,30 +180,30 @@ const styles = StyleSheet.create({
     width: width * 0.9,
     alignItems: "center",
     height: height * 0.9,
-    bottom:50,
+    bottom: 50,
   },
-    background: {
-    borderRadius: 20,
+  background: {
+    borderRadius:10,
     width: width * 0.9,
     elevation: 10,
     alignItems: "center",
     height: height * 0.75,
     backgroundColor: "white",
-    position:'absolute',
-    bottom:0,
-    zIndex:-1,
-    
+    position: "absolute",
+    bottom: 0,
+    zIndex: -1,
+    borderWidth: 0,
   },
-  introHeader:{
+  introHeader: {
     fontSize: 40,
-    marginBottom: 10,
+    marginBottom: 0,
     textAlign: "center",
     color: "black",
     fontFamily: "Jersey25_400Regular",
     width: 300,
     fontWeight: 600,
-    position:"absolute",
-    top:100,
+    position: "absolute",
+    top: 100,
   },
   footer: {
     flex: 1,
@@ -227,7 +213,7 @@ const styles = StyleSheet.create({
   },
   title: {
     fontSize: 40,
-    marginBottom: 10,
+    marginBottom: 0,
     textAlign: "center",
     color: "black",
     fontFamily: "Jersey25_400Regular",

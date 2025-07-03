@@ -8,6 +8,7 @@ import {
   Image,
 } from "react-native";
 import { getLocalQuizzes } from "@/utils/QuizStore";
+import { Ionicons } from "@expo/vector-icons";
 
 import { ThemedButton } from "react-native-really-awesome-button";
 import { Fredoka_400Regular } from "@expo-google-fonts/fredoka";
@@ -19,6 +20,10 @@ const { width, height } = Dimensions.get("window");
 export default function QuizListScreen({ route, navigation }) {
   const { grade, item } = route.params;
   const [quizzes, setQuizzes] = useState([]);
+
+    const goBack = () => {
+    navigation.goBack();
+  }
 
   useEffect(() => {
     (async () => {
@@ -32,7 +37,8 @@ export default function QuizListScreen({ route, navigation }) {
 
   return (
     <View style={styles.container}>
-      <Text style={styles.header}>Grade {grade} </Text>
+      <Text style={styles.header}>
+         <Ionicons name={'arrow-back-circle'} onPress={goBack} size={25} color={"#333"}/> Grade {grade} </Text>
       <Text style={styles.subHeader}>{item} Tests</Text>
 
       {quizzes.map((quiz) => (
@@ -121,6 +127,7 @@ const styles = StyleSheet.create({
     width: width * 0.85,
     top: 10,
     textAlign: 'left',
+    borderWidth:0,
   },
   subjectImage: {
     top: 0,

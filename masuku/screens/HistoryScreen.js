@@ -12,6 +12,7 @@ import {
 } from "react-native";
 import { getScores } from "@/utils/ScoreTracker";
 import * as Progress from "react-native-progress";
+import { BarChart } from "react-native-gifted-charts";
 
 import { ThemedButton } from "react-native-really-awesome-button";
 import { Fredoka_400Regular } from "@expo-google-fonts/fredoka";
@@ -37,12 +38,17 @@ export default function HistoryScreen() {
       setScores(data.reverse()); // show most recent first
     };
     fetchScores();
+    console.log(data);
   }, []);
 
   const filteredData =
     selectedSubject === "All"
       ? scores
       : scores.filter((item) => item.subject === selectedSubject);
+
+  const data = scores.map((item) => ({
+    value: (100 * item.score) / item.total,
+  }));
 
   const renderFilterButtons = () => (
     <View style={styles.filterContainer}>
@@ -72,7 +78,9 @@ export default function HistoryScreen() {
     <View style={styles.cards}>
       <Text style={styles.scoreTitle}>
         Grade {item.grade} - {item.title}
+        {item.date.getMinutes}
       </Text>
+
       <Text style={{ fontSize: 20 }}>
         {Math.floor((100 * item.score) / item.total)} %
       </Text>
@@ -95,15 +103,33 @@ export default function HistoryScreen() {
       <Text style={styles.header}>Recent History</Text>
       <Text style={styles.subHeader}>Track your performance</Text>
 
-      {renderFilterButtons()}
+      {/* {renderFilterButtons()} */}
       {scores.length === 0 ? (
         <Text style={styles.emptyText}>No scores yet. Try a quiz!</Text>
       ) : (
-        <FlatList
-          data={filteredData}
-          keyExtractor={(item) => item.id.toString()}
-          renderItem={renderItem}
-        />
+        <View>
+          <View>
+            <BarChart
+              showFractionalValue
+              showYAxisIndices
+              hideRules
+              noOfSections={10}
+              maxValue={100}
+              data={data}
+              barWidth={10}
+              sideWidth={20}
+              // isThreeD
+              side="right"
+            />
+          </View>
+          <Progress.Bar
+            style={styles.historyProgress}
+            progress={3 / 4}
+            width={200}
+            height={15}
+            color={"black"}
+          ></Progress.Bar>
+        </View>
       )}
     </View>
   );
@@ -148,8 +174,8 @@ const styles = StyleSheet.create({
     elevation: 3,
     alignItems: "center",
     padding: 20,
-    borderColor: "white",
-    borderWidth: 0,
+    borderColor: "black",
+    borderWidth: 1,
     backgroundColor: "white",
     top: 20,
   },

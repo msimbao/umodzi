@@ -7,9 +7,11 @@ import {
   Image,
   Dimensions,
   FlatList,
+  TouchableOpacity,
 } from "react-native";
 import { getLocalQuizzes } from "@/utils/QuizStore";
 
+import { Ionicons } from "@expo/vector-icons";
 
 import { ThemedButton } from "react-native-really-awesome-button";
 import { Fredoka_400Regular } from "@expo-google-fonts/fredoka";
@@ -19,10 +21,10 @@ import { useFonts } from "expo-font";
 
 const { width, height } = Dimensions.get("window");
 
-const englishImage = require("@/assets/english.png");
-const mathImage = require("@/assets/math.png");
-const scienceImage = require("@/assets/science.png");
-const SocialSImage = require("@/assets/socials.png");
+// const englishImage = require("@/assets/english.png");
+// const mathImage = require("@/assets/math.png");
+// const scienceImage = require("@/assets/science.png");
+// const SocialSImage = require("@/assets/socials.png");
 
 export default function SubjectsScreen({ navigation }) {
   // const { grade } = route.params;
@@ -34,36 +36,36 @@ export default function SubjectsScreen({ navigation }) {
     Jersey25_400Regular,
   });
 
-  const DATA = {
-    English: {
-      id: "1",
-      image: englishImage,
-      title: "English",
-      description:
-        "English Language builds skills in reading, writing, speaking, and listening to help you communicate clearly and confidently.",
-    },
-    Mathematics: {
-      id: "2",
-      image: mathImage,
-      title: "Mathematics",
-      description:
-        "Learn how to solve real-world using numbers, shapes, measurements, and logical thinking to strengthen your reasoning.",
-    },
-    science: {
-      id: "3",
-      image: scienceImage,
-      title: "Science",
-      description:
-        "Discover how the natural world works through observation, experiments, and learning about living things, energy and matter.",
-    },
-    "social-studies": {
-      id: "4",
-      image: SocialSImage,
-      title: "Social Studies",
-      description:
-        "Explore your country and the world by learning about history, geography, government, and how people live and work.",
-    },
-  };
+  // const DATA = {
+  //   English: {
+  //     id: "1",
+  //     image: englishImage,
+  //     title: "English",
+  //     description:
+  //       "English Language builds skills in reading, writing, speaking, and listening to help you communicate clearly and confidently.",
+  //   },
+  //   Mathematics: {
+  //     id: "2",
+  //     image: mathImage,
+  //     title: "Mathematics",
+  //     description:
+  //       "Learn how to solve real-world using numbers, shapes, measurements, and logical thinking to strengthen your reasoning.",
+  //   },
+  //   science: {
+  //     id: "3",
+  //     image: scienceImage,
+  //     title: "Science",
+  //     description:
+  //       "Discover how the natural world works through observation, experiments, and learning about living things, energy and matter.",
+  //   },
+  //   "social-studies": {
+  //     id: "4",
+  //     image: SocialSImage,
+  //     title: "Social Studies",
+  //     description:
+  //       "Explore your country and the world by learning about history, geography, government, and how people live and work.",
+  //   },
+  // };
 
   const renderItem = ({ item }) => (
     <View style={styles.card}>
@@ -100,14 +102,10 @@ export default function SubjectsScreen({ navigation }) {
   return (
     <View style={styles.container}>
       <View style={styles.footer}>
-        <Text style={styles.header}>Practice Tests</Text>
+        <Text style={styles.header}>Practice Questions</Text>
         <Text style={styles.subHeader}>Take past papers & exams</Text>
 
-        <View style={styles.subject}>
-          <Text style={styles.subjectHeader}>GRADE 7</Text>
-        </View>
-
-        <FlatList
+        {/* <FlatList
           data={quizzes}
           renderItem={renderItem}
           keyExtractor={(item) => DATA[item].id}
@@ -117,7 +115,7 @@ export default function SubjectsScreen({ navigation }) {
           snapToAlignment="start"
           decelerationRate={"fast"}
           snapToInterval={Dimensions.get("window").width}
-        />
+        /> */}
 
         {/* {quizzes.map((subject) => (
         <Button
@@ -128,6 +126,49 @@ export default function SubjectsScreen({ navigation }) {
           }
         />
       ))} */}
+
+          <TouchableOpacity style={styles.card} 
+            onPress={() => goToGrade(7)}>
+              <Text style={styles.title}>Grade 7</Text>
+              <Ionicons name={"star"} size={50} color={"#333"} />
+              {/* <Text style={styles.subjects}>Mathematics, English, Science, Social Studies, Special Paper 1, Special Paper 2</Text> */}
+            </TouchableOpacity>
+      
+                  <TouchableOpacity style={styles.card} 
+            onPress={() => goToGrade(8)}>
+              <Text style={styles.title}>Grade 8</Text>
+              <Ionicons name={"telescope"} size={50} color={"#333"} />
+              {/* <Text style={styles.subjects}>Mathematics, English, Science, Social Studies, Special Paper 1, Special Paper 2</Text> */}
+            </TouchableOpacity>
+      
+                  <TouchableOpacity style={styles.card} 
+            onPress={() => goToGrade(9)}>
+              <Text style={styles.title}>Grade 9</Text>
+              <Ionicons name={"sparkles"} size={50} color={"#333"} />
+              {/* <Text style={styles.subjects}>Mathematics, English, Science, Social Studies, History, Geography, Civics, Religious Education, Office Practice</Text> */}
+            </TouchableOpacity>
+      
+                  <TouchableOpacity style={styles.card} 
+            onPress={() => goToGrade(10)}>
+              <Text style={styles.title}>Grade 10</Text>
+              <Ionicons name={"library"} size={50} color={"#333"} />
+              {/* <Text style={styles.subjects}>Mathematics, English, Science, Social Studies, Special Paper 1, Special Paper 2</Text> */}
+            </TouchableOpacity>
+      
+                  <TouchableOpacity style={styles.card} 
+            onPress={() => goToGrade(11)}>
+              <Text style={styles.title}>Grade 11</Text>
+              <Ionicons name={"ribbon"} size={50} color={"#333"} />
+              {/* <Text style={styles.subjects}>Mathematics, English, Science, Social Studies, Special Paper 1, Special Paper 2</Text> */}
+            </TouchableOpacity>
+      
+                  <TouchableOpacity style={styles.card} 
+            onPress={() => goToGrade(12)}>
+              <Text style={styles.title}>Grade 12</Text>
+              <Ionicons name={"school"} size={50} color={"#333"} />
+              {/* <Text style={styles.subjects}></Text> */}
+            </TouchableOpacity>
+
       </View>
     </View>
   );
@@ -185,49 +226,37 @@ const styles = StyleSheet.create({
   listContainer: {
     paddingHorizontal: 10, // Add padding to the sides of the list
   },
-  card: {
-    backgroundColor: "#fff",
-    padding: 10,
-    marginVertical: 10,
-    marginHorizontal: 10,
-    borderRadius: 10,
-    alignItems: "center",
-    justifyContent: "center",
-    elevation: 5,
+    card: {
+    borderRadius: 5,
     width: width * 0.8,
-    top: 10,
-    height: 600,
-  },
-  subjectImage: {
-    top: 0,
-    resizeMode: "contain",
+    elevation: 5,
+    alignItems: "center",
+    textAlign: "left",
+    padding: 20,
+    paddingBottom: 10,
+    borderColor: "#333",
+    borderWidth: 0,
+    backgroundColor: "white",
+    top: 20,
+    marginBottom: height * 0.01,
+    height: width * 0.24,
+    flexDirection: "row",
+    justifyContent: "space-between",
   },
   title: {
     fontSize: 40,
-    marginBottom: 10,
-    textAlign: "center",
+    textAlign: "left",
     color: "black",
     fontFamily: "Jersey25_400Regular",
-    width: 300,
     fontWeight: 600,
   },
-  description: {
-    fontSize: 20,
+  subjects: {
+    fontSize: 14,
     color: "#000",
-    textAlign: "justify",
-    marginBottom: 10,
-    width: 250,
+    textAlign: "left",
+    marginBottom: 20,
+    width: width * 0.45,
     fontFamily: "Fredoka_400Regular",
     fontWeight: 600,
-  },
-  footer: {
-    flex: 1,
-    justifyContent: "flex-end",
-    // justifyContent: "center",
-    alignItems: "center",
-  },
-  button: {
-    bottom: 20,
-    marginTop: 50,
   },
 });

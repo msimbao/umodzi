@@ -9,6 +9,8 @@ import MainTabs from '@/components/AnimatedTabBar';
 import QuizListScreen from '@/screens/QuizListScreen'
 import QuizScreen from '@/screens/QuizScreen'
 import ResultScreen from '@/screens/ResultScreen'
+import HistoryListScreen from '@/screens/HistoryListScreen'
+import StoreListScreen from '@/screens/StoreListScreen'
 
 const Stack = createNativeStackNavigator();
 
@@ -41,6 +43,9 @@ export default function App() {
         <Stack.Screen name="Quizzes" component={QuizListScreen} />
         <Stack.Screen name="Quiz" component={QuizScreen} />
         <Stack.Screen name="Result" component={ResultScreen} />
+        <Stack.Screen name="History" component={HistoryListScreen} />
+        <Stack.Screen name="StoreList" component={StoreListScreen} />
+
       </Stack.Navigator>
     </>
   );

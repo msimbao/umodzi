@@ -120,6 +120,7 @@ export default function ResultScreen({ route, navigation }) {
         onPress={() => navigation.popToTop()}
         width={width * 0.7}
         height={50}
+        borderRadius={5}
       >
         BACK TO MENU
       </ThemedButton>
@@ -172,15 +173,17 @@ const styles = StyleSheet.create({
   card: {
     backgroundColor: "#fff",
     padding: 10,
-    marginVertical: 10,
+    marginVertical: 5,
     marginHorizontal: 10,
-    borderRadius: 10,
+    borderRadius: 5,
     alignItems: "center",
     justifyContent: "center",
     elevation: 5,
     width: width * 0.8,
     top: 10,
     height: height * 0.45,
+        // borderWidth:1
+
   },
 
   footer: {
@@ -191,12 +194,13 @@ const styles = StyleSheet.create({
   },
   button: {
     bottom: 20,
-    marginTop: 50,
+    marginTop: 30,
   },
   historyProgress: {
     borderRadius: 5,
-    marginVertical: 10,
+    marginVertical: 0,
     borderWidth: 0,
+
   },
   endText:{
     textAlign:'center',
