@@ -16,6 +16,7 @@ import { ThemedButton } from "react-native-really-awesome-button";
 import { Fredoka_400Regular } from "@expo-google-fonts/fredoka";
 import { Jersey25_400Regular } from "@expo-google-fonts/jersey-25";
 import * as SplashScreen from "expo-splash-screen";
+import SvgBackground from "@/components/SvgBackground"
 
 import { useFonts } from "expo-font";
 
@@ -93,7 +94,12 @@ export default function IntroScreen({ navigation }) {
           styles.slideContainer,
           { backgroundColor: item.backgroundColor },
         ]}
-      >
+      >                           
+       {/* <SvgBackground seed="324" style={{width:width,height:height}}/> */}
+
+                            {/* <SvgBackground seed="3924" style={{width:width,height:height}}/> */}
+                            <SvgBackground seed="20824" style={{width:width,height:height}}/>
+
         <Animated.View style={[styles.card]}>
           <Image style={styles.image} source={item.image} />
 
@@ -146,6 +152,7 @@ export default function IntroScreen({ navigation }) {
   };
 
   return (
+     
     <Animated.FlatList
       ref={flatListRef}
       data={slides}

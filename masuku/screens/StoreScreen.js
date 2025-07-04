@@ -22,6 +22,8 @@ import * as SplashScreen from "expo-splash-screen";
 import { useFonts } from "expo-font";
 import { getNavOptions } from "expo-router/build/views/Sitemap";
 
+import SvgBackground from "@/components/SvgBackground"
+
 const store = require("@/assets/store.png");
 const g7Image = require("@/assets/g7.png");
 const g8Image = require("@/assets/g8.png");
@@ -115,8 +117,8 @@ export default function StoreScreen({ navigation }) {
       <Image
         style={styles.subjectImage}
         source={item.image}
-        width={width * 0.5}
-        height={height * 0.19}
+        width={100}
+        height={100}
       />
       <Text style={styles.title}>{item.title}</Text>
     </TouchableOpacity>
@@ -124,6 +126,9 @@ export default function StoreScreen({ navigation }) {
 
   return (
     <View style={styles.container}>
+             {/* <SvgBackground seed="1000000000000000000" style={{width:width,height:height}}/> */}
+                            <SvgBackground seed="3924" style={{width:width,height:height}}/>
+
             <View style={styles.footer}>
       
       <Text style={styles.header}>Umodzi Library</Text>
@@ -131,7 +136,6 @@ export default function StoreScreen({ navigation }) {
         <View style={styles.background}></View>
 
       <View style={styles.card}>
-        
         <Image
           style={styles.subjectImage}
           source={store}

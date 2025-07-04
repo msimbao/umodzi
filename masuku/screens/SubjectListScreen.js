@@ -20,6 +20,7 @@ import * as SplashScreen from "expo-splash-screen";
 import { useFonts } from "expo-font";
 const { width, height } = Dimensions.get("window");
 import { Ionicons } from "@expo/vector-icons";
+import SvgBackground from "@/components/SvgBackground"
 
 export default function SubjectListScreen({route, navigation}) {
   const { item } = route.params;
@@ -48,6 +49,8 @@ export default function SubjectListScreen({route, navigation}) {
     <TouchableOpacity style={styles.cards}
      onPress={() => navigation.navigate("Quizzes", {grade, item})
      }>
+              <SvgBackground seed={item.id} />
+      
       <Text style={styles.scoreTitle}>
         {item}
       </Text>
