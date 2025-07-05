@@ -22,7 +22,7 @@ import * as SplashScreen from "expo-splash-screen";
 import { useFonts } from "expo-font";
 import { getNavOptions } from "expo-router/build/views/Sitemap";
 
-import SvgBackground from "@/components/SvgBackground"
+import SvgBackground from "@/components/SvgBackground";
 
 const store = require("@/assets/store.png");
 const g7Image = require("@/assets/g7.png");
@@ -111,61 +111,62 @@ export default function StoreScreen({ navigation }) {
 
   const renderItem = ({ item }) => (
     <TouchableOpacity
-    onPress={() => goToGrade(item.grade)}
-    style={styles.cards}
+      onPress={() => goToGrade(item.grade)}
+      style={styles.cards}
     >
+            <Text style={styles.title}>{item.title}</Text>
       <Image
         style={styles.subjectImage}
         source={item.image}
-        width={100}
-        height={100}
+        width={50}
+        height={50}
       />
-      <Text style={styles.title}>{item.title}</Text>
     </TouchableOpacity>
   );
 
   return (
     <View style={styles.container}>
-             {/* <SvgBackground seed="1000000000000000000" style={{width:width,height:height}}/> */}
-                            <SvgBackground seed="3924" style={{width:width,height:height}}/>
+      {/* <SvgBackground seed="1000000000000000000" style={{width:width,height:height}}/> */}
+      {/* <SvgBackground seed="524" style={{ width: width, height: height }} /> */}
 
-            <View style={styles.footer}>
-      
-      <Text style={styles.header}>Umodzi Library</Text>
-      <Text style={styles.subHeader}>Download Books and Quizzes</Text>
-        <View style={styles.background}></View>
-
-      <View style={styles.card}>
-        <Image
-          style={styles.subjectImage}
-          source={store}
-          width={width * 0.8}
-          height={300}
-        />
-
+      <View style={styles.footer}>
         <Text style={styles.header}>Umodzi Library</Text>
         <Text style={styles.subHeader}>Download Books and Quizzes</Text>
+        {/* <View style={styles.background}></View> */}
 
-        {isConnected ? (
-          <View style={{ width: width, height: height }}>
-            <FlatList
-              data={DATA}
-              renderItem={renderItem}
-              keyExtractor={(item) => item.id}
-          horizontal={true} // This prop makes the FlatList horizontal
-          showsHorizontalScrollIndicator={true} // Optional: hides the horizontal scroll indicator
-          contentContainerStyle={styles.listContainer} // Optional: styles for the content container
-          // snapToAlignment="start"
-          decelerationRate={"fast"}
-          // snapToInterval={Dimensions.get("window").width}
-            />
+        <View style={styles.card}>
+          <View style={styles.topPart}>
+          <Image
+            style={styles.subjectImage}
+            source={store}
+            width={width * 0.8}
+            height={200}
+          />
+
+          <Text style={styles.header}>Umodzi Library</Text>
+          <Text style={styles.subHeader}>Download Books and Quizzes</Text>
           </View>
-        ) : (
-          <View>
-            <Text style={styles.emptyText}>No grades posted yet!</Text>
-          </View>
-        )}
-      </View>
+
+          {isConnected ? (
+            <View style={{ width: width, height: height }}>
+              <FlatList
+                data={DATA}
+                renderItem={renderItem}
+                keyExtractor={(item) => item.id}
+                horizontal={false} // This prop makes the FlatList horizontal
+                showsHorizontalScrollIndicator={true} // Optional: hides the horizontal scroll indicator
+                contentContainerStyle={styles.listContainer} // Optional: styles for the content container
+                // snapToAlignment="start"
+                decelerationRate={"fast"}
+                // snapToInterval={Dimensions.get("window").width}
+              />
+            </View>
+          ) : (
+            <View>
+              <Text style={styles.emptyText}>No grades posted yet!</Text>
+            </View>
+          )}
+        </View>
       </View>
     </View>
   );
@@ -217,34 +218,44 @@ const styles = StyleSheet.create({
     // backgroundColor: "white",
     top: 20,
     height: height * 0.77,
-    zIndex:2,
+    zIndex: 2,
   },
-  background:{
-    width:width * 0.8,
-    height:height*0.5,
-    position:'absolute',
-    top:height*0.11,
-    backgroundColor:'white',
-    elevation:5,
-    zIndex:1,
-    borderRadius:5,
-
+  background: {
+    width: width * 0.8,
+    height: height * 0.5,
+    position: "absolute",
+    top: height * 0.11,
+    backgroundColor: "white",
+    elevation: 5,
+    zIndex: 1,
+    borderRadius: 5,
+  },
+    topPart: {
+    width: width * 0.8,
+    // height: height * 0.1,
+    // position: "absolute",
+    // top: height * 0.11,
+    backgroundColor: "white",
+    elevation: 5,
+    zIndex: 1,
+    borderRadius: 5,
   },
   cards: {
     borderRadius: 5,
-    width: width * 0.5,
+    width: width * 0.8,
     elevation: 5,
     alignItems: "center",
     textAlign: "left",
     padding: 5,
     margin: 10,
     backgroundColor: "#fff",
-    height: height * 0.25,
-    zIndex:3,
+    height: 60,
+    flexDirection: "row",
+    justifyContent: "space-between",
   },
-    listContainer: {
+  listContainer: {
     paddingHorizontal: 10, // Add padding to the sides of the list
-    marginLeft:10,
+    marginLeft: 10,
   },
   title: {
     fontSize: 30,
