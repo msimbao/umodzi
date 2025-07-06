@@ -1,112 +1,139 @@
 // screens/MyScoresScreen.js
-import React, { useEffect, useState, useRef, useMemo } from "react";
+import React, { useEffect, useState} from "react";
 import {
   View,
-  Button,
   Text,
   StyleSheet,
   Dimensions,
   Image,
   FlatList,
-  TouchableOpacity,
 } from "react-native";
-import { getScores } from "@/utils/ScoreTracker";
-import * as Progress from "react-native-progress";
+
 import { saveQuizzesToLocal } from "@/utils/QuizStore";
 import { getLocalQuizzes } from "@/utils/QuizStore";
-import AsyncStorage from '@react-native-async-storage/async-storage';
+import * as Progress from "react-native-progress";
+
 
 import { ThemedButton } from "react-native-really-awesome-button";
-import { Fredoka_400Regular } from "@expo-google-fonts/fredoka";
-import { Jersey25_400Regular } from "@expo-google-fonts/jersey-25";
 import * as SplashScreen from "expo-splash-screen";
 import { useFonts } from "expo-font";
 const { width, height } = Dimensions.get("window");
-import { Ionicons } from "@expo/vector-icons";
 
+import BackButtons from "@/components/BackButtons";
+const missing = require("@/assets/images/missing.png");
 
-export default function StoreTestScreen({route, navigation}) {
-//   const { grade } = route.params;
-    const [DATA, setDATA] = useState(null);
-  
+export default function StoreTestScreen({ route, navigation }) {
+  const { grade, subject } = route.params;
+  const [DATA, setDATA] = useState();
+  // const [testsExist, setTestsExist] = useState(true);
+  const [error, setError] = useState(false);
+  const [loading, setLoading] = useState(true);
 
-    const goBack = () => {
+  const goBack = () => {
     navigation.goBack();
   };
 
-    const downloadQuizzes = async (link) => {
-    fetch(link)
-    .then((response) => response.json())
-    .then((responseJson) => {
-        saveQuizzesToLocal(responseJson);
-    })
-    
-    await saveQuizzesToLocal(quizzesData);
-    alert("Quizzes downloaded!");
-  };
-
   useEffect(() => {
-getList()
+    // const gradeStr = String(grade).toLowerCase();
+    const gradeStr = String(grade);
+    const subjectStr = String(subject);
+    const baseUrl =
+      "https://raw.githubusercontent.com/msimbao/umodziLibrary/refs/heads/main/tests/grade";
+    const endUrl = "/list.json";
+
+    const url = `${baseUrl}${gradeStr}${"/"}${subjectStr}${endUrl}`;
+    getList(url);
   }, []);
 
-      const getList = () => fetch('https://raw.githubusercontent.com/msimbao/umodziLibrary/refs/heads/main/tests/grade7/english/list.json')
-     .then((response) => response.json())
-     .then((responseJson) => {
-        setDATA(responseJson)
-        console.log(DATA)
+  const getList = (url) =>
+    fetch(url)
+      .then((response) => response.json())
+      .then((responseJson) => {
+        setDATA(responseJson);
+        setError(false);
         // this.setState({ result: responseJson.Cat });
-     })
-     .catch((error) => {
-        console.error(error);
-     })
+      })
+      .catch((error) => {
+        // console.error(error);
+        setError(true);
+      })
+      .finally(() => setLoading(false));
 
   const renderItem = ({ item }) => (
     <View style={styles.cards}>
-      <Text style={styles.scoreTitle}>
-        {item.title}
-      </Text>
-          <ThemedButton
-            style={styles.button}
-            name="bruce"
-            type="primary"
-            progress
-            onPress={async (next) =>{
-                    
+      <Text style={styles.title}>{item.title}</Text>
+      <ThemedButton
+        style={styles.button}
+        name="bruce"
+        type="primary"
+        // progress
+        onPress={async (next) => {
+          fetch(item.link)
+            .then((response) => response.json())
+            .then((responseJson) => {
+              saveQuizzesToLocal(responseJson);
+            });
+          alert("Quizzes downloaded!");
 
-                    fetch(item.link)
-                .then((response) => response.json())
-                .then((responseJson) => {
-                    
-                    saveQuizzesToLocal(responseJson);
-                    // console.log(responseJson)
-                })
-                alert("Quizzes downloaded!");
-                next()
-            }}
-          >
-            CONTINUE
-          </ThemedButton>
+          next();
+        }}
+      >
+        CONTINUE
+      </ThemedButton>
     </View>
   );
 
   return (
     <View style={styles.container}>
-      <Text style={styles.header}> <Ionicons
-                name={"arrow-back-circle"}
-                onPress={goBack}
-                size={25}
-                color={"#333"}
-              /> Subjects</Text>
-      <Text style={styles.subHeader}>Select a Subject</Text>
+      <View>
+        <Text style={styles.header}>Subjects</Text>
+        <Text style={styles.subHeader}>Select a Subject</Text>
+        <BackButtons />
+        {loading ? (
+           <View style={styles.topPart}>
+            <View>
+                  <View style={{alignSelf:'center'}}>
+                  <Progress.Bar
+                    size={50}
+                    height={20}
+                    indeterminate={true}
+                    color="#333" // Purple
+                    borderRadius={0}
+                    borderWidth={2}
+                  />
+                  </View>
+                 <Text style={styles.emptyTextTitle}>Loading</Text>
+                       <Text style={styles.emptyTextSentence}>
+                         Tests will be found soon!
+                       </Text>
+                    </View>
+          </View>
+        ) : error ? (
+            <View style={styles.topPart}>
+                     <View>
+                       <Image
+                         style={styles.missingImage}
+                         source={missing}
+                         width={width * 0.6}
+                         height={250}
+                       />
+         
+                       <Text style={styles.emptyTextTitle}>No Tests Found!</Text>
+                       <Text style={styles.emptyTextSentence}>
+                         There is a problem with the internet
+                       </Text>
+                     </View>
+                   </View>
+        ) : (
+          <FlatList
+            data={DATA}
+            renderItem={renderItem}
+            showsVerticalScrollIndicator={false}
+          contentContainerStyle={{ paddingBottom: width*0.01}} // <-- Adds space at the bottom
 
-        <FlatList
-          data={DATA}
-        //   keyExtractor={(subjects)}
-          renderItem={renderItem}
-          contentContainerStyle={styles.listContainer} // Optional: styles for the content container
-
-        />
-
+          />
+        )}
+      </View>
     </View>
   );
 }
@@ -114,15 +141,11 @@ getList()
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    padding: 0,
-    paddingLeft: 30,
+    padding: 20,
     paddingTop: height * 0.08,
-    alignItems: "left",
+    alignItems: "center",
     backgroundColor: "#e5e6fa",
-  },
-  listContainer: {
-    // marginBottom:10,
-    // height:height * 0.9,
+    // width: width * 0.8,
   },
   header: {
     fontSize: 40,
@@ -142,7 +165,9 @@ const styles = StyleSheet.create({
     width: 300,
     fontWeight: 600,
   },
-
+  missingImage: {
+    alignSelf:'center'
+  },
   headerImage: {
     top: -20,
     resizeMode: "contain",
@@ -157,7 +182,7 @@ const styles = StyleSheet.create({
     backgroundColor: "white",
     top: 0,
   },
-  scoreTitle: {
+  title: {
     fontSize: 20,
     marginBottom: 10,
     textAlign: "center",
@@ -166,31 +191,27 @@ const styles = StyleSheet.create({
     width: 300,
     fontWeight: 600,
   },
-  button: {
-    bottom: 50,
-    marginTop: 50,
+  topPart: {
+    width: width * 0.8,
+    backgroundColor: "white",
+    elevation: 5,
+    borderRadius: 5,
+    padding: 20,
+    marginVertical:10,
+    paddingTop: 50,
+    alignContent:'center',
+    justifyContent:'center',
   },
-  filterContainer: {
-    flexDirection: "row",
-    justifyContent: "center",
-    marginBottom: 16,
-    flexWrap: "wrap",
+  emptyTextTitle: {
+    marginTop: 10,
+    textAlign: "center",
+    fontFamily: "Jersey25_400Regular",
+    fontSize: 40,
   },
-  button: {
-    paddingVertical: 6,
-    paddingHorizontal: 12,
-    borderRadius: 20,
-    backgroundColor: "#ddd",
-    marginHorizontal: 4,
-    marginBottom: 8,
-  },
-  buttonActive: {
-    backgroundColor: "#5e60ce",
-  },
-  buttonText: {
-    color: "#333",
-  },
-  buttonTextActive: {
-    color: "#fff",
+  emptyTextSentence: {
+    marginVertical: 10,
+    textAlign: "center",
+    fontFamily: "Fredoka_400Regular",
+    fontSize: 15,
   },
 });

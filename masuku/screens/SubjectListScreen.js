@@ -1,17 +1,13 @@
 // screens/MyScoresScreen.js
-import React, { useEffect, useState, useRef, useMemo } from "react";
+import React, { useEffect } from "react";
 import {
   View,
-  Button,
   Text,
   StyleSheet,
   Dimensions,
-  Image,
   FlatList,
   TouchableOpacity,
 } from "react-native";
-import { getScores } from "@/utils/ScoreTracker";
-import * as Progress from "react-native-progress";
 
 import { ThemedButton } from "react-native-really-awesome-button";
 import { Fredoka_400Regular } from "@expo-google-fonts/fredoka";
@@ -20,11 +16,13 @@ import * as SplashScreen from "expo-splash-screen";
 import { useFonts } from "expo-font";
 const { width, height } = Dimensions.get("window");
 import { Ionicons } from "@expo/vector-icons";
-import SvgBackground from "@/components/SvgBackground"
+import BackButtons from "@/components/BackButtons"
+import SubjectThemes from "@/components/subjectThemes"
+
 
 export default function SubjectListScreen({route, navigation}) {
-  const { item } = route.params;
-  const grade = item;
+  const { grade } = route.params;
+  // const grade = item;
 
     const goBack = () => {
     navigation.goBack();
@@ -47,34 +45,33 @@ export default function SubjectListScreen({route, navigation}) {
 
   const renderItem = ({ item }) => (
     <TouchableOpacity style={styles.cards}
-     onPress={() => navigation.navigate("Quizzes", {grade, item})
+     onPress={() => navigation.navigate("Quizzes", {grade:grade, subject:item})
      }>
-              <SvgBackground seed={item.id} />
       
-      <Text style={styles.scoreTitle}>
+      <Text style={styles.title}>
         {item}
       </Text>
+               <Ionicons name={SubjectThemes[item].icon} size={30} color={"#333"} />
     
     </TouchableOpacity>
   );
 
   return (
     <View style={styles.container}>
-      <Text style={styles.header}> <Ionicons
-                name={"arrow-back-circle"}
-                onPress={goBack}
-                size={25}
-                color={"#333"}
-              /> Subjects</Text>
+      
+      <View>
+      <Text style={styles.header}>Subjects</Text>
       <Text style={styles.subHeader}>Select a Subject</Text>
+        <BackButtons />
 
         <FlatList
-          data={subjects[item]}
+          data={subjects[grade]}
         //   keyExtractor={(item)}
           renderItem={renderItem}
-          contentContainerStyle={styles.listContainer} // Optional: styles for the content container
+          showsVerticalScrollIndicator={false}
+          contentContainerStyle={{ paddingBottom: width*0.01}} // <-- Adds space at the bottom
         />
-
+</View>
     </View>
   );
 }
@@ -82,15 +79,11 @@ export default function SubjectListScreen({route, navigation}) {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    padding: 0,
-    paddingLeft: 30,
+    padding: 20,
     paddingTop: height * 0.08,
-    alignItems: "left",
+    alignItems: "center",
     backgroundColor: "#e5e6fa",
-  },
-  listContainer: {
-    // marginBottom:10,
-    // height:height * 0.9,
+        // height:height*1.5,
   },
   header: {
     fontSize: 40,
@@ -111,10 +104,6 @@ const styles = StyleSheet.create({
     fontWeight: 600,
   },
 
-  headerImage: {
-    top: -20,
-    resizeMode: "contain",
-  },
   cards: {
     borderRadius: 5,
     width: width * 0.8,
@@ -123,42 +112,15 @@ const styles = StyleSheet.create({
     alignItems: "center",
     padding: 20,
     backgroundColor: "white",
-    top: 0,
+    flexDirection: "row",
+    justifyContent: "space-between",
   },
-  scoreTitle: {
+  title: {
     fontSize: 20,
     marginBottom: 10,
-    textAlign: "center",
+    textAlign: "left",
     color: "black",
-    fontFamily: "Jersey25_400Regular",
-    width: 300,
+    fontFamily: "Fredoka_400Regular",
     fontWeight: 600,
-  },
-  button: {
-    bottom: 50,
-    marginTop: 50,
-  },
-  filterContainer: {
-    flexDirection: "row",
-    justifyContent: "center",
-    marginBottom: 16,
-    flexWrap: "wrap",
-  },
-  button: {
-    paddingVertical: 6,
-    paddingHorizontal: 12,
-    borderRadius: 20,
-    backgroundColor: "#ddd",
-    marginHorizontal: 4,
-    marginBottom: 8,
-  },
-  buttonActive: {
-    backgroundColor: "#5e60ce",
-  },
-  buttonText: {
-    color: "#333",
-  },
-  buttonTextActive: {
-    color: "#fff",
   },
 });

@@ -10,7 +10,6 @@ import {
   Image,
 } from "react-native";
 import AsyncStorage from "@react-native-async-storage/async-storage";
-import { Ionicons } from "@expo/vector-icons";
 import { ThemedButton } from "react-native-really-awesome-button";
 
 import { Fredoka_400Regular } from "@expo-google-fonts/fredoka";
@@ -32,27 +31,27 @@ const slides = [
     iconName: "arrow-forward-outline",
     image: imagePath1,
     title: "STUDY SMARTER",
-    description:
-      "Access thousands of digital resources to learn, revise, and practice—wherever you are, whenever you need.",
+    description:"Access thousands of digital resources to learn, revise, and practice—wherever you are, whenever you need.",
     backgroundColor: "#e5e6fa",
+    seed:"two"
   },
   {
     key: "two",
     iconName: "checkmark-outline",
     image: imagePath2,
     title: "STUDY CORRECTLY",
-    description:
-      "Take tests & quizzes, get graded immediately, and understand your mistakes through instant corrections",
+    description:"Take tests & quizzes, get graded immediately, and understand your mistakes through instant corrections",
     backgroundColor: "#d8bfd8",
+    seed:"one"
   },
   {
     key: "three",
     iconName: "checkmark-done-outline",
     image: imagePath3,
     title: "STUDY BEYOND",
-    description:
-      "Explore topics like saving, investing, and building a future—because education is more than passing tests.",
+    description:"Explore topics like saving, investing, and building a future—because education is more than passing tests.",
     backgroundColor: "#fddab8",
+    seed:"eleven"
   },
 ];
 
@@ -92,13 +91,14 @@ export default function IntroScreen({ navigation }) {
       <View
         style={[
           styles.slideContainer,
-          { backgroundColor: item.backgroundColor },
         ]}
       >                           
-       {/* <SvgBackground seed="324" style={{width:width,height:height}}/> */}
+       <SvgBackground seed={item.description} style={{width:width,height:height}}/>
 
                             {/* <SvgBackground seed="3924" style={{width:width,height:height}}/> */}
-                            <SvgBackground seed="20824" style={{width:width,height:height}}/>
+                            {/* <SvgBackground seed="20824"  style={{width:width,height:height}}/> */}
+                            <SvgBackground seed={item.seed} backgroundColor={"#CFBCDF"} patternColor={"#6A3BCE"}/>
+                            {/* <SvgBackground seed="zambia-03" patternIndex={60} backgroundColor="#CFBCDF" patternColor="#B8849B" /> */}
 
         <Animated.View style={[styles.card]}>
           <Image style={styles.image} source={item.image} />
@@ -116,7 +116,6 @@ export default function IntroScreen({ navigation }) {
                 name="bruce"
                 type="primary"
                 height={50}
-                // borderRadius={0}
               >
                 NEXT
               </ThemedButton>
@@ -128,7 +127,6 @@ export default function IntroScreen({ navigation }) {
                 name="bruce"
                 type="primary"
                 height={50}
-                // borderRadius={0}
               >
                 NEXT
               </ThemedButton>
@@ -140,7 +138,6 @@ export default function IntroScreen({ navigation }) {
                 name="bruce"
                 type="primary"
                 height={50}
-                // borderRadius={0}
               >
                 START!
               </ThemedButton>
@@ -224,7 +221,7 @@ const styles = StyleSheet.create({
     textAlign: "center",
     color: "black",
     fontFamily: "Jersey25_400Regular",
-    width: 300,
+    // width: 300,
     fontWeight: 600,
   },
   description: {
@@ -243,7 +240,7 @@ const styles = StyleSheet.create({
   image: {
     flex: 1,
     top: height * 0.15,
-    width: 500,
+    width: 390,
     height: null,
     resizeMode: "contain",
     // backgroundColor: '#0553',

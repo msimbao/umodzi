@@ -18,7 +18,7 @@ import HistoryListScreen from "../screens/HistoryListScreen";
 import SettingsScreen from "../screens/SettingsScreen";
 
 const Tab = createMaterialTopTabNavigator();
-const { width } = Dimensions.get("window");
+const { width, height } = Dimensions.get("window");
 const TAB_WIDTH = width / 5;
 
 export default function MainTabs() {
@@ -29,7 +29,7 @@ export default function MainTabs() {
       swipeEnabled={false}
       screenOptions={{
         tabBarShowLabel: false,
-        swipeEnabled: false,
+        swipeEnabled: true,
       }}
     >
       {/* <Tab.Screen name="Home" component={HomeScreen} /> */}
@@ -105,20 +105,16 @@ function PlainTabBar({ state, descriptors, navigation }) {
 const styles = StyleSheet.create({
   container: {
     flexDirection: "row",
-    backgroundColor: "#e5e6fa",
+    // backgroundColor: "#fff",
     height: 70,
-    // position:'absolute',
-    bottom:0,
-    elevation: 5,
+    position:'absolute',
     padding: width * 0.05,
-    // width:width*0.90,
-    alignSelf: "left",
+    width:width*1,
+    alignSelf: "flex-end",
     borderTopStartRadius: 10,
     borderTopEndRadius: 10,
-    shadowOffset: {
-      width: 0,
-      height: 5,
-    },
+    left:width*0.01,
+    bottom:height*0.02,
   },
   tabButton: {
     flex: 1,
@@ -131,7 +127,6 @@ const styles = StyleSheet.create({
     justifyContent: "center",
     width: 50,
     height: 50,
-    // backgroundColor:'white',
     elevation: 0,
     borderRadius: 5,
   },
@@ -149,7 +144,7 @@ const styles = StyleSheet.create({
     marginTop: 4,
   },
   background: {
-    borderRadius: 5,
+    borderRadius: 10,
     width: width * 0.9,
     elevation: 10,
     height: 50,

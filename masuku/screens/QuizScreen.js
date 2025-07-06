@@ -22,6 +22,8 @@ import * as SplashScreen from "expo-splash-screen";
 import { useFonts } from "expo-font";
 const { width, height } = Dimensions.get("window");
 
+import BackButtons from "@/components/BackButtons";
+
 export default function QuizScreen({ route, navigation }) {
   const { quiz } = route.params;
   const [currentIndex, setCurrentIndex] = useState(0);
@@ -126,16 +128,13 @@ export default function QuizScreen({ route, navigation }) {
 
   return (
     <View style={styles.container}>
-      <Text style={styles.header}>
-        <Ionicons
-          name={"arrow-back-circle"}
-          onPress={goBack}
-          size={25}
-          color={"#333"}
-        />{" "}
-        {quiz.subject} Test
+
+      <View style={styles.topPart}>
+
+      <Text style={styles.header}>{quiz.subject} Test
       </Text>
       <Text style={styles.subHeader}>{quiz.title} Test</Text>
+      <BackButtons />
 
       <Text style={styles.questionCount}>
         Question {currentIndex}/{quiz.questions.length}
@@ -143,10 +142,11 @@ export default function QuizScreen({ route, navigation }) {
       <Progress.Bar
         style={styles.quizProgress}
         progress={currentIndex / quiz.questions.length}
-        width={width * 0.8}
+        width={width * 0.75}
         height={20}
         color={"black"}
       />
+      </View>
 
       <ScrollView contentContainerStyle={styles.card}>
         {/* Show image if available */}
@@ -206,7 +206,7 @@ export default function QuizScreen({ route, navigation }) {
               type="primary"
               disabled={selectedOption === null}
               height={55}
-              width={width * 0.7}
+              width={width * 0.75}
               borderRadius={5}
             >
               SUBMIT
@@ -214,26 +214,21 @@ export default function QuizScreen({ route, navigation }) {
           </View>
         ) : (
           <>
-            {/* <Text style={styles.feedback}>
-              {selectedOption === correctIndex
-                ? "✅ Correct!"
-                : "❌ Incorrect."}
-            </Text>
-            <Text style={styles.hint}>Hint: {currentQuestion.hint}</Text> */}
-          <View style={{marginTop:50}}>
+          
+          <View style={{marginTop:0}}>
             <ThemedButton
               style={styles.button}
               name="bruce"
               type="primary"
               onPress={handleNext}
-              width={width * 0.7}
+              width={width * 0.75}
               height={55}
               borderRadius={5}
             >
               {currentIndex + 1 < quiz.questions.length ? "NEXT" : "FINISH"}
             </ThemedButton>
 
-          
+{/*           
             <ThemedButton
               style={styles.button}
               name="bruce"
@@ -246,7 +241,7 @@ export default function QuizScreen({ route, navigation }) {
               backgroundColor={"#eee"}
             >
               SHOW EXPLANATION
-            </ThemedButton>
+            </ThemedButton> */}
             </View>
           </>
           
@@ -291,7 +286,7 @@ export default function QuizScreen({ route, navigation }) {
                 height={50}
                 width={width * 0.8}
                 backgroundColor={"#60bb08"}
-                borderColor={"#046404"}
+                borderColor={"#60bb08"}
                 textColor={"#ddffbe"}
                 backgroundDarker={"#046404"}
                 onPress={handleNext}
@@ -306,8 +301,8 @@ export default function QuizScreen({ route, navigation }) {
                 type="secondary"
                 height={50}
                 width={width * 0.8}
-                backgroundColor={"#ddffbe"}
-                borderColor={"#60bb08"}
+                backgroundColor={"#d3f2d4"}
+                borderColor={"#046404"}
                 textColor={"#046404"}
                 backgroundDarker={"#046404"}
                 onPress={onModalClose}
@@ -352,7 +347,7 @@ export default function QuizScreen({ route, navigation }) {
                 {currentIndex + 1 < quiz.questions.length ? "NEXT" : "FINISH"}
               </ThemedButton>
 
-                    <ThemedButton
+                <ThemedButton
                 style={styles.nextButton}
                 name="bruce"
                 type="primary"
@@ -379,11 +374,19 @@ export default function QuizScreen({ route, navigation }) {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    padding: 30,
-    paddingLeft: 40,
+    padding: 20,
     paddingTop: height * 0.08,
-    alignContent: "center",
+    alignItems: "center",
     backgroundColor: "#e5e6fa",
+        // height:height*1.5,
+  },
+    topPart: {
+    width: width * 0.85,
+    backgroundColor: "white",
+    elevation: 5,
+    borderRadius: 5,
+    padding: 20,
+    marginBottom: 5,
   },
   modalContent: {
     width: "90%",
@@ -393,6 +396,7 @@ const styles = StyleSheet.create({
     position: "absolute",
     bottom: 30,
     borderWidth: 0,
+    padding:20,
     // borderColor:'#333',
     elevation: 5,
   },
@@ -411,7 +415,7 @@ const styles = StyleSheet.create({
   },
   title: {
     fontSize: 25,
-    textAlign: "center",
+    textAlign: "left",
     fontFamily: "Fredoka_400Regular",
     fontWeight: "bold",
   },
@@ -422,7 +426,7 @@ const styles = StyleSheet.create({
     fontSize: 20,
   },
   explanation: {
-    textAlign: "center",
+    textAlign: "left",
     fontFamily: "Fredoka_400Regular",
     fontSize: 18,
     marginVertical: 10,
@@ -457,7 +461,7 @@ const styles = StyleSheet.create({
   },
   card: {
     borderRadius: 5,
-    width: width * 0.8,
+    width: width * 0.85,
     marginVertical: 10,
     elevation: 5,
     alignItems: "center",
@@ -469,11 +473,11 @@ const styles = StyleSheet.create({
   },
   questionText: {
     fontSize: 20,
-    marginBottom: 10,
+    marginBottom: 50,
     textAlign: "left",
     color: "black",
     fontFamily: "Fredoka_400Regular",
-    width: width * 0.7,
+    width: width * 0.65,
     fontWeight: 600,
   },
   button: {
@@ -506,10 +510,12 @@ const styles = StyleSheet.create({
     marginVertical: 5,
     borderRadius: 5,
     elevation: 0,
-    width: 0.7 * width,
+    width: 0.75 * width,
     backgroundColor: "#FCF4F6",
-    borderColor: "white",
+    borderColor: "black",
     flex: "1",
+    borderWidth:1,
+    // borderStyle:'dashed',
   },
   questionSpeechButton: {
     left: 0,
@@ -522,7 +528,7 @@ const styles = StyleSheet.create({
     marginVertical: 5,
     borderRadius: 5,
     elevation: 0,
-    width: 0.7 * width,
+    width: 0.75 * width,
     backgroundColor: "#ddd",
     borderWidth: 0,
   },
@@ -532,11 +538,11 @@ const styles = StyleSheet.create({
     marginVertical: 5,
     borderRadius: 5,
     elevation: 3,
-    width: 0.7 * width,
+    width: 0.75 * width,
     borderColor: "black",
     flexDirection: "row",
     justifyContent: "space-between",
-    borderWidth: 0,
+    borderWidth: 2,
     borderStyle: "dashed",
   },
   correctOption: {
@@ -545,7 +551,7 @@ const styles = StyleSheet.create({
     marginVertical: 5,
     borderRadius: 5,
     elevation: 5,
-    width: 0.7 * width,
+    width: 0.75 * width,
     borderColor: "#60bb08",
     flexDirection: "row",
     justifyContent: "space-between",
@@ -558,7 +564,7 @@ const styles = StyleSheet.create({
     marginVertical: 5,
     borderRadius: 5,
     elevation: 5,
-    width: 0.7 * width,
+    width: 0.75 * width,
     borderColor: "#ff4b4d",
     flexDirection: "row",
     justifyContent: "space-between",
@@ -584,6 +590,6 @@ const styles = StyleSheet.create({
     borderRadius: 2,
     marginVertical: 10,
     borderWidth: 0,
-    backgroundColor: "#fff",
+    backgroundColor: "#eee",
   },
 });

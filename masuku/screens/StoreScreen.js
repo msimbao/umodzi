@@ -24,70 +24,50 @@ import { getNavOptions } from "expo-router/build/views/Sitemap";
 
 import SvgBackground from "@/components/SvgBackground";
 
-const store = require("@/assets/store.png");
-const g7Image = require("@/assets/g7.png");
-const g8Image = require("@/assets/g8.png");
-const g9Image = require("@/assets/g9.png");
-const g10Image = require("@/assets/g10.png");
-const g11Image = require("@/assets/g11.png");
-const g12Image = require("@/assets/g12.png");
+const store = require("@/assets/images/nobooks.png");
 
 export default function StoreScreen({ navigation }) {
   const [loaded, error] = useFonts({
     Fredoka_400Regular,
     Jersey25_400Regular,
   });
-  // const [grade, setGrade] = useState([]);
   const [isConnected, setIsConnected] = useState(null);
 
   const DATA = [
     {
       id: "1",
-      image: g7Image,
       title: "Grade 7",
       grade: 7,
+      iconName: "telescope",
     },
     // {
     //   id: "2",
-    //   image: g8Image,
     //   title: "Grade 8",
     //   grade: 8,
     // },
     {
       id: "3",
-      image: g9Image,
       title: "Grade 9",
       grade: 9,
+      iconName: "sparkles",
     },
     // {
     //   id: "4",
-    //   image: g10Image,
     //   title: "Grade 10",
     //   grade: 10,
     // },
     // {
     //   id: "5",
-    //   image: g11Image,
     //   title: "Grade 11",
     //   grade: 11,
     // },
     {
       id: "6",
-      image: g12Image,
       title: "Grade 12",
       grade: 12,
+      iconName: "rocket",
     },
   ];
-
-  // useEffect(() => {
-  //   if (loaded || error) {
-  //     SplashScreen.hideAsync();
-  //   }
-  // }, [loaded, error]);
-
-  // if (!loaded && !error) {
-  //   return null;
-  // }
 
   useEffect(() => {
     const unsubscribe = NetInfo.addEventListener((state) => {
@@ -105,7 +85,6 @@ export default function StoreScreen({ navigation }) {
   };
 
   const goToGrade = (grade) => {
-    // setGrade(currentGra)
     navigation.navigate("StoreList", { grade });
   };
 
@@ -114,53 +93,52 @@ export default function StoreScreen({ navigation }) {
       onPress={() => goToGrade(item.grade)}
       style={styles.cards}
     >
-            <Text style={styles.title}>{item.title}</Text>
-      <Image
+      <Text style={styles.title}>{item.title}</Text>
+      {/* <Image
         style={styles.subjectImage}
         source={item.image}
         width={50}
         height={50}
-      />
+      /> */}
+      <Ionicons name={item.iconName} size={30} color={"#333"} />
     </TouchableOpacity>
   );
 
   return (
     <View style={styles.container}>
-      {/* <SvgBackground seed="1000000000000000000" style={{width:width,height:height}}/> */}
-      {/* <SvgBackground seed="524" style={{ width: width, height: height }} /> */}
-
-      <View style={styles.footer}>
+      {/* <SvgBackground
+        seed="zore"
+        // patternIndex={1}
+        backgroundColor="#e5e6fa"
+        patternColor="#B8849B"
+      /> */}
+      <View>
         <Text style={styles.header}>Umodzi Library</Text>
         <Text style={styles.subHeader}>Download Books and Quizzes</Text>
-        {/* <View style={styles.background}></View> */}
 
         <View style={styles.card}>
           <View style={styles.topPart}>
-          <Image
-            style={styles.subjectImage}
-            source={store}
-            width={width * 0.8}
-            height={200}
-          />
+            <Image
+              style={styles.storeImage}
+              source={store}
+              width={width * 0.7}
+              height={250}
+            />
 
-          <Text style={styles.header}>Umodzi Library</Text>
-          <Text style={styles.subHeader}>Download Books and Quizzes</Text>
+            <Text style={styles.header}>Get Started</Text>
+            <Text style={styles.subHeader}>
+              Select your grade and start revising.
+            </Text>
           </View>
 
           {isConnected ? (
-            <View style={{ width: width, height: height }}>
-              <FlatList
-                data={DATA}
-                renderItem={renderItem}
-                keyExtractor={(item) => item.id}
-                horizontal={false} // This prop makes the FlatList horizontal
-                showsHorizontalScrollIndicator={true} // Optional: hides the horizontal scroll indicator
-                contentContainerStyle={styles.listContainer} // Optional: styles for the content container
-                // snapToAlignment="start"
-                decelerationRate={"fast"}
-                // snapToInterval={Dimensions.get("window").width}
-              />
-            </View>
+            <FlatList
+              data={DATA}
+              renderItem={renderItem}
+              keyExtractor={(item) => item.id}
+              showsVerticalScrollIndicator={false}
+              contentContainerStyle={{ paddingBottom: width * 0.01 }} // <-- Adds space at the bottom
+            />
           ) : (
             <View>
               <Text style={styles.emptyText}>No grades posted yet!</Text>
@@ -176,10 +154,10 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     padding: 20,
-    paddingLeft: 0,
     paddingTop: height * 0.08,
     alignItems: "center",
     backgroundColor: "#e5e6fa",
+    // height:height*1.5,
   },
   header: {
     fontSize: 40,
@@ -199,69 +177,48 @@ const styles = StyleSheet.create({
     width: 300,
     fontWeight: 600,
   },
-
-  headerImage: {
+  storeImage: {
     bottom: 0,
     resizeMode: "contain",
-    position: "absolute",
-    right: width * 0.3,
+    alignSelf: "center",
   },
   card: {
     borderRadius: 5,
     width: width * 0.8,
-    // elevation: 5,
     alignItems: "center",
     textAlign: "left",
-    padding: 20,
     borderColor: "#333",
     borderWidth: 0,
-    // backgroundColor: "white",
-    top: 20,
-    height: height * 0.77,
-    zIndex: 2,
+    height: height * 0.95,
   },
-  background: {
+  topPart: {
     width: width * 0.8,
-    height: height * 0.5,
-    position: "absolute",
-    top: height * 0.11,
     backgroundColor: "white",
     elevation: 5,
-    zIndex: 1,
     borderRadius: 5,
-  },
-    topPart: {
-    width: width * 0.8,
-    // height: height * 0.1,
-    // position: "absolute",
-    // top: height * 0.11,
-    backgroundColor: "white",
-    elevation: 5,
-    zIndex: 1,
-    borderRadius: 5,
+    padding: 15,
+    paddingLeft: 20,
+    paddingRight: 20,
+    marginBottom: 5,
   },
   cards: {
     borderRadius: 5,
     width: width * 0.8,
     elevation: 5,
-    alignItems: "center",
-    textAlign: "left",
-    padding: 5,
-    margin: 10,
+    padding: 19,
+    // paddingHorizontal:20,
     backgroundColor: "#fff",
-    height: 60,
+    height: height * 0.1,
     flexDirection: "row",
     justifyContent: "space-between",
-  },
-  listContainer: {
-    paddingHorizontal: 10, // Add padding to the sides of the list
-    marginLeft: 10,
+    height: 70,
+    marginVertical: 5,
   },
   title: {
-    fontSize: 30,
+    fontSize: 18,
     textAlign: "left",
     color: "black",
-    fontFamily: "Jersey25_400Regular",
+    fontFamily: "Fredoka_400Regular",
     fontWeight: 600,
   },
   subjects: {
@@ -276,10 +233,5 @@ const styles = StyleSheet.create({
   button: {
     bottom: 50,
     marginTop: 50,
-  },
-  footer: {
-    flex: 1,
-    // justifyContent: "flex-end",
-    alignItems: "left",
   },
 });

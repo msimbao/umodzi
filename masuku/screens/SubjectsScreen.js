@@ -1,23 +1,20 @@
-import React, { useEffect, useState, useRef } from "react";
+import React, { useState } from "react";
 import {
   View,
   Text,
-  Button,
   StyleSheet,
-  Image,
   Dimensions,
   FlatList,
   TouchableOpacity,
 } from "react-native";
-import { getLocalQuizzes } from "@/utils/QuizStore";
 
 import { Ionicons } from "@expo/vector-icons";
 
-import { ThemedButton } from "react-native-really-awesome-button";
 import { Fredoka_400Regular } from "@expo-google-fonts/fredoka";
 import { Jersey25_400Regular } from "@expo-google-fonts/jersey-25";
 import * as SplashScreen from "expo-splash-screen";
 import { useFonts } from "expo-font";
+import SvgBackground from "@/components/SvgBackground";
 
 const { width, height } = Dimensions.get("window");
 
@@ -29,8 +26,6 @@ export default function SubjectsScreen({ navigation }) {
     Fredoka_400Regular,
     Jersey25_400Regular,
   });
-
-
 
   // const renderItem = ({ item }) => (
   //   <View style={styles.card}>
@@ -53,14 +48,15 @@ export default function SubjectsScreen({ navigation }) {
   //   </View>
   // );
 
-
   const renderItem = ({ item }) => (
-          <TouchableOpacity style={styles.card} 
-            onPress={() => navigation.navigate("SubjectList", {item})}>
-              <Text style={styles.title}>Grade {item}</Text>
-              <Ionicons name={"star"} size={50} color={"#333"} />
-              {/* <Text style={styles.subjects}>Mathematics, English, Science, Social Studies, Special Paper 1, Special Paper 2</Text> */}
-            </TouchableOpacity>
+    <TouchableOpacity
+      style={styles.cards}
+      onPress={() => navigation.navigate("SubjectList", { grade:item })}
+    >
+      <Text style={styles.title}>Grade {item}</Text>
+      <Ionicons name={gradesIcons[item]} size={30} color={"#333"} />
+      {/* <Text style={styles.subjects}>Mathematics, English, Science, Social Studies, Special Paper 1, Special Paper 2</Text> */}
+    </TouchableOpacity>
   );
 
   // useEffect(() => {
@@ -74,9 +70,24 @@ export default function SubjectsScreen({ navigation }) {
 
   const grades = [7, 8, 9, 10, 11, 12];
 
+  const gradesIcons = {
+    7: "telescope",
+    8: "school",
+    9: "sparkles",
+    10: "sunny",
+    11: "aperture",
+    12: "rocket",
+  };
+
   return (
     <View style={styles.container}>
-      <View style={styles.footer}>
+      {/* <SvgBackground
+        seed="zore"
+        // patternIndex={1}
+        backgroundColor="#e5e6fa"
+        patternColor="#B8849B"
+      /> */}
+      <View>
         <Text style={styles.header}>Practice Questions</Text>
         <Text style={styles.subHeader}>Take past papers & exams</Text>
 
@@ -102,14 +113,14 @@ export default function SubjectsScreen({ navigation }) {
         />
       ))} */}
 
-          <FlatList
+        <FlatList
           data={grades}
           // keyExtractor={(item)}
           renderItem={renderItem}
-          contentContainerStyle={styles.listContainer} // Optional: styles for the content container
+          // contentContainerStyle={styles.listContainer} // Optional: styles for the content container
         />
 
-          {/* <TouchableOpacity style={styles.card} 
+        {/* <TouchableOpacity style={styles.card} 
             onPress={() => goToGrade(7)}>
               <Text style={styles.title}>Grade 7</Text>
               <Ionicons name={"star"} size={50} color={"#333"} />
@@ -144,7 +155,6 @@ export default function SubjectsScreen({ navigation }) {
               <Text style={styles.title}>Grade 12</Text>
               <Ionicons name={"school"} size={50} color={"#333"} />
             </TouchableOpacity> */}
-
       </View>
     </View>
   );
@@ -153,11 +163,11 @@ export default function SubjectsScreen({ navigation }) {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    padding: 0,
-    paddingLeft: 0,
+    padding: 20,
     paddingTop: height * 0.08,
     alignItems: "center",
     backgroundColor: "#e5e6fa",
+    // height:height*1.5,
   },
   header: {
     fontSize: 40,
@@ -167,71 +177,33 @@ const styles = StyleSheet.create({
     fontFamily: "Jersey25_400Regular",
     width: 300,
     fontWeight: 600,
-    left: -20,
   },
   subHeader: {
     fontSize: 15,
     marginBottom: 10,
-    left: -20,
     textAlign: "left",
     color: "black",
     fontFamily: "Fredoka_400Regular",
     width: 300,
     fontWeight: 600,
   },
-  subjectHeader: {
-    fontSize: 15,
-    marginBottom: 10,
-    textAlign: "left",
-    color: "black",
-    fontFamily: "Fredoka_400Regular",
-    width: 300,
-    fontWeight: 900,
-  },
-  subject: {
-    elevation: 5,
-    backgroundColor: "#fff",
-    padding: 10,
-    borderRadius: 10,
-    alignItems: "center",
-    justifyContent: "center",
-    width: width * 0.8,
-    left: -20,
-    textAlign: "center",
-  },
-  listContainer: {
-    paddingHorizontal: 10, // Add padding to the sides of the list
-  },
-    card: {
+  cards: {
     borderRadius: 5,
     width: width * 0.8,
     elevation: 5,
-    alignItems: "center",
-    textAlign: "left",
-    padding: 20,
-    paddingBottom: 10,
-    borderColor: "#333",
-    borderWidth: 0,
-    backgroundColor: "white",
-    top: 20,
-    marginBottom: height * 0.01,
-    height: width * 0.24,
+    padding: 19,
+    // paddingHorizontal:20,
+    backgroundColor: "#fff",
+    height: height * 0.1,
     flexDirection: "row",
     justifyContent: "space-between",
+    height: 70,
+    marginVertical: 5,
   },
   title: {
-    fontSize: 40,
+    fontSize: 18,
     textAlign: "left",
     color: "black",
-    fontFamily: "Jersey25_400Regular",
-    fontWeight: 600,
-  },
-  subjects: {
-    fontSize: 14,
-    color: "#000",
-    textAlign: "left",
-    marginBottom: 20,
-    width: width * 0.45,
     fontFamily: "Fredoka_400Regular",
     fontWeight: 600,
   },

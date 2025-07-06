@@ -20,12 +20,38 @@ import { useFonts } from "expo-font";
 const { width, height } = Dimensions.get("window");
 
 const winImage = require("@/assets/win.png");
-const LostImage = require("@/assets/lost.png");
+const LostImage = require("@/assets/images/A.png");
+
+const A = require("@/assets/images/A.png");
+const B = require("@/assets/images/B.png");
+const C = require("@/assets/images/C.png");
+const D = require("@/assets/images/D.png");
+const E = require("@/assets/images/E.png");
+const F = require("@/assets/images/F.png");
 
 export default function ResultScreen({ route, navigation }) {
   const { score, total } = route.params;
   const [currentImage, setCurrentImage] = useState();
-  const [currentText,setCurrentText] = useState();
+  const [currentText, setCurrentText] = useState();
+  const [grading, setGrading] = useState();
+  const [percentage, setPercentage] = useState();
+
+  const gradingLevels = {
+    Excellent: { min: 80, max: 100 },
+    Good: { min: 65, max: 79 },
+    Okay: { min: 50, max: 64 },
+    Poor: { min: 35, max: 49 },
+    Fail: { min: 0, max: 34 },
+  };
+
+  function getGrade(percent) {
+    for (const [grade, range] of Object.entries(gradingLevels)) {
+      if (percent >= range.min && percent <= range.max) {
+        return grade;
+      }
+    }
+    return "Invalid";
+  }
 
   useEffect(() => {
     setImage();
@@ -33,7 +59,13 @@ export default function ResultScreen({ route, navigation }) {
   }, []);
 
   const setImage = () => {
-    if (Math.floor(score / total) > 0.7) {
+    const percent = 100 * Math.floor(score / total);
+    setPercentage(percent);
+
+    const currentGrade = getGrade(percent);
+    setGrading(currentGrade);
+
+    if (percent > 70) {
       // playFinalSound(true)
       setCurrentImage(winImage);
     } else {
@@ -42,13 +74,13 @@ export default function ResultScreen({ route, navigation }) {
     }
   };
 
-    const setText = () => {
+  const setText = () => {
     if (Math.floor(score / total) > 0.7) {
       // playFinalSound(true)
-      setCurrentText('You did Really Well! \n Practice more to maintain good grades!');
+      setCurrentText("Practice more to maintain good grades!");
     } else {
       // playFinalSound(false)
-      setCurrentText("You didn't do well \n Keep practicing and you will improve!");
+      setCurrentText("Practice more to improve!");
     }
   };
 
@@ -56,7 +88,6 @@ export default function ResultScreen({ route, navigation }) {
     <View style={styles.container}>
       <Text style={styles.header}>Final Result</Text>
       <Text style={styles.subHeader}>You're All Done!</Text>
-
 
       <Image
         style={styles.subjectImage}
@@ -66,68 +97,62 @@ export default function ResultScreen({ route, navigation }) {
       />
 
       <View style={styles.card}>
+        <Text style={styles.percentage}>
+          {Math.floor((100 * score) / total)}%
+        </Text>
 
+        <Text style={styles.endTextTitle}>
+          {getGrade(Math.floor((100 * score) / total))}
+        </Text>
 
-   <Text style={styles.percentage}>
-       {Math.floor(100*score/total)}%
-      </Text>
+        <Text style={styles.endText}>{currentText}</Text>
 
-        <Text style={styles.endText}>
-       {currentText}
-      </Text>
+        <View style={styles.footer}>
+          <Text style={{ fontFamily: "Fredoka_400Regular" }}>
+            {score} Questions Correct
+          </Text>
+          <Progress.Bar
+            style={styles.historyProgress}
+            width={width * 0.65}
+            height={20}
+            strokeCap={"butt"}
+            borderRadius={5}
+            borderWidth={0}
+            unfilledColor={"#ACE4AC"}
+            color={"#6CBA6C"}
+            progress={score / total}
+            showsText={true}
+          />
 
+          <Text style={{ fontFamily: "Fredoka_400Regular" }}>
+            {total - score} Questions Wrong
+          </Text>
+          <Progress.Bar
+            style={styles.historyProgress}
+            width={width * 0.65}
+            height={20}
+            strokeCap={"butt"}
+            borderRadius={5}
+            borderWidth={0}
+            unfilledColor={"#FCA4A4"}
+            color={"#FC0404"}
+            progress={(total - score) / total}
+            showsText={true}
+          />
 
-
-      <View style={styles.footer}>
-
-   
-   <Text>
-        {score} Questions Correct
-      </Text>
-              <Progress.Bar
-        style={styles.historyProgress}
-        width={width * 0.7}
-        height={20}
-        strokeCap={"butt"}
-        borderRadius={5}
-        borderWidth={0}
-        unfilledColor={"#ACE4AC"}
-        color={"#6CBA6C"}
-        progress={score / total}
-        showsText={true}
-      />
-
-    <Text>
-        {total-score} Questions Wrong
-      </Text>
-      <Progress.Bar
-        style={styles.historyProgress}
-        width={width * 0.7}
-        height={20}
-        strokeCap={"butt"}
-        borderRadius={5}
-        borderWidth={0}
-        unfilledColor={"#FCA4A4"}
-        color={"#FC0404"}
-        progress={(total-score) / total}
-        showsText={true}
-      />
-
-      <ThemedButton
-        style={styles.button}
-        name="bruce"
-        type="primary"
-        onPress={() => navigation.popToTop()}
-        width={width * 0.7}
-        height={50}
-        borderRadius={5}
-      >
-        BACK TO MENU
-      </ThemedButton>
+          <ThemedButton
+            style={styles.button}
+            name="bruce"
+            type="primary"
+            onPress={() => navigation.popToTop()}
+            width={width * 0.65}
+            height={50}
+            borderRadius={5}
+          >
+            BACK TO MENU
+          </ThemedButton>
+        </View>
       </View>
-      </View>
-
-
     </View>
   );
 }
@@ -135,10 +160,11 @@ export default function ResultScreen({ route, navigation }) {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    padding: 30,
+    padding: 20,
     paddingTop: height * 0.08,
-    alignItems: "left",
+    alignItems: "center",
     backgroundColor: "#e5e6fa",
+    // height:height*1.5,
   },
   header: {
     fontSize: 40,
@@ -149,17 +175,15 @@ const styles = StyleSheet.create({
     width: 300,
     fontWeight: 600,
   },
-    percentage: {
+  percentage: {
     fontSize: 80,
     marginBottom: 0,
     textAlign: "center",
     color: "black",
     fontFamily: "Fredoka_400Regular",
     fontWeight: 600,
-    // borderWidth:1,
-    borderRadius:50,
-    padding:0,
-    paddingTop:10,
+    borderRadius: 50,
+    padding: 0,
   },
   subHeader: {
     fontSize: 20,
@@ -175,17 +199,15 @@ const styles = StyleSheet.create({
     padding: 10,
     marginVertical: 5,
     marginHorizontal: 10,
-    borderRadius: 5,
+    borderRadius: 10,
     alignItems: "center",
     justifyContent: "center",
     elevation: 5,
     width: width * 0.8,
     top: 10,
     height: height * 0.45,
-        // borderWidth:1
-
+    // borderWidth:1
   },
-
   footer: {
     flex: 1,
     justifyContent: "flex-end",
@@ -200,11 +222,17 @@ const styles = StyleSheet.create({
     borderRadius: 5,
     marginVertical: 0,
     borderWidth: 0,
-
   },
-  endText:{
-    textAlign:'center',
-    fontSize:16,
+  endTextTitle: {
+    textAlign: "center",
+    fontSize: 26,
+    color: "blue",
+    fontWeight: 600,
+    fontFamily: "Fredoka_400Regular",
   },
-  
+  endText: {
+    textAlign: "center",
+    fontSize: 16,
+    fontFamily: "Fredoka_400Regular",
+  },
 });
