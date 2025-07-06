@@ -21,7 +21,7 @@ import { useFonts } from "expo-font";
 
 const imagePath1 = require("@/assets/1.png");
 const imagePath2 = require("@/assets/2.png");
-const imagePath3 = require("@/assets/3.png");
+const imagePath3 = require("@/assets/images/3.png");
 
 const { width, height } = Dimensions.get("window");
 
