@@ -1,12 +1,6 @@
 // screens/ResultScreen.js
 import React, { useState, useEffect } from "react";
-import {
-  View,
-  Text,
-  StyleSheet,
-  Image,
-  Dimensions,
-} from "react-native";
+import { View, Text, StyleSheet, Image, Dimensions } from "react-native";
 import { PieChart } from "react-native-gifted-charts";
 
 import * as Progress from "react-native-progress";
@@ -15,7 +9,7 @@ import { Fredoka_400Regular } from "@expo-google-fonts/fredoka";
 import { Jersey25_400Regular } from "@expo-google-fonts/jersey-25";
 import { useFonts } from "expo-font";
 const { width, height } = Dimensions.get("window");
-import SvgBackground from "@/components/SvgBackground";
+import GradingThemes from "@/utils/gradingTheme"
 
 const winImage = require("@/assets/win.png");
 const LostImage = require("@/assets/images/A.png");
@@ -29,23 +23,11 @@ const F = require("@/assets/images/F.png");
 
 export default function ResultScreen({ route, navigation }) {
   const { score, total } = route.params;
-  const [currentImage, setCurrentImage] = useState();
   const [currentText, setCurrentText] = useState();
   const [grading, setGrading] = useState();
-  // const [percentage, setPercentage] = useState();
-  const percentage = score / total;
-
-  const gradingLevels = {
-    Excellent: { min: 90, max: 100, image:A },
-    Great: { min: 80, max: 89, image:B },
-    Good: { min: 70, max: 79, image:C },
-    Okay: { min: 60, max: 69, image:D },
-    Poor: { min: 50, max: 59,image:E },
-    Fail: { min: 0, max: 49,image:F },
-  };
 
   function getGrade(percent) {
-    for (const [grade, range] of Object.entries(gradingLevels)) {
+    for (const [grade, range] of Object.entries(GradingThemes)) {
       if (percent >= range.min && percent <= range.max) {
         return grade;
       }
@@ -53,134 +35,84 @@ export default function ResultScreen({ route, navigation }) {
     return "Invalid";
   }
 
-      const pieData = [
-        {value: score, color: '#333'},
-        {value: total-score, color: '#eee'},
-        // {value: 20, color: '#ED6665', text: '26%'},
-
-    ];
-
-    
+  const pieData = [
+    { value: score, color: "#333" },
+    { value: total - score, color: "#eee" },
+  ];
 
   useEffect(() => {
-    
-    const percent = 100 * Math.floor(score / total);
-    // setPercentage(percent);
-
-    const currentGrade = getGrade(percent);
-    setGrading(currentGrade);
-
-    setCurrentImage(gradingLevels[currentGrade].image)
-
-
-    setText();
+    setGrading(100 * Math.floor(score / total));
   }, []);
-
-
-
-  const setText = () => {
-    if (Math.floor(score / total) > 0.7) {
-      // playFinalSound(true)
-      setCurrentText("Practice more to maintain good grades!");
-    } else {
-      // playFinalSound(false)
-      setCurrentText("Practice more. You will improve!");
-    }
-  };
 
   return (
     <View style={styles.container}>
-        {/* <SvgBackground
+      <SvgBackground
           seed={"jfeewqax"}
           patternIndex={1}
           backgroundColor={"#CFBCDF"}
           patternColor={"#6A3BCE"}
-        /> */}
-        
-        <View>
-      <Text style={styles.header}>Final Result</Text>
-      <Text style={styles.subHeader}>You're All Done!</Text>
+        />
 
+      <View>
+        <Text style={styles.header}>Final Result</Text>
+        <Text style={styles.subHeader}>Congrats on Finishing!</Text>
 
-      <View style={styles.card}>
-
-
-      <Image
-        style={styles.subjectImage}
-        source={currentImage}
-        width={width * 0.7}
-        height={200}
-      />
-            <PieChart
+        <View style={styles.card}>
+          <PieChart
             donut
             showText
             textColor="black"
-            radius={80}
+            radius={100}
             textSize={20}
             sectionAutoFocus
-            innerRadius={60}
+            innerRadius={80}
             // showTextBackground
             // textBackgroundRadius={0}
+            isAnimated
             data={pieData}
             centerLabelComponent={() => {
-                return <Text style={{paddingLeft:10,fontSize: 30}}>{100 * (score/total)}%</Text>;
-                }}
-            />
+              return (
+                <Text style={{ paddingLeft: 10, fontSize: 30 }}>
+                  {100 * (score / total)}%
+                </Text>
+              );
+            }}
+          />
 
-        <View style={styles.footer}>
-          {/* <Text style={{ fontFamily: "Fredoka_400Regular" }}>
-            {score} Questions Correct
-          </Text>
-          <Progress.Bar
-            style={styles.historyProgress}
-            width={width * 0.65}
-            height={20}
-            strokeCap={"butt"}
-            borderRadius={5}
-            borderWidth={0}
-            unfilledColor={"#ACE4AC"}
-            color={"#6CBA6C"}
-            progress={score / total}
-            showsText={true}
-          /> */}
+          <View style={styles.footer}>
+            <Text style={[styles.endTextTitle,{color:GradingThemes[getGrade(grading)].color, backgroundColor:GradingThemes[getGrade(grading)].backgroundColor}]}>
+              {getGrade(grading)}
+            </Text>
 
+            <Text style={styles.endText}>
+              {GradingThemes[getGrade(grading)].text}
+            </Text>
 
-          {/* <Text style={{ fontFamily: "Fredoka_400Regular" }}>
-            {total - score} Questions Wrong
-          </Text>
-          <Progress.Bar
-            style={styles.historyProgress}
-            width={width * 0.65}
-            height={20}
-            strokeCap={"butt"}
-            borderRadius={5}
-            borderWidth={0}
-            unfilledColor={"#FCA4A4"}
-            color={"#FC0404"}
-            progress={(total - score) / total}
-            showsText={true}
-          /> */}
-
-        <Text style={styles.endTextTitle}>
-          {getGrade(Math.floor((100 * score) / total))}
-        </Text>
-
-        <Text style={styles.endText}>{currentText}</Text>
-
-          <ThemedButton
-            style={styles.button}
-            name="bruce"
-            type="primary"
-            onPress={() => navigation.popToTop()}
-            width={width * 0.65}
-            height={50}
-            borderRadius={5}
-          >
-            BACK TO MENU
-          </ThemedButton>
+            <ThemedButton
+              style={styles.button}
+              name="bruce"
+              type="primary"
+              onPress={() => navigation.popToTop()}
+              width={width * 0.65}
+              height={50}
+              borderRadius={5}
+            >
+              BACK TO LIBRARY
+            </ThemedButton>
+            <ThemedButton
+              style={styles.button}
+              name="bruce"
+              type="secondary"
+              onPress={() => navigation.navigate("Main", { screen: "History" })}
+              width={width * 0.65}
+              height={50}
+              borderRadius={5}
+            >
+              GO TO HISTORY
+            </ThemedButton>
+          </View>
         </View>
       </View>
-    </View>
     </View>
   );
 }
@@ -222,22 +154,22 @@ const styles = StyleSheet.create({
     width: 300,
     fontWeight: 600,
   },
-   subjectImage: {
+  subjectImage: {
     alignSelf: "center",
-    marginBottom:40,
-   },
+    marginBottom: 40,
+  },
   card: {
     backgroundColor: "#fff",
     padding: 10,
     marginVertical: 5,
-    paddingVertical:50,
+    paddingVertical: 40,
     borderRadius: 5,
     alignItems: "center",
     justifyContent: "center",
     elevation: 5,
     width: width * 0.8,
     top: 10,
-    height: height * 0.8,
+    height: 570,
     // borderWidth:1
   },
   footer: {
@@ -257,14 +189,18 @@ const styles = StyleSheet.create({
   },
   endTextTitle: {
     textAlign: "center",
-    fontSize: 26,
-    color: "black",
+    fontSize: 20,
+    color: "white",
     fontWeight: 600,
     fontFamily: "Fredoka_400Regular",
+    marginBottom: 15,
+    padding: 10,
+    borderRadius: 5,
   },
   endText: {
     textAlign: "center",
     fontSize: 16,
     fontFamily: "Fredoka_400Regular",
+    width: 250,
   },
 });

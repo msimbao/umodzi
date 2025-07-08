@@ -19,12 +19,16 @@ import { Jersey25_400Regular } from "@expo-google-fonts/jersey-25";
 import * as SplashScreen from "expo-splash-screen";
 import { useFonts } from "expo-font";
 const { width, height } = Dimensions.get("window");
+import GradingThemes from "@/utils/gradingTheme";
+import * as Progress from "react-native-progress";
 
 export default function HistoryScreen() {
   const [scores, setScores] = useState([]);
   const [selectedSubject, setSelectedSubject] = useState("All");
-
-  // const subjects = ['All', 'Math', 'Science', 'English'];
+  const [selectedIndex, setSelectedIndex] = useState(null);
+  const [selectedGrade, setSelectedGrade] = useState(null);
+  const [selectedTitle, setSelectedTitle] = useState(null);
+  const [selectedSubjectIndex, setSelectedSubjectIndex] = useState(null);
 
   const subjects = useMemo(() => {
     const uniqueSubjects = [...new Set(scores.map((item) => item.subject))];
@@ -34,10 +38,9 @@ export default function HistoryScreen() {
   useEffect(() => {
     const fetchScores = async () => {
       const data = await getScores();
-      setScores(data.reverse()); // show most recent first
+      setScores(data); // show most recent first
     };
     fetchScores();
-    console.log(data);
   }, []);
 
   const filteredData =
@@ -45,9 +48,64 @@ export default function HistoryScreen() {
       ? scores
       : scores.filter((item) => item.subject === selectedSubject);
 
-  const data = scores.map((item) => ({
+  const barData = scores.map((item) => ({
     value: (100 * item.score) / item.total,
+    grade: item.grade,
+    subject: item.subject,
+    title: item.title,
   }));
+
+  const total = 100; // Max possible score, used for percentage
+
+  // Add onPress and conditional top label
+  const chartData = barData.map((bar, index) => ({
+    ...bar,
+    onPress: () => {
+      setSelectedIndex(index);
+      setSelectedGrade(barData[index].grade);
+      setSelectedSubjectIndex(barData[index].subject);
+      setSelectedTitle(barData[index].title);
+    },
+    topLabelComponent: () =>
+      selectedIndex === index ? (
+        <Text
+          style={{
+            fontSize: 12,
+            fontWeight: "bold",
+            color: "#333",
+            marginBottom: 4,
+          }}
+        >
+          {Math.round((bar.value / total) * 100)}%
+        </Text>
+      ) : null,
+  }));
+
+  const getGrade = (percentage) => {
+    if (percentage == 100) return "PERFECT";
+    if (percentage >= 90) return "EXCELLENT";
+    if (percentage >= 80) return "GREAT";
+    if (percentage >= 70) return "GOOD";
+    if (percentage >= 60) return "OKAY";
+    if (percentage >= 50) return "POOR";
+    return "FAIL";
+  };
+
+  const gradeCounts = {
+    EXCELLENT: 0,
+    PERFECT: 0,
+    GREAT: 0,
+    GOOD: 0,
+    OKAY: 0,
+    POOR: 0,
+    FAIL: 0,
+  };
+
+  scores.forEach(({ score, total }) => {
+    const percentage = Math.floor((score / total) * 100);
+    const grade = getGrade(percentage);
+    gradeCounts[grade]++;
+  });
 
   const renderFilterButtons = () => (
     <View style={styles.filterContainer}>
@@ -73,59 +131,88 @@ export default function HistoryScreen() {
     </View>
   );
 
-  const renderItem = ({ item }) => (
-    <View style={styles.cards}>
-      <Text style={styles.scoreTitle}>
-        Grade {item.grade} - {item.title}
-        {item.date.getMinutes}
-      </Text>
-
-      <Text style={{ fontSize: 20 }}>
-        {Math.floor((100 * item.score) / item.total)} %
-      </Text>
-      <Text style={{ fontSize: 15 }}>
-        Score: {item.score} / {item.total}
-      </Text>
-      <Progress.Bar
-        style={styles.historyProgress}
-        progress={item.score / item.total}
-        width={200}
-        height={15}
-        color={"black"}
-      />
-      <Text>{new Date(item.date).toLocaleString()}</Text>
-    </View>
-  );
-
   return (
     <View style={styles.container}>
-      <Text style={styles.header}>Recent History</Text>
-      <Text style={styles.subHeader}>Track your performance</Text>
+      <View>
+        <Text style={styles.header}>Recent History</Text>
+        <Text style={styles.subHeader}>Track your performance</Text>
+        {renderFilterButtons()}
 
-      {/* {renderFilterButtons()} */}
-      {scores.length === 0 ? (
-        <Text style={styles.emptyText}>No scores yet. Try a quiz!</Text>
-      ) : (
-        <View>
-          <View>
+        <View style={styles.card}>
+          <Text
+            style={{
+              color: "black",
+              fontSize: 15,
+              fontWeight: "bold",
+              textAlign: "center",
+              paddingBottom: 20,
+            }}
+          >
+            History Of Last 10 Tests
+          </Text>
+          {scores.length === 0 ? (
+            <Text style={styles.emptyText}>No scores yet. Try a quiz!</Text>
+          ) : (
             <BarChart
               // showFractionalValue
               // showYAxisIndices
               // hideRules
-              // noOfSections={10}
-              // maxValue={100}
-              data={data}
-              // barWidth={10}
+              maxValue={100}
+              // yAxisLabelTexts={[ "20", "60", "80", "100",]} // No 0 here
+              noOfSections={4}
+              data={chartData.slice(0, 7)}
+              barWidth={25}
+              spacing={5}
               // sideWidth={20}
               // curveType={CurveType.QUADRATIC}
               isAnimated
-           
+              width={width * 0.55} // Force a wider chart width
               side="right"
+              barBorderRadius={3}
+              xAxisThickness={2}
+              yAxisThickness={1}
+              yAxisColor={"#eee"}
+              xAxisColor={"#eee"}
+              rulesColor={"#eee"}
+              rulesType={"solid"}
+              textFontSize={5}
+              height={170}
+              yAxisTextStyle={{
+                fontSize: 10, // 👈 change this to your preferred size
+                color: "#555",
+              }}
             />
-          </View>
+          )}
+          <View
+            style={{ flexDirection: "row", justifyContent: "space-between" }}
+          >
+            { selectedIndex ? (            
+             <>
+              <Text style={styles.selectedText}>Grade {selectedGrade}</Text>
+            <Text style={styles.selectedText}>{selectedSubjectIndex}</Text>
+            <Text style={styles.selectedText}>{selectedTitle}</Text>
+          </>
+        ) :
+            (
+              <View></View>
+            )}
 
+          </View>
         </View>
-      )}
+
+        <View style={[styles.card,{textAlign:"left"}]}>
+          <Text style={[styles.selectedText, { fontSize: 10 }]}>
+            FAIL - {gradeCounts["FAIL"]} %
+          </Text>
+          <Progress.Bar
+            style={styles.historyProgress}
+            progress={gradeCounts["FAIL"] / 7}
+            width={width * 0.65}
+            height={15}
+            color={GradingThemes["FAIL"].backgroundColor}
+          />
+        </View>
+      </View>
     </View>
   );
 }
@@ -134,10 +221,10 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     padding: 20,
-    paddingLeft: 30,
     paddingTop: height * 0.08,
-    alignItems: "left",
+    alignItems: "center",
     backgroundColor: "#e5e6fa",
+    // height:height*1.5,
   },
   header: {
     fontSize: 40,
@@ -157,36 +244,31 @@ const styles = StyleSheet.create({
     width: 300,
     fontWeight: 600,
   },
-
   headerImage: {
     top: -20,
     resizeMode: "contain",
   },
   cards: {
     borderRadius: 5,
-    width: width * 0.8,
+    width: width * 0.75,
     marginVertical: 10,
     elevation: 3,
-    alignItems: "center",
+    alignItems: "left",
     padding: 20,
     borderColor: "black",
-    borderWidth: 1,
     backgroundColor: "white",
-    top: 20,
+    marginRight: 10,
   },
   scoreTitle: {
     fontSize: 20,
     marginBottom: 10,
-    textAlign: "center",
+    textAlign: "left",
     color: "black",
     fontFamily: "Jersey25_400Regular",
     width: 300,
     fontWeight: 600,
   },
-  button: {
-    bottom: 50,
-    marginTop: 50,
-  },
+
   historyProgress: {
     borderRadius: 2,
     marginVertical: 10,
@@ -196,25 +278,66 @@ const styles = StyleSheet.create({
   },
   filterContainer: {
     flexDirection: "row",
-    justifyContent: "center",
-    marginBottom: 16,
+    justifyContent: "left",
+    // marginBottom: 16,
     flexWrap: "wrap",
+    width: width * 0.75,
   },
   button: {
     paddingVertical: 6,
     paddingHorizontal: 12,
-    borderRadius: 20,
-    backgroundColor: "#ddd",
-    marginHorizontal: 4,
+    borderRadius: 5,
+    backgroundColor: "#fff",
+    marginRight: 4,
     marginBottom: 8,
   },
   buttonActive: {
-    backgroundColor: "#5e60ce",
+    backgroundColor: "#333",
   },
   buttonText: {
-    color: "#333",
+    fontSize: 10,
   },
   buttonTextActive: {
+    color: "white",
+  },
+  card: {
+    borderRadius: 5,
+    width: width * 0.8,
+    alignItems: "center",
+    textAlign: "left",
+    borderColor: "#333",
+    borderWidth: 0,
+    padding: 20,
+    marginVertical: 5,
+    backgroundColor: "#fff",
+  },
+  topPart: {
+    width: width * 0.8,
+    backgroundColor: "white",
+    elevation: 5,
+    borderRadius: 5,
+    padding: 20,
+    marginBottom: 5,
+    paddingTop: 50,
+  },
+  emptyTextTitle: {
+    marginVertical: 20,
+    textAlign: "center",
+    fontFamily: "Jersey25_400Regular",
+    fontSize: 40,
+  },
+  emptyTextSentence: {
+    marginVertical: 10,
+    textAlign: "center",
+    fontFamily: "Fredoka_400Regular",
+    fontSize: 15,
+  },
+  selectedText: {
+    backgroundColor: "#333",
+    borderRadius: 5,
+    padding: 7,
     color: "#fff",
+    marginHorizontal: 2,
+    fontSize: 10,
   },
 });
