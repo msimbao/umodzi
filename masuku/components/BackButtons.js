@@ -16,7 +16,7 @@ export default function BackButtons() {
         name="bruce"
         type="primary"
         onPress={() => navigation.goBack()}
-        width={100}
+        width={95}
         height={40}
         raiseLevel={5}
         borderRadius={5}
@@ -29,7 +29,7 @@ export default function BackButtons() {
         name="bruce"
         type="primary"
         onPress={() => navigation.popToTop()}
-        width={100}
+        width={95}
         height={40}
         raiseLevel={5}
         borderRadius={5}
@@ -42,7 +42,7 @@ export default function BackButtons() {
         name="bruce"
         type="primary"
         onPress={() => navigation.navigate("Main", { screen: "Settings" })}
-        width={100}
+        width={95}
         height={40}
         raiseLevel={5}
         borderRadius={5}

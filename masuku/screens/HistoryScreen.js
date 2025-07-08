@@ -11,7 +11,6 @@ import {
   TouchableOpacity,
 } from "react-native";
 import { getScores } from "@/utils/ScoreTracker";
-import * as Progress from "react-native-progress";
 import { BarChart } from "react-native-gifted-charts";
 
 import { ThemedButton } from "react-native-really-awesome-button";
@@ -110,25 +109,21 @@ export default function HistoryScreen() {
         <View>
           <View>
             <BarChart
-              showFractionalValue
-              showYAxisIndices
-              hideRules
-              noOfSections={10}
-              maxValue={100}
+              // showFractionalValue
+              // showYAxisIndices
+              // hideRules
+              // noOfSections={10}
+              // maxValue={100}
               data={data}
-              barWidth={10}
-              sideWidth={20}
-              // isThreeD
+              // barWidth={10}
+              // sideWidth={20}
+              // curveType={CurveType.QUADRATIC}
+              isAnimated
+           
               side="right"
             />
           </View>
-          <Progress.Bar
-            style={styles.historyProgress}
-            progress={3 / 4}
-            width={200}
-            height={15}
-            color={"black"}
-          ></Progress.Bar>
+
         </View>
       )}
     </View>

@@ -24,7 +24,7 @@ import { getNavOptions } from "expo-router/build/views/Sitemap";
 
 import SvgBackground from "@/components/SvgBackground";
 
-const store = require("@/assets/images/nobooks.png");
+const store = require("@/assets/images/30.png");
 
 export default function StoreScreen({ navigation }) {
   const [loaded, error] = useFonts({
@@ -94,12 +94,7 @@ export default function StoreScreen({ navigation }) {
       style={styles.cards}
     >
       <Text style={styles.title}>{item.title}</Text>
-      {/* <Image
-        style={styles.subjectImage}
-        source={item.image}
-        width={50}
-        height={50}
-      /> */}
+
       <Ionicons name={item.iconName} size={30} color={"#333"} />
     </TouchableOpacity>
   );
@@ -121,13 +116,13 @@ export default function StoreScreen({ navigation }) {
             <Image
               style={styles.storeImage}
               source={store}
-              width={width * 0.7}
-              height={250}
+              width={width}
+              height={280}
             />
 
             <Text style={styles.header}>Get Started</Text>
             <Text style={styles.subHeader}>
-              Select your grade and start revising.
+              Select your grade and start exploring.
             </Text>
           </View>
 

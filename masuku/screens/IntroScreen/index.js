@@ -1,12 +1,10 @@
-import React, { useEffect, useState, useRef } from "react";
+import React, { useState, useRef, useEffect } from "react";
 import {
   View,
   Text,
   StyleSheet,
   Dimensions,
-  Pressable,
   FlatList,
-  Animated,
   Image,
 } from "react-native";
 import AsyncStorage from "@react-native-async-storage/async-storage";
@@ -15,12 +13,29 @@ import { ThemedButton } from "react-native-really-awesome-button";
 import { Fredoka_400Regular } from "@expo-google-fonts/fredoka";
 import { Jersey25_400Regular } from "@expo-google-fonts/jersey-25";
 import * as SplashScreen from "expo-splash-screen";
-import SvgBackground from "@/components/SvgBackground"
+import SvgBackground from "@/components/SvgBackground";
 
 import { useFonts } from "expo-font";
+import * as Font from "expo-font";
+import { Asset } from "expo-asset";
+import FontAwesome from "@expo/vector-icons/FontAwesome";
 
-const imagePath1 = require("@/assets/1.png");
-const imagePath2 = require("@/assets/2.png");
+function cacheImages(images) {
+  return images.map((image) => {
+    if (typeof image === "string") {
+      return Image.prefetch(image);
+    } else {
+      return Asset.fromModule(image).downloadAsync();
+    }
+  });
+}
+
+function cacheFonts(fonts) {
+  return fonts.map((font) => Font.loadAsync(font));
+}
+
+const imagePath1 = require("@/assets/images/1.png");
+const imagePath2 = require("@/assets/images/2.png");
 const imagePath3 = require("@/assets/images/3.png");
 
 const { width, height } = Dimensions.get("window");
@@ -31,54 +46,56 @@ const slides = [
     iconName: "arrow-forward-outline",
     image: imagePath1,
     title: "STUDY SMARTER",
-    description:"Access thousands of digital resources to learn, revise, and practice—wherever you are, whenever you need.",
+    description:
+      "Access thousands of digital resources to learn, revise, and practice—wherever you are, whenever you need.",
     backgroundColor: "#e5e6fa",
-    seed:"two"
+    seed: "two",
   },
   {
     key: "two",
     iconName: "checkmark-outline",
     image: imagePath2,
     title: "STUDY CORRECTLY",
-    description:"Take tests & quizzes, get graded immediately, and understand your mistakes through instant corrections",
+    description:
+      "Take tests & quizzes, get graded immediately, and understand your mistakes through instant corrections",
     backgroundColor: "#d8bfd8",
-    seed:"one"
+    seed: "one",
   },
   {
     key: "three",
     iconName: "checkmark-done-outline",
     image: imagePath3,
     title: "STUDY BEYOND",
-    description:"Explore topics like saving, investing, and building a future—because education is more than passing tests.",
+    description:
+      "Explore topics that take you further than your classes - a bright future is about is more than passing tests.",
     backgroundColor: "#fddab8",
-    seed:"eleven"
+    seed: "eleven",
   },
 ];
 
 export default function IntroScreen({ navigation }) {
+    const [index, setIndex] = useState(0);
   const [loaded, error] = useFonts({
     Fredoka_400Regular,
     Jersey25_400Regular,
   });
 
-  // useEffect(() => {
-  //   if (loaded || error) {
-  //     SplashScreen.hideAsync();
-  //   }
-  // }, [loaded, error]);
+  useEffect(() => {
+    if (loaded || error) {
+      SplashScreen.hideAsync();
+    }
+  }, [loaded, error]);
 
-  // if (!loaded && !error) {
-  //   return null;
-  // }
+  if (!loaded && !error) {
+    return null;
+  }
 
   const handleContinue = async () => {
     await AsyncStorage.setItem("hasSeenIntro", "true");
     navigation.replace("Main");
   };
 
-  const scrollX = useRef(new Animated.Value(0)).current;
-  const flatListRef = useRef(null);
-  const [index, setIndex] = useState(0);
+  const flatListRef = useRef();
 
   const handleNext = () => {
     if (flatListRef.current && index < slides.length - 1) {
@@ -88,22 +105,21 @@ export default function IntroScreen({ navigation }) {
 
   const renderItem = ({ item }) => {
     return (
-      <View
-        style={[
-          styles.slideContainer,
-        ]}
-      >                           
-       <SvgBackground seed={item.description} style={{width:width,height:height}}/>
+      <View style={[styles.slideContainer]}>
 
-                            {/* <SvgBackground seed="3924" style={{width:width,height:height}}/> */}
-                            {/* <SvgBackground seed="20824"  style={{width:width,height:height}}/> */}
-                            <SvgBackground seed={item.seed} backgroundColor={"#CFBCDF"} patternColor={"#6A3BCE"}/>
-                            {/* <SvgBackground seed="zambia-03" patternIndex={60} backgroundColor="#CFBCDF" patternColor="#B8849B" /> */}
+        {/* <SvgBackground seed="3924" style={{width:width,height:height}}/> */}
+        {/* <SvgBackground seed="20824"  style={{width:width,height:height}}/> */}
+        <SvgBackground
+          seed={item.seed}
+          backgroundColor={"#CFBCDF"}
+          patternColor={"#6A3BCE"}
+        />
+        {/* <SvgBackground seed="zambia-03" patternIndex={60} backgroundColor="#CFBCDF" patternColor="#B8849B" /> */}
 
-        <Animated.View style={[styles.card]}>
-          <Image style={styles.image} source={item.image} />
-
+        <View style={[styles.card]}>
           <View style={styles.background}></View>
+
+          <Image style={styles.image} source={item.image} />
 
           <View style={styles.footer}>
             <Text style={styles.title}>{item.title}</Text>
@@ -143,14 +159,13 @@ export default function IntroScreen({ navigation }) {
               </ThemedButton>
             )}
           </View>
-        </Animated.View>
+        </View>
       </View>
     );
   };
 
   return (
-     
-    <Animated.FlatList
+    <FlatList
       ref={flatListRef}
       data={slides}
       horizontal
@@ -159,10 +174,10 @@ export default function IntroScreen({ navigation }) {
       renderItem={renderItem}
       showsHorizontalScrollIndicator={false}
       scrollEventThrottle={100}
-      onScroll={Animated.event(
-        [{ nativeEvent: { contentOffset: { x: scrollX } } }],
-        { useNativeDriver: false }
-      )}
+      // onScroll={Animated.event(
+      //   [{ nativeEvent: { contentOffset: { x: scrollX } } }],
+      //   { useNativeDriver: false }
+      // )}
       onMomentumScrollEnd={(event) => {
         const newIndex = Math.round(event.nativeEvent.contentOffset.x / width);
         setIndex(newIndex);
@@ -187,7 +202,7 @@ const styles = StyleSheet.create({
     bottom: 50,
   },
   background: {
-    borderRadius:10,
+    borderRadius: 10,
     width: width * 0.9,
     elevation: 10,
     alignItems: "center",
@@ -195,7 +210,7 @@ const styles = StyleSheet.create({
     backgroundColor: "white",
     position: "absolute",
     bottom: 0,
-    zIndex: -1,
+    zIndex: 0,
     borderWidth: 0,
   },
   introHeader: {

@@ -14,7 +14,6 @@ import SubjectsScreen from "../screens/SubjectsScreen";
 import StoreScreen from "../screens/StoreScreen";
 import HistoryScreen from "../screens/HistoryScreen";
 import HistoryListScreen from "../screens/HistoryListScreen";
-
 import SettingsScreen from "../screens/SettingsScreen";
 
 const Tab = createMaterialTopTabNavigator();
@@ -35,7 +34,7 @@ export default function MainTabs() {
       {/* <Tab.Screen name="Home" component={HomeScreen} /> */}
       <Tab.Screen name="Store" component={StoreScreen} />
       <Tab.Screen name="Subjects" component={SubjectsScreen} />
-      <Tab.Screen name="History" component={HistoryListScreen} />
+      <Tab.Screen name="History" component={HistoryScreen} />
       <Tab.Screen name="Settings" component={SettingsScreen} />
     </Tab.Navigator>
   );

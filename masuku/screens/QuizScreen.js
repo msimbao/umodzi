@@ -13,13 +13,11 @@ import { saveScore } from "@/utils/ScoreTracker";
 import * as Speech from "expo-speech";
 import { Audio } from "expo-av";
 import { Ionicons } from "@expo/vector-icons";
+import { SvgXml } from "react-native-svg";
 
 import * as Progress from "react-native-progress";
 import { ThemedButton } from "react-native-really-awesome-button";
-import { Fredoka_400Regular } from "@expo-google-fonts/fredoka";
-import { Jersey25_400Regular } from "@expo-google-fonts/jersey-25";
-import * as SplashScreen from "expo-splash-screen";
-import { useFonts } from "expo-font";
+
 const { width, height } = Dimensions.get("window");
 
 import BackButtons from "@/components/BackButtons";
@@ -40,6 +38,7 @@ export default function QuizScreen({ route, navigation }) {
   const [isCorrect, setIsCorrect] = useState();
 
   const handleSubmit = () => {
+    Speech.stop()
     onModalOpen();
     if (isSubmitted || selectedOption === null) return;
 
@@ -59,6 +58,7 @@ export default function QuizScreen({ route, navigation }) {
   };
 
   const handlePlay = (inputValue) => {
+    Speech.stop()
     Speech.speak(inputValue, {
       rate: currentRate,
     });
@@ -148,7 +148,46 @@ export default function QuizScreen({ route, navigation }) {
       />
       </View>
 
+                   {!isSubmitted ? (
+          <View>
+            <ThemedButton
+              style={styles.button}
+              onPress={handleSubmit}
+              name="bruce"
+              type="primary"
+              disabled={selectedOption === null}
+              height={55}
+              width={width * 0.85}
+              borderRadius={5}
+            >
+              SUBMIT
+            </ThemedButton>
+          </View>
+        ) : (
+          <>
+          
+          <View style={{marginTop:0}}>
+            <ThemedButton
+              style={styles.button}
+              name="bruce"
+              type="primary"
+              onPress={handleNext}
+              width={width * 0.85}
+              height={55}
+              borderRadius={5}
+            >
+              {currentIndex + 1 < quiz.questions.length ? "NEXT" : "FINISH"}
+            </ThemedButton>
+
+
+            </View>
+          </>
+          
+        )}
+
       <ScrollView contentContainerStyle={styles.card}>
+
+   
         {/* Show image if available */}
 
         {/*  {currentQuestion.image && (
@@ -159,6 +198,7 @@ export default function QuizScreen({ route, navigation }) {
           />
         )}
           */}
+        {/* <SvgXml xml={currentQuestion.image} width="100" height="100" /> */}
 
         <View style={styles.questionView}>
           <Text style={styles.questionText}>{currentQuestion.question}</Text>
@@ -197,59 +237,11 @@ export default function QuizScreen({ route, navigation }) {
           </Pressable>
         ))}
 
-        {!isSubmitted ? (
-          <View>
-            <ThemedButton
-              style={styles.button}
-              onPress={handleSubmit}
-              name="bruce"
-              type="primary"
-              disabled={selectedOption === null}
-              height={55}
-              width={width * 0.75}
-              borderRadius={5}
-            >
-              SUBMIT
-            </ThemedButton>
-          </View>
-        ) : (
-          <>
-          
-          <View style={{marginTop:0}}>
-            <ThemedButton
-              style={styles.button}
-              name="bruce"
-              type="primary"
-              onPress={handleNext}
-              width={width * 0.75}
-              height={55}
-              borderRadius={5}
-            >
-              {currentIndex + 1 < quiz.questions.length ? "NEXT" : "FINISH"}
-            </ThemedButton>
 
-{/*           
-            <ThemedButton
-              style={styles.button}
-              name="bruce"
-              type="secondary"
-              onPress={onModalOpen}
-              width={width * 0.7}
-              height={55}
-              borderRadius={4}
-              raiseLevel={5}
-              backgroundColor={"#eee"}
-            >
-              SHOW EXPLANATION
-            </ThemedButton> */}
-            </View>
-          </>
-          
-        )}
       </ScrollView>
 
       <Modal
-        animationType="slide"
+        animationType="fade"
         backdropColor={"#333"}
         transparent={true}
         visible={isModalVisible}
@@ -466,7 +458,7 @@ const styles = StyleSheet.create({
     elevation: 5,
     alignItems: "center",
     padding: 20,
-    paddingTop: 30,
+    // paddingTop: 30,
     backgroundColor: "#fff",
     top: 0,
     borderWidth: 0,

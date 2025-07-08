@@ -9,14 +9,13 @@ import {
   Image,
 } from "react-native";
 import { getLocalQuizzes } from "@/utils/QuizStore";
-import { Ionicons } from "@expo/vector-icons";
 
 import { ThemedButton } from "react-native-really-awesome-button";
 import { Fredoka_400Regular } from "@expo-google-fonts/fredoka";
 import { Jersey25_400Regular } from "@expo-google-fonts/jersey-25";
-import * as SplashScreen from "expo-splash-screen";
 import { useFonts } from "expo-font";
 const { width, height } = Dimensions.get("window");
+import ExpandableList from '@/components/ExpandableList'; // Adjust path as needed
 
 import BackButtons from "@/components/BackButtons";
 const nohistory = require("@/assets/images/empty.png");
@@ -36,10 +35,8 @@ export default function QuizListScreen({ route, navigation }) {
   );
 
   useEffect(() => {
-    // console.log(item)
     (async () => {
       const data = await getLocalQuizzes();
-      // setData(data)
       const filtered = data.filter(
         (item) => item.grade == grade && item.subject == subject
       );
@@ -49,9 +46,12 @@ export default function QuizListScreen({ route, navigation }) {
 
   const renderItem = ({ item }) => (
     <View style={styles.cards}>
-      <Text style={[styles.subjectName, { fontSize: 30 }]}>{item.title} </Text>
-      <Text style={styles.subjectName}>
-        Total Questions: {item.questions.length}{" "}
+      <Text style={styles.title}>{item.title} </Text>
+      <Text style={styles.subTitle}>
+        Total Questions: {item.questions.length}
+      </Text>
+      <Text style={styles.subTitle}>
+       Duration: {item.questions.length * 1.5} Minutes
       </Text>
 
       <ThemedButton
@@ -75,30 +75,11 @@ export default function QuizListScreen({ route, navigation }) {
         <BackButtons />
 
         <TextInput
-          placeholder="> Search For Tests Here..."
+          placeholder="Search For Tests Here..."
           value={search}
           onChangeText={setSearch}
           style={styles.input}
         />
-
-        {/* {filteredData.map((quiz) => (
-        <View style={styles.cards} key={quiz.id}>
-          <Text style={[styles.subjectName, {fontSize:30} ]}>{quiz.title} </Text>
-          <Text style={styles.subjectName}>Total Questions: {quiz.questions.length} </Text>
-
-
-          <ThemedButton
-            style={styles.button}
-            onPress={() => navigation.navigate("Quiz", { quiz })}
-            name="bruce"
-            type="primary"
-            height={40}
-            width={width * 0.7}
-          >
-            START TEST
-          </ThemedButton>
-        </View>
-      ))} */}
 
         {quizzes.length === 0 ? (
           <View style={styles.topPart}>
@@ -131,8 +112,10 @@ export default function QuizListScreen({ route, navigation }) {
           <FlatList
             data={filteredData}
             renderItem={renderItem}
-            showsHorizontalScrollIndicator={false}
+                showsVerticalScrollIndicator={false}
+          contentContainerStyle={{ paddingBottom: width*0.01}} // <-- Adds space at the bottom
           />
+                // <ExpandableList data={filteredData} />
         )}
       </View>
     </View>
@@ -166,19 +149,6 @@ const styles = StyleSheet.create({
     width: 300,
     fontWeight: 600,
   },
-  subjectHeader: {
-    fontSize: 15,
-    marginBottom: 10,
-    textAlign: "left",
-    color: "black",
-    fontFamily: "Fredoka_400Regular",
-    width: 300,
-    fontWeight: 900,
-  },
-
-  // listContainer: {
-  //   paddingHorizontal: 10, // Add padding to the sides of the list
-  // },
   input: {
     height: 70,
     width: width * 0.80,
@@ -186,49 +156,52 @@ const styles = StyleSheet.create({
     color: "#333",
     padding: 20,
     elevation: 5,
-    borderRadius: 5,
+    borderRadius: 3,
     paddingLeft: 20,
     fontFamily: "Fredoka_400Regular",
     fontSize: 20,
     marginVertical: 10,
+    // borderWidth:2,
   },
   cards: {
     backgroundColor: "#fff",
-    padding: 10,
-    borderRadius: 5,
+    padding: 20,
+    paddingBottom: 0,
+    paddingHorizontal:30,
     alignItems: "center",
     justifyContent: "center",
-    elevation: 5,
+    // elevation: 2,
     width: width * 0.80,
     textAlign: "left",
     borderWidth: 0,
     marginBottom:10,
+    borderColor:'#333',
+    borderTopWidth:10,
+    borderBottomEndRadius:10,
+    borderBottomStartRadius:10,
   },
-  subjectImage: {
-    top: 0,
-    resizeMode: "contain",
-  },
+
   title: {
-    fontSize: 40,
+    fontSize: 25,
     marginBottom: 10,
-    textAlign: "center",
+    textAlign: "left",
     color: "black",
-    fontFamily: "Jersey25_400Regular",
-    width: 300,
+    fontFamily: "Fredoka_400Regular",
+    fontWeight: 600,
+    width: 280,
     fontWeight: 600,
   },
-  subjectName: {
-    fontSize: 20,
+  subTitle: {
+    fontSize: 18,
     marginBottom: 0,
     textAlign: "left",
     color: "black",
     fontFamily: "Fredoka_400Regular",
-    width: 300,
+    width: 280,
     fontWeight: "600",
   },
-
   button: {
-    marginTop: 30,
+    marginVertical: 20,
   },
   topPart: {
     width: width * 0.80,

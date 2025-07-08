@@ -3,21 +3,19 @@ import React, { useState, useEffect } from "react";
 import {
   View,
   Text,
-  Pressable,
-  Button,
   StyleSheet,
   Image,
-  ScrollView,
   Dimensions,
 } from "react-native";
+import { PieChart } from "react-native-gifted-charts";
 
 import * as Progress from "react-native-progress";
 import { ThemedButton } from "react-native-really-awesome-button";
 import { Fredoka_400Regular } from "@expo-google-fonts/fredoka";
 import { Jersey25_400Regular } from "@expo-google-fonts/jersey-25";
-import * as SplashScreen from "expo-splash-screen";
 import { useFonts } from "expo-font";
 const { width, height } = Dimensions.get("window");
+import SvgBackground from "@/components/SvgBackground";
 
 const winImage = require("@/assets/win.png");
 const LostImage = require("@/assets/images/A.png");
@@ -34,14 +32,16 @@ export default function ResultScreen({ route, navigation }) {
   const [currentImage, setCurrentImage] = useState();
   const [currentText, setCurrentText] = useState();
   const [grading, setGrading] = useState();
-  const [percentage, setPercentage] = useState();
+  // const [percentage, setPercentage] = useState();
+  const percentage = score / total;
 
   const gradingLevels = {
-    Excellent: { min: 80, max: 100 },
-    Good: { min: 65, max: 79 },
-    Okay: { min: 50, max: 64 },
-    Poor: { min: 35, max: 49 },
-    Fail: { min: 0, max: 34 },
+    Excellent: { min: 90, max: 100, image:A },
+    Great: { min: 80, max: 89, image:B },
+    Good: { min: 70, max: 79, image:C },
+    Okay: { min: 60, max: 69, image:D },
+    Poor: { min: 50, max: 59,image:E },
+    Fail: { min: 0, max: 49,image:F },
   };
 
   function getGrade(percent) {
@@ -53,26 +53,30 @@ export default function ResultScreen({ route, navigation }) {
     return "Invalid";
   }
 
-  useEffect(() => {
-    setImage();
-    setText();
-  }, []);
+      const pieData = [
+        {value: score, color: '#333'},
+        {value: total-score, color: '#eee'},
+        // {value: 20, color: '#ED6665', text: '26%'},
 
-  const setImage = () => {
+    ];
+
+    
+
+  useEffect(() => {
+    
     const percent = 100 * Math.floor(score / total);
-    setPercentage(percent);
+    // setPercentage(percent);
 
     const currentGrade = getGrade(percent);
     setGrading(currentGrade);
 
-    if (percent > 70) {
-      // playFinalSound(true)
-      setCurrentImage(winImage);
-    } else {
-      // playFinalSound(false)
-      setCurrentImage(LostImage);
-    }
-  };
+    setCurrentImage(gradingLevels[currentGrade].image)
+
+
+    setText();
+  }, []);
+
+
 
   const setText = () => {
     if (Math.floor(score / total) > 0.7) {
@@ -80,35 +84,51 @@ export default function ResultScreen({ route, navigation }) {
       setCurrentText("Practice more to maintain good grades!");
     } else {
       // playFinalSound(false)
-      setCurrentText("Practice more to improve!");
+      setCurrentText("Practice more. You will improve!");
     }
   };
 
   return (
     <View style={styles.container}>
+        {/* <SvgBackground
+          seed={"jfeewqax"}
+          patternIndex={1}
+          backgroundColor={"#CFBCDF"}
+          patternColor={"#6A3BCE"}
+        /> */}
+        
+        <View>
       <Text style={styles.header}>Final Result</Text>
       <Text style={styles.subHeader}>You're All Done!</Text>
+
+
+      <View style={styles.card}>
+
 
       <Image
         style={styles.subjectImage}
         source={currentImage}
-        width={width * 0.8}
-        height={300}
+        width={width * 0.7}
+        height={200}
       />
-
-      <View style={styles.card}>
-        <Text style={styles.percentage}>
-          {Math.floor((100 * score) / total)}%
-        </Text>
-
-        <Text style={styles.endTextTitle}>
-          {getGrade(Math.floor((100 * score) / total))}
-        </Text>
-
-        <Text style={styles.endText}>{currentText}</Text>
+            <PieChart
+            donut
+            showText
+            textColor="black"
+            radius={80}
+            textSize={20}
+            sectionAutoFocus
+            innerRadius={60}
+            // showTextBackground
+            // textBackgroundRadius={0}
+            data={pieData}
+            centerLabelComponent={() => {
+                return <Text style={{paddingLeft:10,fontSize: 30}}>{100 * (score/total)}%</Text>;
+                }}
+            />
 
         <View style={styles.footer}>
-          <Text style={{ fontFamily: "Fredoka_400Regular" }}>
+          {/* <Text style={{ fontFamily: "Fredoka_400Regular" }}>
             {score} Questions Correct
           </Text>
           <Progress.Bar
@@ -122,9 +142,10 @@ export default function ResultScreen({ route, navigation }) {
             color={"#6CBA6C"}
             progress={score / total}
             showsText={true}
-          />
+          /> */}
 
-          <Text style={{ fontFamily: "Fredoka_400Regular" }}>
+
+          {/* <Text style={{ fontFamily: "Fredoka_400Regular" }}>
             {total - score} Questions Wrong
           </Text>
           <Progress.Bar
@@ -138,7 +159,13 @@ export default function ResultScreen({ route, navigation }) {
             color={"#FC0404"}
             progress={(total - score) / total}
             showsText={true}
-          />
+          /> */}
+
+        <Text style={styles.endTextTitle}>
+          {getGrade(Math.floor((100 * score) / total))}
+        </Text>
+
+        <Text style={styles.endText}>{currentText}</Text>
 
           <ThemedButton
             style={styles.button}
@@ -153,6 +180,7 @@ export default function ResultScreen({ route, navigation }) {
           </ThemedButton>
         </View>
       </View>
+    </View>
     </View>
   );
 }
@@ -194,18 +222,22 @@ const styles = StyleSheet.create({
     width: 300,
     fontWeight: 600,
   },
+   subjectImage: {
+    alignSelf: "center",
+    marginBottom:40,
+   },
   card: {
     backgroundColor: "#fff",
     padding: 10,
     marginVertical: 5,
-    marginHorizontal: 10,
-    borderRadius: 10,
+    paddingVertical:50,
+    borderRadius: 5,
     alignItems: "center",
     justifyContent: "center",
     elevation: 5,
     width: width * 0.8,
     top: 10,
-    height: height * 0.45,
+    height: height * 0.8,
     // borderWidth:1
   },
   footer: {
@@ -215,8 +247,8 @@ const styles = StyleSheet.create({
     alignItems: "center",
   },
   button: {
-    bottom: 20,
-    marginTop: 30,
+    // bottom: 20,
+    marginTop: 20,
   },
   historyProgress: {
     borderRadius: 5,
@@ -226,7 +258,7 @@ const styles = StyleSheet.create({
   endTextTitle: {
     textAlign: "center",
     fontSize: 26,
-    color: "blue",
+    color: "black",
     fontWeight: 600,
     fontFamily: "Fredoka_400Regular",
   },

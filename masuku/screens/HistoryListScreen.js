@@ -27,8 +27,7 @@ export default function HistoryListScreen() {
   const [scores, setScores] = useState([]);
   const [selectedSubject, setSelectedSubject] = useState("All");
 
-
-  const subjects = ['All', 'Science', 'Mathematics', 'English']
+  const subjects = ['All', 'Science', 'Mathematics', 'English', 'Additional Mathematics', 'Civics', 'Commerce']
   // const subjects = useMemo(() => {
   //   const uniqueSubjects = [...new Set(scores.map((item) => item.subject))];
   //   return ["All", ...uniqueSubjects];
@@ -93,13 +92,13 @@ export default function HistoryListScreen() {
       <Text style={{ fontSize: 15 }}>
         Score: {item.score} / {item.total}
       </Text>
-      <Progress.Bar
+      {/* <Progress.Bar
         style={styles.historyProgress}
         progress={item.score / item.total}
         width={width*0.65}
         height={15}
         color={"black"}
-      />
+      /> */}
       <Text>{new Date(item.date).toLocaleString()}</Text>
     </View>
   );
@@ -184,7 +183,7 @@ const styles = StyleSheet.create({
     resizeMode: "contain",
   },
   cards: {
-    borderRadius: 15,
+    borderRadius: 5,
     width: width * 0.75,
     marginVertical: 10,
     elevation: 3,
@@ -203,10 +202,7 @@ const styles = StyleSheet.create({
     width: 300,
     fontWeight: 600,
   },
-  button: {
-    bottom: 50,
-    marginTop: 50,
-  },
+
   historyProgress: {
     borderRadius: 2,
     marginVertical: 10,
@@ -219,6 +215,7 @@ const styles = StyleSheet.create({
     justifyContent: "left",
     marginBottom: 16,
     flexWrap: "wrap",
+    width:width*0.75,
   },
   button: {
     paddingVertical: 6,
@@ -231,6 +228,9 @@ const styles = StyleSheet.create({
   buttonActive:{
     backgroundColor:"#333"
   },
+    buttonText:{
+      fontSize:10,
+    },
     buttonTextActive:{
     color:"white",
   },

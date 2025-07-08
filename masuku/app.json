@@ -40,7 +40,20 @@
       "typedRoutes": true
     },
     "assetBundlePatterns": [
-  "assets/images/*"
-]
+      "assets/images/*"
+    ],
+    "extra": {
+      "router": {},
+      "eas": {
+        "projectId": "16a261e1-fb9e-4056-bec6-ad1d59f323ef"
+      }
+    },
+    "owner": "msimbao",
+    "runtimeVersion": {
+      "policy": "appVersion"
+    },
+    "updates": {
+      "url": "https://u.expo.dev/16a261e1-fb9e-4056-bec6-ad1d59f323ef"
+    }
   }
 }
