@@ -35,7 +35,7 @@ export default function MainTabs() {
     >
       {/* <Tab.Screen name="Home" component={HomeScreen} /> */}
       <Tab.Screen name="Store" component={StoreScreen} />
-      <Tab.Screen name="Subjects" component={SubjectsScreen} />
+      {/* <Tab.Screen name="Subjects" component={SubjectsScreen} /> */}
       {/* <Tab.Screen name="ArticlesList" component={ArticleListScreen} /> */}
       <Tab.Screen name="History" component={HistoryScreen} />
       <Tab.Screen name="Settings" component={SettingsScreen} />
@@ -51,7 +51,7 @@ function PlainTabBar({ state, descriptors, navigation }) {
         const isFocused = state.index === index;
         const iconName = {
           // Home: 'home',
-          Subjects: "document-text",
+          // Subjects: "document-text",
           Store: "library",
           History: "time",
           // ArticlesList: "newspaper",
@@ -148,12 +148,12 @@ const styles = StyleSheet.create({
   },
   background: {
     borderRadius: 10,
-    width: width * 0.9,
+    width: width * 0.8,
     elevation: 10,
     height: 50,
     backgroundColor: "white",
     position: "absolute",
-    left: width * 0.05,
+    left: width * 0.1,
     borderWidth: 0,
     borderColor: "#333",
   },

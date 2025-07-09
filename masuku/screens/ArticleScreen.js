@@ -17,10 +17,9 @@ import { ThemedButton } from "react-native-really-awesome-button";
 import { Fredoka_400Regular } from "@expo-google-fonts/fredoka";
 import { Jersey25_400Regular } from "@expo-google-fonts/jersey-25";
 import { useFonts } from "expo-font";
-import SpeechPlayer from '@/components/SpeechPlayer';
+import SpeechPlayer from "@/components/SpeechPlayer";
 
 const downloaded = require("@/assets/images/downloaded.png");
-
 
 export default function ArticleScreen({ route, navigation }) {
   const [loaded, error] = useFonts({
@@ -34,15 +33,13 @@ export default function ArticleScreen({ route, navigation }) {
 
   return (
     <View style={styles.container}>
- 
       <View>
         <Text style={styles.header}>Stories</Text>
         <Text style={styles.subHeader}>Articles to Read, Learn and Share</Text>
         <BackButtons />
 
         <ScrollView showsVerticalScrollIndicator={false}>
-            
-          <View style={styles.card}>
+          <View style={[styles.card, { borderBottomWidth: 5, borderRadius:0 }]}>
             <Image
               style={styles.storeImage}
               source={article.image}
@@ -64,9 +61,9 @@ export default function ArticleScreen({ route, navigation }) {
             <ThemedButton
               style={styles.button}
               onPress={() => {
-                setModalVisible(true)
-                saveArticlesToLocal(article)}
-            }
+                setModalVisible(true);
+                saveArticlesToLocal(article);
+              }}
               name="bruce"
               type="primary"
               height={40}
@@ -98,35 +95,33 @@ export default function ArticleScreen({ route, navigation }) {
       >
         <View style={styles.modalOverlay}>
           <View style={styles.modalContainer}>
-            
-              <View style={styles.modalContainer}>
-                <Image
-                  style={styles.subjectImage}
-                  source={downloaded}
-                  width={300}
-                  height={300}
-                />
-               
-                  <>
-                    <Text style={styles.modalTitle}>Article Saved!</Text>
-                    <Text style={styles.modalText}>
-                      Keep Reading or Check out your other articles!
-                    </Text>
-                    <ThemedButton
-                      name="bruce"
-                      type="primary"
-                      onPress={async () => {    
-                        navigation.navigate("ArticleList");
-                      }}
-                      width={width * 0.65}
-                      height={50}
-                      borderRadius={5}
-                    >
-                      GO TO ARTICLES
-                    </ThemedButton>
-                  </>
-               
-              </View>
+            <View style={styles.modalContainer}>
+              <Image
+                style={styles.subjectImage}
+                source={downloaded}
+                width={300}
+                height={300}
+              />
+
+              <>
+                <Text style={styles.modalTitle}>Article Saved!</Text>
+                <Text style={styles.modalText}>
+                  Keep Reading or Check out your other articles!
+                </Text>
+                <ThemedButton
+                  name="bruce"
+                  type="primary"
+                  onPress={async () => {
+                    navigation.navigate("ArticleList");
+                  }}
+                  width={width * 0.65}
+                  height={50}
+                  borderRadius={5}
+                >
+                  GO TO ARTICLES
+                </ThemedButton>
+              </>
+            </View>
 
             <ThemedButton
               // style={styles.button}
@@ -179,8 +174,7 @@ const styles = StyleSheet.create({
     alignSelf: "center",
   },
   card: {
-    // borderRadius: 5,
-    borderBottomWidth:5,
+    borderRadius: 3,
     width: width * 0.8,
     marginVertical: 5,
     elevation: 5,
@@ -188,7 +182,7 @@ const styles = StyleSheet.create({
     padding: 30,
     backgroundColor: "#fff",
     top: 0,
-    // borderWidth: 0,
+    borderWidth: 0,
   },
 
   title: {
@@ -224,7 +218,6 @@ const styles = StyleSheet.create({
     textAlign: "center",
     marginBottom: 10,
   },
-
 
   //Modal ==================================================
   modalOverlay: {

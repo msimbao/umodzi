@@ -24,8 +24,8 @@ import Carousel from "@/components/Carousel";
 
 import SvgBackground from "@/components/SvgBackground";
 
-const store = require("@/assets/images/30.png");
-const science = require("@/assets/images/D.png");
+const store = require("@/assets/images/money.png");
+const science = require("@/assets/images/open.png");
 const scared = require("@/assets/images/exam.png");
 
 const browse = require("@/assets/images/downloaded.png");
@@ -40,56 +40,58 @@ export default function StoreScreen({ navigation }) {
   const DATA = [
     {
       id: "1",
-      title: "Grade 7",
-      grade: 7,
+      title: "Get New Tests",
+      page: "StoreGrade",
       iconName: "telescope",
     },
 
     {
-      id: "3",
-      title: "Grade 9",
-      grade: 9,
+      id: "2",
+      title: "Start Your Saved Tests",
+      page: "Subjects",
       iconName: "sparkles",
     },
 
     {
-      id: "6",
-      title: "Grade 12",
-      grade: 12,
+      id: "3",
+      title: "View Your Saved Articles",
+      page: "ArticleList",
       iconName: "rocket",
     },
   ];
 
-
   const NewsData = [
- {
-  "id": "news-umozdi-launch-001",
-  "title": "Umozdi Is Live!",
-  "subtitle": "A New Dawn for Zambian Students ",
-  "image": science,
-  "article": "The wait is over — *Umozdi* is officially live! 🎉\n\nCreated with the heart of the Zambian student in mind, Umozdi is a new mobile revision app designed to help learners across various grades sharpen their knowledge through interactive tests and quizzes. From Lusaka to Livingstone, students now have the power to revise smarter, not harder.\n\n\"We built Umozdi to close the gap between students and quality revision tools,\" said one of the lead developers. \"Whether you're prepping for final exams or brushing up on a tough topic, Umozdi is your go-to companion.\"\n\nThe app offers subject-specific quizzes, timed test sessions, and progress tracking — all tailored to match the Zambian curriculum. 📚✅\n\nTeachers and students alike are already buzzing with excitement. Early users report that the platform feels intuitive, reliable, and—most importantly—motivating.\n\nTo all students across Zambia: Umozdi is calling! Tap in, test yourself, and take your learning journey to new heights. 🚀\n\nDownload it today, and let your revision come alive.",
-  "call_to_action": "Explore Umozdi now and get ahead of your class! 🇿🇲"
-},
-{
-  "id": "umozdi-how-to-use-001",
-  "title": "Getting Started with Umozdi",
-  "subtitle": "Here's How to Use It Efficiently ",
-  "image": store,
-  "article": "Learning just got easier, and smarter, with *Umozdi* — Zambia’s very own revision app for students across all grades. 🇿🇲📱\n\nHere’s how to dive in:\n\n1️⃣ Head to the *Library* section of the app. There, you’ll find materials organized by *Grade*.\n\n2️⃣ Pick the *Subject* you want to revise — from Maths to Science to English and more.\n\n3️⃣ Choose a *Test* from the list. Whether it’s a quick quiz or a full practice exam, you’re in control.\n\n4️⃣ When you're ready, hit *Start*. The test begins immediately, and you can pace yourself as you go.\n\n5️⃣ Need help reading? Tap the *Play* buttons 🔊 — Umozdi will read the questions out loud for you. Perfect for learners who benefit from audio guidance.\n\n6️⃣ To select an answer, simply tap on the option you think is right. The app is interactive and built to respond to your choices.\n\n7️⃣ Once done, view your *Test History* to track progress and learn from your mistakes. Every step brings you closer to confidence and success. ✅\n\nUmozdi is here to empower students — not just with information, but with the tools to understand it. 💡\n\nSo grab your phone, open the app, and take charge of your learning journey today!",
-  "call_to_action": "Download Umozdi now and explore your path to better grades!"
-},
-{
-  "id": "exam-confidence-guide-002",
-  "title": "Get Equipped For Exams!",
-  "subtitle": "Study Tips to Help You Feel Prepared",
-  "image": scared,
-  "article": "Exams can feel a little scary sometimes 😟 — like a big lion roaring at you. But guess what? You are braver than you think 🦁💛!\n\nHere’s how to fight those exam fears and feel strong and ready:\n\n🕒 **Use the Pomodoro Trick**: Study for 25 minutes (like a little race), then take a 5-minute break to stretch, drink water, or dance! After four Pomodoros, take a longer break. It helps your brain stay happy and not tired.\n\n📅 **Make a Study Plan**: Grab a piece of paper and write what you’ll study each day. You don’t have to do it all at once! Maybe:\n- Monday: Math 🧮\n- Tuesday: English 📚\n- Wednesday: Science 🔬\n\n🎯 **Set Small Goals**: Don’t say “I’ll study the whole book.” Try “Today I’ll learn 5 new words” or “I’ll answer 10 questions.” That feels easier and more fun!\n\n🎧 **Listen and Learn**: Apps like *Umozdi* can read the questions out loud to you 🎙️. Just press the play button and listen — like storytime, but for school!\n\n🙏 **Pray Before You Study**: Prayer helps calm your heart and gives you peace. Ask God to help you remember what you read, and to give you courage when you feel nervous. He’s always with you, even during exams.\n\n✅ **Practice Makes You Strong**: Take little tests on Umozdi and check your answers. It’s okay to make mistakes. Mistakes help us learn!\n\n💤 **Rest is Part of Studying**: Your brain needs sleep and fun too. Don’t forget to play and laugh!\n\nRemember, exams are just a way to show what you know. You're not alone — you have tools, time, and faith on your side. You’ve got this! 🚀",
-  "call_to_action": "\"I can do all things through Christ who strengthens me.\" — Philippians 4:13 🙏✨"
-}
+    {
+      id: "news-umozdi-launch-001",
+      title: "Umodzi Library is Open!",
+      subtitle: "A New Dawn for Zambian Students ",
+      image: science,
+      article:
+        'The wait is over — *Umozdi* is officially live! 🎉\n\nCreated with the heart of the Zambian student in mind, Umozdi is a new mobile revision app designed to help learners across various grades sharpen their knowledge through interactive tests and quizzes. From Lusaka to Livingstone, students now have the power to revise smarter, not harder.\n\n"We built Umozdi to close the gap between students and quality revision tools," said one of the lead developers. "Whether you\'re prepping for final exams or brushing up on a tough topic, Umozdi is your go-to companion."\n\nThe app offers subject-specific quizzes, timed test sessions, and progress tracking — all tailored to match the Zambian curriculum. 📚✅\n\nTeachers and students alike are already buzzing with excitement. Early users report that the platform feels intuitive, reliable, and—most importantly—motivating.\n\nTo all students across Zambia: Umozdi is calling! Tap in, test yourself, and take your learning journey to new heights. 🚀\n\nDownload it today, and let your revision come alive.',
+      call_to_action: "Explore Umozdi now and get ahead of your class! 🇿🇲",
+    },
 
-
-
-  ]
+    {
+      id: "exam-confidence-guide-002",
+      title: "Get Equipped For Exams!",
+      subtitle: "Study Tips to Help You Feel Prepared",
+      image: scared,
+      article:
+        "Exams can feel a little scary sometimes 😟 — like a big lion roaring at you. But guess what? You are braver than you think 🦁💛!\n\nHere’s how to fight those exam fears and feel strong and ready:\n\n🕒 **Use the Pomodoro Trick**: Study for 25 minutes (like a little race), then take a 5-minute break to stretch, drink water, or dance! After four Pomodoros, take a longer break. It helps your brain stay happy and not tired.\n\n📅 **Make a Study Plan**: Grab a piece of paper and write what you’ll study each day. You don’t have to do it all at once! Maybe:\n- Monday: Math 🧮\n- Tuesday: English 📚\n- Wednesday: Science 🔬\n\n🎯 **Set Small Goals**: Don’t say “I’ll study the whole book.” Try “Today I’ll learn 5 new words” or “I’ll answer 10 questions.” That feels easier and more fun!\n\n🎧 **Listen and Learn**: Apps like *Umozdi* can read the questions out loud to you 🎙️. Just press the play button and listen — like storytime, but for school!\n\n🙏 **Pray Before You Study**: Prayer helps calm your heart and gives you peace. Ask God to help you remember what you read, and to give you courage when you feel nervous. He’s always with you, even during exams.\n\n✅ **Practice Makes You Strong**: Take little tests on Umozdi and check your answers. It’s okay to make mistakes. Mistakes help us learn!\n\n💤 **Rest is Part of Studying**: Your brain needs sleep and fun too. Don’t forget to play and laugh!\n\nRemember, exams are just a way to show what you know. You're not alone — you have tools, time, and faith on your side. You’ve got this! 🚀",
+      call_to_action:
+        '"I can do all things through Christ who strengthens me." — Philippians 4:13 🙏✨',
+    },
+    {
+      id: "umozdi-how-to-use-001",
+      title: "Writing a CV for Jobs",
+      subtitle: "Advice for Students with No Experience ",
+      image: store,
+      article:
+        "Creating a CV with no job experience can feel intimidating, but it’s absolutely possible to make a strong first impression. Here’s a clear step-by-step guide to help you build a solid CV that reflects your potential, even if you’re just finishing high school.\n\n1. **Start with Contact Information**\nInclude your full name, phone number, email address (make sure it sounds professional), and optionally, your city and country. If you have a LinkedIn profile or online portfolio, include that too.\n\n2. **Write a Strong Personal Statement**\nThis is a 2–3 sentence summary at the top of your CV. Focus on your strengths, interests, and goals. Example: “Motivated high school graduate passionate about science and technology. Strong organizational skills and a willingness to learn. Seeking opportunities to grow and contribute to a dynamic team.”\n\n3. **List Your Education**\nThis is your most important section as a recent graduate. Include:\n- Name of your school\n- Dates attended\n- Final or expected grades (if they’re good)\n- Any honors, awards, or relevant coursework\n\nExample:\n**St. Mary’s Secondary School** (2020–2024)\nGrade 12 Certificate – Distinction\nRelevant subjects: Biology, Mathematics, English\n\n4. **Highlight Skills**\nEven without a job, you’ve gained skills from school, volunteering, or hobbies. List soft and hard skills that are relevant to the type of job or internship you want.\n- Communication\n- Teamwork\n- Time management\n- Public speaking\n- Basic computer skills (e.g., Microsoft Word, Excel, Canva)\n- Social media knowledge\n\n5. **Include Volunteering, Projects, or Clubs**\nThis replaces “Work Experience.” Include any clubs, competitions, or volunteer work. Treat each entry like a job:\n\n**Youth Environmental Club – Member (2023–2024)**\nOrganized campus clean-up events and managed club communications. Helped raise awareness on recycling among students.\n\n**School Science Fair Project – Team Leader (2022)**\nLed a group of 3 to build a working solar oven. Presented results to judges and won 2nd place.\n\n6. **Add Certifications or Short Courses**\nIf you’ve completed any free online courses (e.g., Coursera, Khan Academy, Alison), list them here. Example:\n- “Digital Marketing Basics” – Google Digital Garage\n- “Intro to Computer Science” – CS50x, Harvard University (edX)\n\n7. **Keep It Simple and Clean**\nUse a free template from Canva, Zety, or Google Docs. Stick to one page. Use bold for headings, bullet points for clarity, and a basic font like Arial or Calibri.\n\n8. **Tailor for Each Application**\nEvery time you apply somewhere, tweak your CV to highlight what fits that opportunity. Read the job or internship post carefully and match keywords in your skills and statement.\n\n9. **Proofread Carefully**\nNo grammar mistakes or typos. Ask a teacher, friend, or mentor to read your CV and give honest feedback.\n\n10. **Save as PDF**\nAlways send your CV as a PDF to preserve the formatting. Name the file professionally: `FirstName_LastName_CV.pdf`.\n\n**Final Tip:**\nYour CV is not about what you *haven’t* done — it’s about showing what you *can* do. Focus on potential, attitude, and your ability to learn and grow.",
+      call_to_action:
+        "Ready to create your first CV? Use this guide to draft your own, then ask a mentor or teacher to review it. Your journey starts with one page — make it count!",
+    },
+  ];
 
   useEffect(() => {
     const unsubscribe = NetInfo.addEventListener((state) => {
@@ -101,20 +103,12 @@ export default function StoreScreen({ navigation }) {
     };
   }, []);
 
-  const downloadQuizzes = async () => {
-    await saveQuizzesToLocal(quizzesData);
-    alert("Quizzes downloaded!");
-  };
-
-  const goToGrade = (grade) => {
-    navigation.navigate("StoreList", { grade });
+  const goToGrade = (page) => {
+    navigation.navigate(page);
   };
 
   const renderItem = ({ item }) => (
-    <TouchableOpacity
-      onPress={() => goToGrade(item.grade)}
-      style={styles.cards}
-    >
+    <TouchableOpacity onPress={() => goToGrade(item.page)} style={styles.cards}>
       <Text style={styles.title}>{item.title}</Text>
 
       <Ionicons name={item.iconName} size={30} color={"#333"} />
@@ -127,37 +121,16 @@ export default function StoreScreen({ navigation }) {
         <Text style={styles.header}>Umodzi Library</Text>
         <Text style={styles.subHeader}>Download Articles and Quizzes</Text>
 
-        {/* <Carousel data={DATA} height={250} /> */}
-
         <View>
-          <Carousel data={NewsData} height={250} />
+          <Carousel data={NewsData} height={height*0.275} />
 
-          <View style={styles.footer}>
-            <TouchableOpacity style={styles.footerButton}>
-              <Image
-                style={styles.storeImage}
-                source={browse}
-                width={width}
-                height={180}
-              />
-              <Text style={styles.footerText}>Browse Tests!</Text>
-            </TouchableOpacity>
-
-            {/* {isConnected ? ( */}
-            <FlatList
-              data={DATA}
-              renderItem={renderItem}
-              keyExtractor={(item) => item.id}
-              showsVerticalScrollIndicator={false}
-              contentContainerStyle={{ paddingBottom: width * 0.01 }} // <-- Adds space at the bottom
-            />
-
-            {/* ) : ( */}
-            {/* <View>
-              <Text style={styles.emptyText}>No Data Connection</Text>
-            </View> */}
-            {/* )} */}
-          </View>
+          <FlatList
+            data={DATA}
+            renderItem={renderItem}
+            keyExtractor={(item) => item.id}
+            showsVerticalScrollIndicator={false}
+            contentContainerStyle={{ paddingBottom: width * 0.01 }} // <-- Adds space at the bottom
+          />
         </View>
       </View>
     </View>
@@ -197,19 +170,9 @@ const styles = StyleSheet.create({
     alignSelf: "center",
   },
 
-  topPart: {
-    width: width * 0.8,
-    backgroundColor: "white",
-    elevation: 3,
-    borderRadius: 3,
-    padding: 15,
-    paddingLeft: 20,
-    paddingRight: 20,
-    marginBottom: 5,
-  },
   cards: {
     borderRadius: 3,
-    width: width * 0.374,
+    width: width * 0.8,
     elevation: 3,
     padding: 20,
     backgroundColor: "#fff",
@@ -218,15 +181,18 @@ const styles = StyleSheet.create({
     alignContent: "center",
     height: 70,
     marginVertical: 5,
+    alignContent: "center",
+    verticalAlign: "midddle",
   },
   title: {
     fontSize: 17,
     justifyContent: "center",
     alignContent: "center",
-        verticalAlign:"midddle",
+    verticalAlign: "midddle",
     color: "black",
     fontFamily: "Fredoka_400Regular",
     fontWeight: 600,
+    width:"80%",
   },
   subjects: {
     fontSize: 14,

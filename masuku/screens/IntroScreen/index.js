@@ -29,17 +29,14 @@ function cacheImages(images) {
     }
   });
 }
-
 function cacheFonts(fonts) {
   return fonts.map((font) => Font.loadAsync(font));
 }
-
-const imagePath1 = require("@/assets/images/4.png");
+const imagePath1 = require("@/assets/images/30.png");
 const imagePath2 = require("@/assets/images/2.png");
 const imagePath3 = require("@/assets/images/3.png");
 
 const { width, height } = Dimensions.get("window");
-
 const slides = [
   {
     key: "one",
@@ -47,7 +44,7 @@ const slides = [
     image: imagePath1,
     title: "STUDY SMARTER",
     description:
-      "Access thousands of digital resources to learn, revise, and practice—wherever you are, whenever you need.",
+      "Explore thousands of digital resources to learn, revise, and practice—wherever you are, whenever you need.",
     backgroundColor: "#e5e6fa",
     seed: "zore",
   },
@@ -206,17 +203,6 @@ const styles = StyleSheet.create({
     zIndex: 0,
     borderWidth: 0,
   },
-  introHeader: {
-    fontSize: 40,
-    marginBottom: 0,
-    textAlign: "center",
-    color: "black",
-    fontFamily: "Jersey25_400Regular",
-    width: 300,
-    fontWeight: 600,
-    position: "absolute",
-    top: 100,
-  },
   footer: {
     flex: 1,
     justifyContent: "flex-end",
@@ -248,7 +234,7 @@ const styles = StyleSheet.create({
   image: {
     flex: 1,
     top: height * 0.15,
-    width: 390,
+    width: width*1,
     height: null,
     resizeMode: "contain",
     // backgroundColor: '#0553',

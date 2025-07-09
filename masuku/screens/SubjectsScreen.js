@@ -16,6 +16,7 @@ import * as SplashScreen from "expo-splash-screen";
 import { useFonts } from "expo-font";
 
 const { width, height } = Dimensions.get("window");
+import BackButtons from "@/components/BackButtons"
 
 export default function SubjectsScreen({ navigation }) {
   // const { grade } = route.params;
@@ -54,8 +55,9 @@ export default function SubjectsScreen({ navigation }) {
     <View style={styles.container}>
 
       <View>
-        <Text style={styles.header}>Practice Questions</Text>
-        <Text style={styles.subHeader}>Take past papers & exams</Text>
+        <Text style={styles.header}>Your Library</Text>
+        <Text style={styles.subHeader}>View Your Articles and Tests</Text>
+    <BackButtons />
 
         <FlatList
           data={grades}

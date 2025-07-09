@@ -121,37 +121,40 @@ export default function HistoryScreen() {
     gradeCounts[grade]++;
   });
 
+  const horizontalLinesArbitrary = [
+    {
+      y: 50, // Value on Y-axis
+      color: "red",
+      width: 10,
+      // dashArray: [],         // Solid line
+    },
+    {
+      y: 75,
+      color: "blue",
+      width: 1,
+      // dashArray: [4, 4],     // Dashed line
+    },
+  ];
+
   return (
     <View style={styles.container}>
       <View>
         <Text style={styles.header}>Recent History</Text>
-        <Text style={styles.subHeader}>Track your performance</Text>
-
-        <ThemedButton
-          // style={styles.button}
-          onPress={() => navigation.navigate("HistoryList")}
-          name="bruce"
-          type="primary"
-          height={55}
-          width={width * 0.85}
-          borderRadius={5}
-        >
-          VIEW DETAILED HISTORY
-        </ThemedButton>
+        <Text style={styles.subHeader}>History of Last 10 Tests</Text>
 
         <View style={styles.card}>
           <Text
             style={{
               color: "black",
-              fontSize: 15,
+              fontSize: 12,
               fontWeight: "bold",
               textAlign: "center",
               paddingBottom: 20,
-              fontFamily: "Fredoka_400Regular",
+              fontFamily: "Jersey25_400Regular",
               fontWeight: 600,
             }}
           >
-            History of Last 10 Tests
+           CLICK A BAR TO SEE MORE
           </Text>
           {scores.length === 0 ? (
             <Text style={styles.emptyText}>No scores yet. Try a quiz!</Text>
@@ -172,8 +175,15 @@ export default function HistoryScreen() {
               xAxisColor={"#eee"}
               rulesColor={"#eee"}
               rulesType={"solid"}
-              textFontSize={5}
-              height={width * 0.35}
+              // showReferenceLine1
+              // referenceLine1Position={60}
+              // referenceLine1Config={{
+              //   color: "black",
+              //   dashWidth: 10,
+              //   dashGap: 5,
+              // }}
+              // textFontSize={5}
+              height={height * 0.2}
               yAxisTextStyle={{
                 fontSize: 10, // 👈 change this to your preferred size
                 color: "#555",
@@ -257,6 +267,18 @@ export default function HistoryScreen() {
             </View>
           ))}
         </View>
+
+               <ThemedButton
+          style={styles.button}
+          onPress={() => navigation.navigate("HistoryList")}
+          name="bruce"
+          type="primary"
+          height={50}
+          width={width * 0.80}
+          borderRadius={5}
+        >
+          VIEW DETAILED HISTORY
+        </ThemedButton>
       </View>
     </View>
   );
@@ -317,33 +339,24 @@ const styles = StyleSheet.create({
     width: width * 0.75,
   },
   button: {
-    paddingVertical: 6,
-    paddingHorizontal: 12,
     borderRadius: 5,
     backgroundColor: "#fff",
     marginRight: 4,
-    marginBottom: 8,
-  },
-  buttonActive: {
-    backgroundColor: "#333",
-  },
-  buttonText: {
-    fontSize: 10,
-  },
-  buttonTextActive: {
-    color: "white",
+    // marginBottom: 8,
+    // marginTop:10,
   },
   card: {
     borderRadius: 0,
-    width: width * 0.85,
+    width: width * 0.80,
     alignItems: "center",
     textAlign: "center",
     borderColor: "#333",
+    alignSelf:"center",
     borderWidth: 0,
     padding: 15,
-    marginVertical: 0,
-    marginTop:10,
+    marginBottom: 10,
     backgroundColor: "#fff",
+    elevation:3,
   },
   topPart: {
     width: width * 0.8,
@@ -372,7 +385,7 @@ const styles = StyleSheet.create({
     padding: 5,
     color: "#fff",
     marginHorizontal: 2,
-    fontSize: height * 0.014,
+    fontSize: 10,
     textAlign: "center",
     height: height * 0.03,
   },

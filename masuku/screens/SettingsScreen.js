@@ -1,24 +1,42 @@
-import React, { useEffect, useState, useRef } from "react";
-import { View, Text, Button, Alert, StyleSheet, Dimensions } from 'react-native';
+import React, { useState } from "react";
+import {
+  View,
+  Text,
+  StyleSheet,
+  Dimensions,
+  FlatList,
+  TouchableOpacity,
+} from "react-native";
+
+import { Ionicons } from "@expo/vector-icons";
+
+import { Fredoka_400Regular } from "@expo-google-fonts/fredoka";
+import { Jersey25_400Regular } from "@expo-google-fonts/jersey-25";
+import { useFonts } from "expo-font";
 import AsyncStorage from '@react-native-async-storage/async-storage';
 
-import { ThemedButton } from "react-native-really-awesome-button";
-import { Fredoka_400Regular } from '@expo-google-fonts/fredoka';
-import { Jersey25_400Regular } from '@expo-google-fonts/jersey-25';
-import * as SplashScreen from 'expo-splash-screen';
-import { useFonts } from "expo-font";
 
 const { width, height } = Dimensions.get("window");
 
 export default function SettingsScreen({ navigation }) {
 
-      const [loaded, error] = useFonts({
-      Fredoka_400Regular,
-      Jersey25_400Regular,
-    });
+  const [loaded, error] = useFonts({
+    Fredoka_400Regular,
+    Jersey25_400Regular,
+  });
 
+  const renderItem = ({ item }) => (
+    <TouchableOpacity
+      style={styles.cards}
+      onPress={() => navigation.navigate("SubjectList", { grade: item })}
+    >
+      <Text style={styles.title}>Premium {item}</Text>
+      <Ionicons name={gradesIcons[item]} size={30} color={"#333"} />
+      {/* <Text style={styles.subjects}>Mathematics, English, Science, Social Studies, Special Paper 1, Special Paper 2</Text> */}
+    </TouchableOpacity>
+  );
 
-  const resetIntro = async () => {
+    const resetIntro = async () => {
     await AsyncStorage.removeItem('hasSeenIntro');
     Alert.alert('Intro Reset', 'The intro will be shown again next time.');
     navigation.reset({
@@ -27,59 +45,109 @@ export default function SettingsScreen({ navigation }) {
     });
   };
 
+  const grades = [7, 8, 9, 10, 11, 12];
 
-  const resetAll = async () => {
-    await AsyncStorage.clear(); 
+  const gradesIcons = {
+    7: "telescope",
+    8: "school",
+    9: "sparkles",
+    10: "sunny",
+    11: "aperture",
+    12: "rocket",
   };
 
   return (
-    <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
-      <Text style={{ fontSize: 24, marginBottom: 20 }}>Settings</Text>
-          <Text style={{ fontSize: 24, marginBottom: 20 }}>Nothing here yet</Text>
-                  <Text style={{ fontSize: 24, marginBottom: 20 }}>(ﾉ◕ヮ◕)ﾉ*:･ﾟ✧</Text>
+    <View style={styles.container}>
+      <View>
+        <Text style={styles.header}>Settings</Text>
+        <Text style={styles.subHeader}>Adjust how everything works</Text>
 
-               <ThemedButton
-                      style={styles.button}
-                      onPress={resetIntro}
-                      name="bruce"
-                      type="primary"
-                    >
-                      RESET INTRO
-                    </ThemedButton>
+        <TouchableOpacity
+          style={[styles.cards, styles.premiumButtom]}
+          // onPress={() => navigation.navigate("SubjectList", { grade:item })}
+        >
+          <Text style={styles.title}>Premium </Text>
+          <Ionicons name={"chevron-forward"} size={30} color={"#333"} />
+          {/* <Text style={styles.subjects}>Mathematics, English, Science, Social Studies, Special Paper 1, Special Paper 2</Text> */}
+        </TouchableOpacity>
 
-    <ThemedButton
-                      style={styles.button}
-                      onPress={resetAll}
-                      name="bruce"
-                      type="primary"
-                    >
-                      RESET ALL MEMORY
-                    </ThemedButton>
-      {/* <Button title="Reset Intro" onPress={resetIntro} /> */}
+        <TouchableOpacity
+          style={[styles.cards, styles.premiumButtom]}
+          // onPress={() => navigation.navigate("SubjectList", { grade:item })}
+        >
+          <Text style={styles.title}>Dark Mode </Text>
+          <Ionicons name={"chevron-forward"} size={30} color={"#333"} />
+          {/* <Text style={styles.subjects}>Mathematics, English, Science, Social Studies, Special Paper 1, Special Paper 2</Text> */}
+        </TouchableOpacity>
+
+        <TouchableOpacity
+          style={[styles.cards, styles.premiumButtom]}
+          // onPress={() => navigation.navigate("SubjectList", { grade:item })}
+        >
+          <Text style={styles.title}>Help </Text>
+          <Ionicons name={"chevron-forward"} size={30} color={"#333"} />
+          {/* <Text style={styles.subjects}>Mathematics, English, Science, Social Studies, Special Paper 1, Special Paper 2</Text> */}
+        </TouchableOpacity>
+
+        <TouchableOpacity
+          style={[styles.cards, styles.premiumButtom]}
+          // onPress={() => navigation.navigate("SubjectList", { grade:item })}
+        >
+          <Text style={styles.title}>Reminders </Text>
+          <Ionicons name={"chevron-forward"} size={30} color={"#333"} />
+          {/* <Text style={styles.subjects}>Mathematics, English, Science, Social Studies, Special Paper 1, Special Paper 2</Text> */}
+        </TouchableOpacity>
+
+        <TouchableOpacity
+          style={[styles.cards, styles.premiumButtom]}
+          // onPress={() => navigation.navigate("SubjectList", { grade:item })}
+        >
+          <Text style={styles.title}>Privacy Policy </Text>
+          <Ionicons name={"chevron-forward"} size={30} color={"#333"} />
+          {/* <Text style={styles.subjects}>Mathematics, English, Science, Social Studies, Special Paper 1, Special Paper 2</Text> */}
+        </TouchableOpacity>
+
+        <TouchableOpacity
+          style={[styles.cards, styles.premiumButtom]}
+          onPress={ resetIntro}
+        >
+          <Text style={styles.title}>Clear Data </Text>
+          <Ionicons name={"chevron-forward"} size={30} color={"#333"} />
+          {/* <Text style={styles.subjects}>Mathematics, English, Science, Social Studies, Special Paper 1, Special Paper 2</Text> */}
+        </TouchableOpacity>
+
+        <TouchableOpacity
+          style={[styles.cards, styles.premiumButtom]}
+          // onPress={() => navigation.navigate("SubjectList", { grade:item })}
+        >
+          <Text style={styles.title}>Rate & Review </Text>
+          <Ionicons name={"chevron-forward"} size={30} color={"#333"} />
+          {/* <Text style={styles.subjects}>Mathematics, English, Science, Social Studies, Special Paper 1, Special Paper 2</Text> */}
+        </TouchableOpacity>
+      </View>
     </View>
   );
 }
 
-
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    padding:0,
-    paddingLeft:0,
-    paddingTop:height * 0.08,
-    alignItems: 'center',
-    backgroundColor: '#e5e6fa'
-  }, 
-      header: {
+    padding: 20,
+    paddingTop: height * 0.08,
+    alignItems: "center",
+    backgroundColor: "#e5e6fa",
+    // height:height*1.5,
+  },
+  header: {
     fontSize: 40,
-    marginBottom: 0,
+    marginBottom: 10,
     textAlign: "left",
     color: "black",
     fontFamily: "Jersey25_400Regular",
     width: 300,
     fontWeight: 600,
   },
-    subHeader: {
+  subHeader: {
     fontSize: 15,
     marginBottom: 10,
     textAlign: "left",
@@ -88,53 +156,25 @@ const styles = StyleSheet.create({
     width: 300,
     fontWeight: 600,
   },
-    listContainer: {
-    paddingHorizontal: 10, // Add padding to the sides of the list
-  },
-  card: {
-    backgroundColor: '#e5e6fa',
-    padding: 10,
-    marginVertical: 10,
-    marginHorizontal: 10,
-    borderRadius: 10,
-    alignItems: 'center',
-    justifyContent: 'center',
+  cards: {
+    borderRadius: 5,
+    width: width * 0.8,
     elevation: 5,
-    width:width*0.8,
-    top:10,
-    height:600,
+    padding: 19,
+    // paddingHorizontal:20,
+    backgroundColor: "#fff",
+    height: height * 0.1,
+    flexDirection: "row",
+    justifyContent: "space-between",
+    height: 70,
+    marginVertical: 5,
   },
-    subjectImage: {
-    top: 0,
-    resizeMode: "contain",
-  },
-    title: {
-    fontSize: 40,
-    marginBottom: 10,
-    textAlign: "center",
+  title: {
+    fontSize: 18,
+    textAlign: "left",
     color: "black",
-    fontFamily: "Jersey25_400Regular",
-    width: 300,
-    fontWeight: 600,
-  },
-  description: {
-    fontSize: 20,
-    color: "#000",
-    textAlign: "justify",
-    marginBottom: 10,
-    width: 250,
     fontFamily: "Fredoka_400Regular",
     fontWeight: 600,
   },
-    footer: {
-    flex: 1,
-    justifyContent: "flex-end",
-    // justifyContent: "center",
-    alignItems: "center",
-  },
-    button: {
-    bottom: 20,
-    marginTop: 50,
-  },
+  premiumButtom: {},
 });
-

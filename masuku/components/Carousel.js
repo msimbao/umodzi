@@ -62,7 +62,7 @@ const Carousel = ({
                   style={styles.image}
                   source={item.image}
                   width={width*0.8}
-                  height={height * 0.75}
+                  height={height * 0.85}
                 />
     
                 <Text style={styles.title}>{item.title}</Text>
@@ -122,14 +122,14 @@ const styles = StyleSheet.create({
     marginVertical: 5,
     elevation: 3,
     alignItems: "left",
-    padding:30,
+    padding:25,
+    paddingBottom:24,
     backgroundColor: "#fff",
     top: 0,
     borderWidth: 0,
   },
     title: {
     fontSize: 23,
-    marginBottom: 0,
     textAlign: "left",
     color: "black",
     fontFamily: "Jersey25_400Regular",
