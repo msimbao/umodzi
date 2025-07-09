@@ -34,7 +34,7 @@ function cacheFonts(fonts) {
   return fonts.map((font) => Font.loadAsync(font));
 }
 
-const imagePath1 = require("@/assets/images/1.png");
+const imagePath1 = require("@/assets/images/4.png");
 const imagePath2 = require("@/assets/images/2.png");
 const imagePath3 = require("@/assets/images/3.png");
 
@@ -49,7 +49,7 @@ const slides = [
     description:
       "Access thousands of digital resources to learn, revise, and practice—wherever you are, whenever you need.",
     backgroundColor: "#e5e6fa",
-    seed: "two",
+    seed: "zore",
   },
   {
     key: "two",
@@ -59,7 +59,7 @@ const slides = [
     description:
       "Take tests & quizzes, get graded immediately, and understand your mistakes through instant corrections",
     backgroundColor: "#d8bfd8",
-    seed: "one",
+    seed: "ase",
   },
   {
     key: "three",
@@ -67,7 +67,7 @@ const slides = [
     image: imagePath3,
     title: "STUDY BEYOND",
     description:
-      "Explore topics that take you further than your classes - a bright future is about is more than passing tests.",
+      "Explore topics that take you further than your classes - a bright future is about more than passing tests.",
     backgroundColor: "#fddab8",
     seed: "eleven",
   },
@@ -107,14 +107,11 @@ export default function IntroScreen({ navigation }) {
     return (
       <View style={[styles.slideContainer]}>
 
-        {/* <SvgBackground seed="3924" style={{width:width,height:height}}/> */}
-        {/* <SvgBackground seed="20824"  style={{width:width,height:height}}/> */}
-        <SvgBackground
+          <SvgBackground
           seed={item.seed}
           backgroundColor={"#CFBCDF"}
           patternColor={"#6A3BCE"}
         />
-        {/* <SvgBackground seed="zambia-03" patternIndex={60} backgroundColor="#CFBCDF" patternColor="#B8849B" /> */}
 
         <View style={[styles.card]}>
           <View style={styles.background}></View>
@@ -174,10 +171,6 @@ export default function IntroScreen({ navigation }) {
       renderItem={renderItem}
       showsHorizontalScrollIndicator={false}
       scrollEventThrottle={100}
-      // onScroll={Animated.event(
-      //   [{ nativeEvent: { contentOffset: { x: scrollX } } }],
-      //   { useNativeDriver: false }
-      // )}
       onMomentumScrollEnd={(event) => {
         const newIndex = Math.round(event.nativeEvent.contentOffset.x / width);
         setIndex(newIndex);

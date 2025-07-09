@@ -27,26 +27,6 @@ export default function SubjectsScreen({ navigation }) {
     Jersey25_400Regular,
   });
 
-  // const renderItem = ({ item }) => (
-  //   <View style={styles.card}>
-  //     <Image
-  //       style={styles.subjectImage}
-  //       source={DATA[item].image}
-  //       width={width * 0.8}
-  //       height={270}
-  //     />
-  //     <Text style={styles.title}>{DATA[item].title}</Text>
-  //     <Text style={styles.description}>{DATA[item].description}</Text>
-  //     <ThemedButton
-  //       style={styles.button}
-  //       name="bruce"
-  //       type="primary"
-  //       onPress={() => navigation.navigate("Quizzes", { grade, item })}
-  //     >
-  //       CONTINUE
-  //     </ThemedButton>
-  //   </View>
-  // );
 
   const renderItem = ({ item }) => (
     <TouchableOpacity
@@ -59,14 +39,7 @@ export default function SubjectsScreen({ navigation }) {
     </TouchableOpacity>
   );
 
-  // useEffect(() => {
-  //   (async () => {
-  //     const data = await getLocalQuizzes();
-  //     const filtered = data.filter((q) => q.grade === grade);
-  //     const uniqueSubjects = [...new Set(filtered.map((q) => q.subject))];
-  //     setQuizzes(uniqueSubjects);
-  //   })();
-  // }, [grade]);
+
 
   const grades = [7, 8, 9, 10, 11, 12];
 
@@ -91,70 +64,13 @@ export default function SubjectsScreen({ navigation }) {
         <Text style={styles.header}>Practice Questions</Text>
         <Text style={styles.subHeader}>Take past papers & exams</Text>
 
-        {/* <FlatList
-          data={quizzes}
-          renderItem={renderItem}
-          keyExtractor={(item) => DATA[item].id}
-          horizontal={true} // This prop makes the FlatList horizontal
-          showsHorizontalScrollIndicator={false} // Optional: hides the horizontal scroll indicator
-          contentContainerStyle={styles.listContainer} // Optional: styles for the content container
-          snapToAlignment="start"
-          decelerationRate={"fast"}
-          snapToInterval={Dimensions.get("window").width}
-        /> */}
-
-        {/* {quizzes.map((subject) => (
-        <Button
-          key={subject}
-          title={subject}
-          onPress={() =>
-            navigation.navigate('Quizzes', { grade, subject })
-          }
-        />
-      ))} */}
 
         <FlatList
           data={grades}
-          // keyExtractor={(item)}
           renderItem={renderItem}
-          // contentContainerStyle={styles.listContainer} // Optional: styles for the content container
         />
 
-        {/* <TouchableOpacity style={styles.card} 
-            onPress={() => goToGrade(7)}>
-              <Text style={styles.title}>Grade 7</Text>
-              <Ionicons name={"star"} size={50} color={"#333"} />
-            </TouchableOpacity>
-      
-                  <TouchableOpacity style={styles.card} 
-            onPress={() => goToGrade(8)}>
-              <Text style={styles.title}>Grade 8</Text>
-              <Ionicons name={"telescope"} size={50} color={"#333"} />
-            </TouchableOpacity>
-      
-                  <TouchableOpacity style={styles.card} 
-            onPress={() => goToGrade(9)}>
-              <Text style={styles.title}>Grade 9</Text>
-              <Ionicons name={"sparkles"} size={50} color={"#333"} />
-            </TouchableOpacity>
-      
-                  <TouchableOpacity style={styles.card} 
-            onPress={() => goToGrade(10)}>
-              <Text style={styles.title}>Grade 10</Text>
-              <Ionicons name={"library"} size={50} color={"#333"} />
-            </TouchableOpacity>
-      
-                  <TouchableOpacity style={styles.card} 
-            onPress={() => goToGrade(11)}>
-              <Text style={styles.title}>Grade 11</Text>
-              <Ionicons name={"ribbon"} size={50} color={"#333"} />
-            </TouchableOpacity>
-      
-                  <TouchableOpacity style={styles.card} 
-            onPress={() => goToGrade(12)}>
-              <Text style={styles.title}>Grade 12</Text>
-              <Ionicons name={"school"} size={50} color={"#333"} />
-            </TouchableOpacity> */}
+ 
       </View>
     </View>
   );

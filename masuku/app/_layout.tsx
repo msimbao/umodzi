@@ -46,7 +46,7 @@ export default function App() {
         <Stack.Screen name="Quizzes" component={QuizListScreen} />
         <Stack.Screen name="Quiz" component={QuizScreen} />
         <Stack.Screen name="Result" component={ResultScreen} />
-        <Stack.Screen name="History" component={HistoryListScreen} />
+        <Stack.Screen name="HistoryList" component={HistoryListScreen} />
         <Stack.Screen name="StoreList" component={StoreListScreen} />
         <Stack.Screen name="StoreTest" component={StoreTestScreen} />
         <Stack.Screen name="SubjectList" component={SubjectListScreen} />

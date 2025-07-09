@@ -28,7 +28,7 @@ export default function MainTabs() {
       swipeEnabled={false}
       screenOptions={{
         tabBarShowLabel: false,
-        swipeEnabled: true,
+        swipeEnabled: false,
       }}
     >
       {/* <Tab.Screen name="Home" component={HomeScreen} /> */}

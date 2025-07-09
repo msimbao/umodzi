@@ -11,16 +11,6 @@ import { useFonts } from "expo-font";
 const { width, height } = Dimensions.get("window");
 import GradingThemes from "@/utils/gradingTheme"
 
-const winImage = require("@/assets/win.png");
-const LostImage = require("@/assets/images/A.png");
-
-const A = require("@/assets/images/A.png");
-const B = require("@/assets/images/B.png");
-const C = require("@/assets/images/C.png");
-const D = require("@/assets/images/D.png");
-const E = require("@/assets/images/E.png");
-const F = require("@/assets/images/F.png");
-
 export default function ResultScreen({ route, navigation }) {
   const { score, total } = route.params;
   const [currentText, setCurrentText] = useState();
@@ -41,17 +31,11 @@ export default function ResultScreen({ route, navigation }) {
   ];
 
   useEffect(() => {
-    setGrading(100 * Math.floor(score / total));
+    // setGrading(100 * Math.floor(score / total));
   }, []);
 
   return (
     <View style={styles.container}>
-      <SvgBackground
-          seed={"jfeewqax"}
-          patternIndex={1}
-          backgroundColor={"#CFBCDF"}
-          patternColor={"#6A3BCE"}
-        />
 
       <View>
         <Text style={styles.header}>Final Result</Text>
@@ -80,12 +64,12 @@ export default function ResultScreen({ route, navigation }) {
           />
 
           <View style={styles.footer}>
-            <Text style={[styles.endTextTitle,{color:GradingThemes[getGrade(grading)].color, backgroundColor:GradingThemes[getGrade(grading)].backgroundColor}]}>
-              {getGrade(grading)}
+            <Text style={[styles.endTextTitle,{color:GradingThemes[getGrade(100 * (score / total))].color, backgroundColor:GradingThemes[getGrade(100 * (score / total))].backgroundColor}]}>
+              {getGrade(100 * (score / total))}
             </Text>
 
             <Text style={styles.endText}>
-              {GradingThemes[getGrade(grading)].text}
+              {GradingThemes[getGrade(100 * score / total)].text}
             </Text>
 
             <ThemedButton
