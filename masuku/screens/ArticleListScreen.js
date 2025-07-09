@@ -8,7 +8,7 @@ import {
   FlatList,
   Image,
 } from "react-native";
-import { getLocalQuizzes } from "@/utils/QuizStore";
+import { getLocalArticles } from "@/utils/QuizStore";
 
 import { ThemedButton } from "react-native-really-awesome-button";
 import { Fredoka_400Regular } from "@expo-google-fonts/fredoka";
@@ -20,15 +20,9 @@ import ExpandableList from '@/components/ExpandableList'; // Adjust path as need
 import BackButtons from "@/components/BackButtons";
 const nohistory = require("@/assets/images/empty.png");
 
-export default function QuizListScreen({ route, navigation }) {
-  const { grade, subject } = route.params;
+export default function ArticleListScreen({ navigation }) {
   const [quizzes, setQuizzes] = useState([]);
-  const [DATA, setData] = useState([]);
   const [search, setSearch] = useState("");
-
-  const goBack = () => {
-    navigation.goBack();
-  };
 
   const filteredData = quizzes.filter((item) =>
     item.title.toLowerCase().includes(search.toLowerCase())
@@ -36,11 +30,8 @@ export default function QuizListScreen({ route, navigation }) {
 
   useEffect(() => {
     (async () => {
-      const data = await getLocalQuizzes();
-      const filtered = data.filter(
-        (item) => item.grade == grade && item.subject == subject
-      );
-      setQuizzes(filtered);
+      const data = await getLocalArticles();
+      setQuizzes(data);
     })();
   }, []);
 
@@ -48,21 +39,21 @@ export default function QuizListScreen({ route, navigation }) {
     <View style={styles.cards}>
       <Text style={styles.title}>{item.title} </Text>
       <Text style={styles.subTitle}>
-        Total Questions: {item.questions.length}
+        Total Words: {item.article.split(" ").length}
       </Text>
       <Text style={styles.subTitle}>
-       Duration: {item.questions.length * 1.5} Minutes
+       Duration: {(item.article.split(" ").length)/100} Minutes
       </Text>
 
       <ThemedButton
         style={styles.button}
-        onPress={() => navigation.navigate("Quiz", { quiz: item })}
+        onPress={() => navigation.navigate("Article", { article: item })}
         name="bruce"
         type="primary"
         height={40}
         width={width * 0.7}
       >
-        START TEST
+        OPEN ARTICLE
       </ThemedButton>
     </View>
   );
@@ -70,12 +61,12 @@ export default function QuizListScreen({ route, navigation }) {
   return (
     <View style={styles.container}>
       <View>
-        <Text style={styles.header}>Grade {grade} </Text>
-        <Text style={styles.subHeader}>{subject} Tests</Text>
+        <Text style={styles.header}>Articles </Text>
+        <Text style={styles.subHeader}>Review Saved Articles</Text>
         <BackButtons />
 
         <TextInput
-          placeholder="Search For Tests Here..."
+          placeholder="Search For Articles Here..."
           value={search}
           onChangeText={setSearch}
           style={styles.input}
@@ -87,11 +78,11 @@ export default function QuizListScreen({ route, navigation }) {
               <Image
                 style={styles.subjectImage}
                 source={nohistory}
-                width={width * 0.65}
+                width={width * 0.7}
                 height={250}
               />
 
-              <Text style={styles.emptyTextTitle}>No Tests Yet</Text>
+              <Text style={styles.emptyTextTitle}>No Articles Yet!</Text>
               <Text style={styles.emptyTextSentence}>
                 Get Some from the Library!
                 <ThemedButton
@@ -113,7 +104,7 @@ export default function QuizListScreen({ route, navigation }) {
             data={filteredData}
             renderItem={renderItem}
                 showsVerticalScrollIndicator={false}
-          contentContainerStyle={{ paddingBottom: width*0.01}} // <-- Adds space at the bottom
+          contentContainerStyle={{ paddingBottom: width*0.3}} // <-- Adds space at the bottom
           />
                 // <ExpandableList data={filteredData} />
         )}
@@ -210,8 +201,6 @@ const styles = StyleSheet.create({
     borderRadius: 5,
     padding: 20,
     marginBottom: 5,
-    alignContent:"center",
-    alignItems:"center"
   },
   storeImage: {
     bottom: 0,

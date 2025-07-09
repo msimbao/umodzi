@@ -1,191 +1,147 @@
-import React, { useEffect, useState, useRef } from "react";
+import React, { useState } from "react";
 import {
   View,
-  Button,
   Text,
   StyleSheet,
   Dimensions,
   Image,
-  TouchableOpacity,
-  FlatList,
+  ScrollView,
+  Modal,
 } from "react-native";
-import { saveQuizzesToLocal } from "@/utils/QuizStore";
-import quizzesData from "@/data/quizzes.json"; // Adjust if importing fails in Expo
-import { Ionicons } from "@expo/vector-icons";
-import NetInfo from "@react-native-community/netinfo";
+import { saveArticlesToLocal } from "@/utils/QuizStore";
+
+import BackButtons from "@/components/BackButtons";
 
 const { width, height } = Dimensions.get("window");
 import { ThemedButton } from "react-native-really-awesome-button";
 import { Fredoka_400Regular } from "@expo-google-fonts/fredoka";
 import { Jersey25_400Regular } from "@expo-google-fonts/jersey-25";
-import * as SplashScreen from "expo-splash-screen";
 import { useFonts } from "expo-font";
-import { getNavOptions } from "expo-router/build/views/Sitemap";
-import Carousel from "@/components/Carousel";
+import SpeechPlayer from '@/components/SpeechPlayer';
 
-import SvgBackground from "@/components/SvgBackground";
+const downloaded = require("@/assets/images/downloaded.png");
 
-const store = require("@/assets/images/30.png");
-const science = require("@/assets/images/D.png");
-const scared = require("@/assets/images/exam.png");
 
-const browse = require("@/assets/images/downloaded.png");
-
-export default function StoreScreen({ navigation }) {
+export default function ArticleScreen({ route, navigation }) {
   const [loaded, error] = useFonts({
     Fredoka_400Regular,
     Jersey25_400Regular,
   });
+
+  const { article } = route.params;
   const [isConnected, setIsConnected] = useState(null);
-
-  const DATA = [
-    {
-      id: "1",
-      title: "Grade 7",
-      grade: 7,
-      iconName: "telescope",
-    },
-    // {
-    //   id: "2",
-    //   title: "Grade 8",
-    //   grade: 8,
-    // },
-    {
-      id: "3",
-      title: "Grade 9",
-      grade: 9,
-      iconName: "sparkles",
-    },
-    // {
-    //   id: "4",
-    //   title: "Grade 10",
-    //   grade: 10,
-    // },
-    // {
-    //   id: "5",
-    //   title: "Grade 11",
-    //   grade: 11,
-    // },
-    {
-      id: "6",
-      title: "Grade 12",
-      grade: 12,
-      iconName: "rocket",
-    },
-  ];
-
-
-  const NewsData = [
- {
-  "id": "news-umozdi-launch-001",
-  "title": "Umozdi Goes Live!",
-  "subtitle": "A New Dawn for Zambian Students — Your Revision Companion is Here 🎓📱",
-  "image": store,
-  "article": "The wait is over — *Umozdi* is officially live! 🎉\n\nCreated with the heart of the Zambian student in mind, Umozdi is a new mobile revision app designed to help learners across various grades sharpen their knowledge through interactive tests and quizzes. From Lusaka to Livingstone, students now have the power to revise smarter, not harder.\n\n\"We built Umozdi to close the gap between students and quality revision tools,\" said one of the lead developers. \"Whether you're prepping for final exams or brushing up on a tough topic, Umozdi is your go-to companion.\"\n\nThe app offers subject-specific quizzes, timed test sessions, and progress tracking — all tailored to match the Zambian curriculum. 📚✅\n\nTeachers and students alike are already buzzing with excitement. Early users report that the platform feels intuitive, reliable, and—most importantly—motivating.\n\nTo all students across Zambia: Umozdi is calling! Tap in, test yourself, and take your learning journey to new heights. 🚀\n\nDownload it today, and let your revision come alive.",
-  "call_to_action": "Explore Umozdi now and get ahead of your class! 🇿🇲"
-},
-{
-  "id": "umozdi-how-to-use-001",
-  "title": "Getting Started with Umozdi",
-  "subtitle": "Your Smart Study Buddy is Ready — Here's How to Use It Efficiently 📚✨",
-  "image": science,
-  "article": "Learning just got easier, and smarter, with *Umozdi* — Zambia’s very own revision app for students across all grades. 🇿🇲📱\n\nHere’s how to dive in:\n\n1️⃣ Head to the *Library* section of the app. There, you’ll find materials organized by *Grade*.\n\n2️⃣ Pick the *Subject* you want to revise — from Maths to Science to English and more.\n\n3️⃣ Choose a *Test* from the list. Whether it’s a quick quiz or a full practice exam, you’re in control.\n\n4️⃣ When you're ready, hit *Start*. The test begins immediately, and you can pace yourself as you go.\n\n5️⃣ Need help reading? Tap the *Play* buttons 🔊 — Umozdi will read the questions out loud for you. Perfect for learners who benefit from audio guidance.\n\n6️⃣ To select an answer, simply tap on the option you think is right. The app is interactive and built to respond to your choices.\n\n7️⃣ Once done, view your *Test History* to track progress and learn from your mistakes. Every step brings you closer to confidence and success. ✅\n\nUmozdi is here to empower students — not just with information, but with the tools to understand it. 💡\n\nSo grab your phone, open the app, and take charge of your learning journey today!",
-  "call_to_action": "Download Umozdi now and explore your path to better grades!"
-},
-{
-  "id": "exam-confidence-guide-002",
-  "title": "Get Equipped For Exams!",
-  "subtitle": "Easy Study Tips to Help You Feel Well Equipped, Brave, Ready and Prepared 🛡️",
-  "image": scared,
-  "article": "Exams can feel a little scary sometimes 😟 — like a big lion roaring at you. But guess what? You are braver than you think 🦁💛!\n\nHere’s how to fight those exam fears and feel strong and ready:\n\n🕒 **Use the Pomodoro Trick**: Study for 25 minutes (like a little race), then take a 5-minute break to stretch, drink water, or dance! After four Pomodoros, take a longer break. It helps your brain stay happy and not tired.\n\n📅 **Make a Study Plan**: Grab a piece of paper and write what you’ll study each day. You don’t have to do it all at once! Maybe:\n- Monday: Math 🧮\n- Tuesday: English 📚\n- Wednesday: Science 🔬\n\n🎯 **Set Small Goals**: Don’t say “I’ll study the whole book.” Try “Today I’ll learn 5 new words” or “I’ll answer 10 questions.” That feels easier and more fun!\n\n🎧 **Listen and Learn**: Apps like *Umozdi* can read the questions out loud to you 🎙️. Just press the play button and listen — like storytime, but for school!\n\n🙏 **Pray Before You Study**: Prayer helps calm your heart and gives you peace. Ask God to help you remember what you read, and to give you courage when you feel nervous. He’s always with you, even during exams.\n\n✅ **Practice Makes You Strong**: Take little tests on Umozdi and check your answers. It’s okay to make mistakes. Mistakes help us learn!\n\n💤 **Rest is Part of Studying**: Your brain needs sleep and fun too. Don’t forget to play and laugh!\n\nRemember, exams are just a way to show what you know. You're not alone — you have tools, time, and faith on your side. You’ve got this! 🚀",
-  "call_to_action": "\"I can do all things through Christ who strengthens me.\" — Philippians 4:13 🙏✨"
-}
-
-
-
-  ]
-
-  useEffect(() => {
-    const unsubscribe = NetInfo.addEventListener((state) => {
-      setIsConnected(state.isConnected);
-    });
-
-    return () => {
-      unsubscribe(); // Unsubscribe when component unmounts
-    };
-  }, []);
-
-  const downloadQuizzes = async () => {
-    await saveQuizzesToLocal(quizzesData);
-    alert("Quizzes downloaded!");
-  };
-
-  const goToGrade = (grade) => {
-    navigation.navigate("StoreList", { grade });
-  };
-
-  const renderItem = ({ item }) => (
-    <TouchableOpacity
-      onPress={() => goToGrade(item.grade)}
-      style={styles.cards}
-    >
-      <Text style={styles.title}>{item.title}</Text>
-
-      <Ionicons name={item.iconName} size={30} color={"#333"} />
-    </TouchableOpacity>
-  );
+  const [modalVisible, setModalVisible] = useState(false);
 
   return (
     <View style={styles.container}>
+ 
       <View>
-        <Text style={styles.header}>Umodzi Library</Text>
-        <Text style={styles.subHeader}>Download Articles and Quizzes</Text>
+        <Text style={styles.header}>Stories</Text>
+        <Text style={styles.subHeader}>Articles to Read, Learn and Share</Text>
+        <BackButtons />
 
-        {/* <Carousel data={DATA} height={250} /> */}
-
-        <View>
-          <Carousel data={NewsData} height={250} />
-{/* 
-          <View style={styles.topPart}>
+        <ScrollView showsVerticalScrollIndicator={false}>
+            
+          <View style={styles.card}>
             <Image
               style={styles.storeImage}
-              source={store}
+              source={article.image}
               width={width}
-              height={270}
+              height={230}
             />
 
-            <Text style={styles.header}>We're Live!</Text>
-            <Text style={styles.subHeader}>The Umodzi library is open!</Text>
-          </View> */}
+            <Text style={styles.title}>{article.title}</Text>
+            <Text style={styles.subtitle}>{article.subtitle}</Text>
+          </View>
 
-          <View style={styles.footer}>
-            <TouchableOpacity style={styles.footerButton}>
-              <Image
-                style={styles.storeImage}
-                source={browse}
-                width={width}
-                height={180}
-              />
-              <Text style={styles.footerText}>Browse Tests!</Text>
-            </TouchableOpacity>
+          <View style={styles.card}>
+            <Text style={styles.article}>{article.article}</Text>
+          </View>
 
-            {/* {isConnected ? ( */}
-            <FlatList
-              data={DATA}
-              renderItem={renderItem}
-              keyExtractor={(item) => item.id}
-              showsVerticalScrollIndicator={false}
-              contentContainerStyle={{ paddingBottom: width * 0.01 }} // <-- Adds space at the bottom
-            />
+          <View style={styles.card}>
+            <Text style={styles.call_to_action}>{article.call_to_action}</Text>
 
-            {/* ) : ( */}
-            {/* <View>
-              <Text style={styles.emptyText}>No Data Connection</Text>
-            </View> */}
-            {/* )} */}
+            <ThemedButton
+              style={styles.button}
+              onPress={() => {
+                setModalVisible(true)
+                saveArticlesToLocal(article)}
+            }
+              name="bruce"
+              type="primary"
+              height={40}
+              width={width * 0.65}
+              borderRadius={5}
+            >
+              SAVE ARTICLE
+            </ThemedButton>
+            <ThemedButton
+              style={styles.button}
+              onPress={() => navigation.navigate("Main")}
+              name="bruce"
+              type="secondary"
+              height={40}
+              width={width * 0.65}
+              borderRadius={5}
+            >
+              RETURN HOME
+            </ThemedButton>
+          </View>
+        </ScrollView>
+      </View>
+
+      <Modal
+        animationType="fade"
+        transparent={true}
+        visible={modalVisible}
+        onRequestClose={() => setModalVisible(false)}
+      >
+        <View style={styles.modalOverlay}>
+          <View style={styles.modalContainer}>
+            
+              <View style={styles.modalContainer}>
+                <Image
+                  style={styles.subjectImage}
+                  source={downloaded}
+                  width={300}
+                  height={300}
+                />
+               
+                  <>
+                    <Text style={styles.modalTitle}>Article Saved!</Text>
+                    <Text style={styles.modalText}>
+                      Keep Reading or Check out your other articles!
+                    </Text>
+                    <ThemedButton
+                      name="bruce"
+                      type="primary"
+                      onPress={async () => {    
+                        navigation.navigate("ArticleList");
+                      }}
+                      width={width * 0.65}
+                      height={50}
+                      borderRadius={5}
+                    >
+                      GO TO ARTICLES
+                    </ThemedButton>
+                  </>
+               
+              </View>
+
+            <ThemedButton
+              // style={styles.button}
+              name="bruce"
+              type="secondary"
+              onPress={() => setModalVisible(false)}
+              width={width * 0.65}
+              height={50}
+              borderRadius={5}
+            >
+              CONTINUE READING
+            </ThemedButton>
           </View>
         </View>
-      </View>
+      </Modal>
     </View>
   );
 }
@@ -222,74 +178,87 @@ const styles = StyleSheet.create({
     resizeMode: "contain",
     alignSelf: "center",
   },
-
-  topPart: {
+  card: {
+    // borderRadius: 5,
+    borderBottomWidth:5,
     width: width * 0.8,
-    backgroundColor: "white",
-    elevation: 5,
-    borderRadius: 5,
-    padding: 15,
-    paddingLeft: 20,
-    paddingRight: 20,
-    marginBottom: 5,
-  },
-  cards: {
-    borderRadius: 5,
-    width: width * 0.374,
-    elevation: 5,
-    padding: 20,
-    backgroundColor: "#fff",
-    flexDirection: "row",
-    justifyContent: "space-between",
-    alignContent: "center",
-    height: 70,
     marginVertical: 5,
+    elevation: 5,
+    alignItems: "left",
+    padding: 30,
+    backgroundColor: "#fff",
+    top: 0,
+    // borderWidth: 0,
   },
+
   title: {
-    fontSize: 17,
-    justifyContent: "center",
-    alignContent: "center",
+    fontSize: 35,
+    justifyContent: "left",
+    alignContent: "left",
     color: "black",
-    fontFamily: "Fredoka_400Regular",
+    fontFamily: "Jersey25_400Regular",
     fontWeight: 600,
   },
-  subjects: {
+  subtitle: {
     fontSize: 14,
     color: "#000",
     textAlign: "left",
-    marginBottom: 20,
-    width: width * 0.45,
     fontFamily: "Fredoka_400Regular",
     fontWeight: 600,
   },
   button: {
-    bottom: 50,
-    marginTop: 50,
+    // bottom: 50,
+    marginTop: 10,
   },
-  footer: {
-    // marginVertical: 5,
-    alignContent: "center",
-    // justifyContent: "space-between" ,
-    flexDirection: "row",
+  article: {
+    fontSize: 20,
+    fontFamily: "Fredoka_400Regular",
+    fontWeight: 600,
+    color: "#333",
   },
-  footerButton: {
-    width: width * 0.4,
-    backgroundColor: "white",
-    elevation: 5,
-    height: 230,
-    marginRight: 10,
-    top: 5,
-    borderRadius: 5,
-    justifyContent: "center",
-    alignContent: "center",
-    alignItems: "center",
-    padding: 20,
-  },
-  footerText: {
-    textAlign: "center",
-    width: "100%",
+  call_to_action: {
+    fontSize: 20,
     fontFamily: "Jersey25_400Regular",
     fontWeight: 600,
+    color: "#333",
+    textAlign: "center",
+    marginBottom: 10,
+  },
+
+
+  //Modal ==================================================
+  modalOverlay: {
+    flex: 1,
+    justifyContent: "center",
+    backgroundColor: "rgba(0,0,0,0.4)",
+  },
+  modalContainer: {
+    backgroundColor: "white",
+    padding: 25,
+    borderRadius: 5,
+    marginHorizontal: 20,
+    alignItems: "center",
+  },
+  modalTitle: {
     fontSize: 20,
+    fontWeight: "bold",
+    marginBottom: 10,
+    fontFamily: "Jersey25_400Regular",
+  },
+  modalText: {
+    fontSize: 16,
+    marginBottom: 20,
+    textAlign: "center",
+    fontFamily: "Fredoka_400Regular",
+  },
+  closeButton: {
+    backgroundColor: "#2196F3",
+    paddingVertical: 10,
+    paddingHorizontal: 25,
+    borderRadius: 10,
+  },
+  closeButtonText: {
+    color: "white",
+    fontWeight: "600",
   },
 });

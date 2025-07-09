@@ -96,38 +96,12 @@ export default function HistoryListScreen() {
   const renderItem = ({ item }) => (
     <View style={styles.cards}>
       <Text style={styles.scoreTitle}>{item.title}</Text>
-      
-
-      <View style={{ flexDirection: "row", justifyContent: "space-between" ,    alignContent: "center",
-    justifyContent: "space-between" ,
-    flexDirection: "row",
-    flexWrap: 'wrap',
-    alignItems: "flex-start"}}>
-        {/* <Ionicons name={subjectIcons[item.subject]} size={30} color={"#333"} /> */}
 
 
-        <Text style={[styles.gradeText,{
-              backgroundColor:
-                GradingThemes[
-                  getGrade(Math.round((100 * item.score) / item.total))
-                ].backgroundColor,
-              color:
-                GradingThemes[
-                  getGrade(Math.round((100 * item.score) / item.total))
-                ].color,
-            },]}>
-          {Math.round((100 * item.score) / item.total)} %
-        </Text>
-
-        <Text style={styles.gradeText}>{item.subject}</Text>
-      </View>
-      <Progress.Bar
-        style={styles.historyProgress}
-        progress={item.score / item.total}
-        width={width * 0.7}
-        height={15}
-        color={"#333"}
-      />
+        <View style={{ justifyContent: "left", flexDirection: "row" }}>
+          <Text style={styles.gradeText}>Grade: {item.grade}</Text>
+          <Text style={styles.gradeText}>{item.subject}</Text>
+       
 
         <Text
           style={[
@@ -144,8 +118,34 @@ export default function HistoryListScreen() {
             },
           ]}
         >
-          {getGrade(Math.round((100 * item.score) / item.total))}
+          {Math.round((100 * item.score) / item.total)} %
         </Text>
+      </View>
+      <Progress.Bar
+        style={styles.historyProgress}
+        progress={item.score / item.total}
+        width={width * 0.7}
+        height={15}
+        color={"#333"}
+      />
+
+      <Text
+        style={[
+          styles.gradeText,
+          {
+            backgroundColor:
+              GradingThemes[
+                getGrade(Math.round((100 * item.score) / item.total))
+              ].backgroundColor,
+            color:
+              GradingThemes[
+                getGrade(Math.round((100 * item.score) / item.total))
+              ].color,
+          },
+        ]}
+      >
+        {getGrade(Math.round((100 * item.score) / item.total))}
+      </Text>
       {/* <Text>{new Date(item.date).toLocaleString()}</Text> */}
     </View>
   );
@@ -248,9 +248,9 @@ const styles = StyleSheet.create({
     borderColor: "black",
     backgroundColor: "white",
     marginRight: 10,
-    borderTopWidth: 5,
-    borderBottomEndRadius: 5,
-    borderBottomStartRadius: 5,
+    borderBottomWidth: 5,
+    // borderBottomEndRadius: 5,
+    // borderBottomStartRadius: 5,
   },
   scoreTitle: {
     fontSize: 15,
@@ -349,7 +349,7 @@ const styles = StyleSheet.create({
     padding: 5,
     color: "#fff",
     marginHorizontal: 2,
-    fontSize: 10,
+    fontSize: 12,
     textAlign: "center",
   },
 });

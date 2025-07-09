@@ -334,7 +334,7 @@ const styles = StyleSheet.create({
     color: "white",
   },
   card: {
-    borderRadius: 5,
+    borderRadius: 0,
     width: width * 0.85,
     alignItems: "center",
     textAlign: "center",

@@ -7,14 +7,13 @@ import {
   Dimensions,
   Image,
   FlatList,
-  TextInput,
   Modal,
-  TouchableOpacity,
 } from "react-native";
 
 import { saveQuizzesToLocal } from "@/utils/QuizStore";
 import { getLocalQuizzes } from "@/utils/QuizStore";
 import * as Progress from "react-native-progress";
+import { Picker } from "@react-native-picker/picker";
 
 import { ThemedButton } from "react-native-really-awesome-button";
 import { Fredoka_400Regular } from "@expo-google-fonts/fredoka";
@@ -32,8 +31,8 @@ export default function StoreTestScreen({ route, navigation }) {
   const { grade, subject } = route.params;
   const [DATA, setDATA] = useState();
   const [downloadedQuiz, setDownloadedQuiz] = useState();
-
-  // const [testsExist, setTestsExist] = useState(true);
+  const [selectedCost, setSelectedCost] = useState("All");
+  
   const [error, setError] = useState(false);
   const [loading, setLoading] = useState(true);
   const [search, setSearch] = useState("");
@@ -50,6 +49,13 @@ export default function StoreTestScreen({ route, navigation }) {
   const goBack = () => {
     navigation.goBack();
   };
+
+  const costs=["All","Free","Premium"]
+
+    const costFilteredData =
+    selectedCost === "All"
+      ? DATA
+      : DATA.filter((item) => item.cost === selectedCost.toLowerCase());
 
   const [loaded, issue] = useFonts({
     Fredoka_400Regular,
@@ -134,6 +140,16 @@ export default function StoreTestScreen({ route, navigation }) {
         <Text style={styles.header}>Grade {grade}</Text>
         <Text style={styles.subHeader}>{subject} Tests</Text>
         <BackButtons />
+                <Picker
+                  selectedValue={selectedCost}
+                  onValueChange={(value) => setSelectedCost(value)}
+                  style={styles.picker}
+                >
+                  {costs.map((cost) => (
+                    <Picker.Item label={cost} value={cost} key={cost} />
+                  ))}
+                </Picker>
+
         {loading ? (
           <View style={styles.topPart}>
             <View>
@@ -190,7 +206,7 @@ export default function StoreTestScreen({ route, navigation }) {
           </View>
         ) : (
           <FlatList
-            data={DATA}
+            data={costFilteredData}
             renderItem={renderItem}
             showsVerticalScrollIndicator={false}
             // contentContainerStyle={{ paddingBottom: width * 0.01 }} // <-- Adds space at the bottom
@@ -302,8 +318,9 @@ const styles = StyleSheet.create({
     // width: width * 0.8,
   },
     listContainer: {
-    paddingHorizontal: 0, // No outer padding
+    // paddingHorizontal: 0, // No outer padding
     width: width * 0.8,
+    marginTop:5,
   },
   row: {
     justifyContent: 'space-between',
@@ -350,18 +367,16 @@ const styles = StyleSheet.create({
   cards: {
     backgroundColor: "#fff",
     padding: 20,
-    paddingBottom: 0,
     alignItems: "left",
     justifyContent: "center",
     elevation: 5,
-    width: width * 0.395,
+    width: width * 0.390,
     textAlign: "left",
     borderWidth: 0,
     marginBottom: 10,
     borderColor: "#333",
-    borderTopWidth: 5,
-    borderBottomEndRadius: 5,
-    borderBottomStartRadius: 5,
+    // borderTopWidth: 5,
+    borderRadius:5,
     
   },
 
@@ -445,6 +460,14 @@ const styles = StyleSheet.create({
     justifyContent: "flex-end",
     // justifyContent: "center",
     alignItems: "left",
+  },
+
+    picker: {
+    height: 50,
+    width: width * 0.8,
+    marginTop: 10,
+    marginBottom: 10,
+    backgroundColor: "#fff",
   },
 
   //Modal ==================================================

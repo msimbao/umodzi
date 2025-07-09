@@ -57,19 +57,19 @@ const Carousel = ({
   const renderItem = ({ item }) => (
 
 
-              <TouchableOpacity style={styles.topPart}>
+              <View style={styles.card}>
                 <Image
                   style={styles.image}
                   source={item.image}
                   width={width*0.8}
-                  height={"80%"}
+                  height={height * 0.75}
                 />
     
                 <Text style={styles.title}>{item.title}</Text>
                 <Text style={styles.subTitle}>{item.subtitle}</Text>
                         <ThemedButton
                           style={styles.button}
-                          onPress={() => navigation.navigate("HistoryList")}
+                          onPress={() => navigation.navigate("Article", {article:item})}
                           name="bruce"
                           type="primary"
                           height={40}
@@ -78,7 +78,7 @@ const Carousel = ({
                         >
                           READ ARTICLE
                         </ThemedButton>
-              </TouchableOpacity>
+              </View>
   );
 
   return (
@@ -113,23 +113,22 @@ const Carousel = ({
 const styles = StyleSheet.create({
   container: { 
     width: width * 0.8, 
-    height:height*0.45,
+    // height:height*0.5,
     // padding:30,
 },
-    topPart: {
-    width: width * 0.8,
-    backgroundColor: "white",
-    elevation: 5,
+    card: {
     borderRadius: 5,
-    padding: 30,
-    // paddingHorizontal: 30,
-    marginBottom: 5,
-    justifyContent: "center",
+    width: width * 0.80,
+    marginVertical: 5,
+    elevation: 3,
     alignItems: "left",
-    height:height*0.4,
+    padding:30,
+    backgroundColor: "#fff",
+    top: 0,
+    borderWidth: 0,
   },
     title: {
-    fontSize: 20,
+    fontSize: 23,
     marginBottom: 0,
     textAlign: "left",
     color: "black",
@@ -169,7 +168,7 @@ const styles = StyleSheet.create({
   },
   button:{
     marginTop:5,
-    marginBottom:20,
+    // marginBottom:20,
   }
 });
 

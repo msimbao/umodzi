@@ -14,7 +14,6 @@ import { Fredoka_400Regular } from "@expo-google-fonts/fredoka";
 import { Jersey25_400Regular } from "@expo-google-fonts/jersey-25";
 import * as SplashScreen from "expo-splash-screen";
 import { useFonts } from "expo-font";
-import SvgBackground from "@/components/SvgBackground";
 
 const { width, height } = Dimensions.get("window");
 
@@ -40,7 +39,6 @@ export default function SubjectsScreen({ navigation }) {
   );
 
 
-
   const grades = [7, 8, 9, 10, 11, 12];
 
   const gradesIcons = {
@@ -54,16 +52,10 @@ export default function SubjectsScreen({ navigation }) {
 
   return (
     <View style={styles.container}>
-      {/* <SvgBackground
-        seed="zore"
-        // patternIndex={1}
-        backgroundColor="#e5e6fa"
-        patternColor="#B8849B"
-      /> */}
+
       <View>
         <Text style={styles.header}>Practice Questions</Text>
         <Text style={styles.subHeader}>Take past papers & exams</Text>
-
 
         <FlatList
           data={grades}
@@ -87,7 +79,7 @@ const styles = StyleSheet.create({
   },
   header: {
     fontSize: 40,
-    marginBottom: 0,
+    marginBottom: 10,
     textAlign: "left",
     color: "black",
     fontFamily: "Jersey25_400Regular",

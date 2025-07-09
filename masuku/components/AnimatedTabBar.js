@@ -15,6 +15,8 @@ import StoreScreen from "../screens/StoreScreen";
 import HistoryScreen from "../screens/HistoryScreen";
 import HistoryListScreen from "../screens/HistoryListScreen";
 import SettingsScreen from "../screens/SettingsScreen";
+import ArticleListScreen from '@/screens/ArticleListScreen'
+
 
 const Tab = createMaterialTopTabNavigator();
 const { width, height } = Dimensions.get("window");
@@ -34,6 +36,7 @@ export default function MainTabs() {
       {/* <Tab.Screen name="Home" component={HomeScreen} /> */}
       <Tab.Screen name="Store" component={StoreScreen} />
       <Tab.Screen name="Subjects" component={SubjectsScreen} />
+      {/* <Tab.Screen name="ArticlesList" component={ArticleListScreen} /> */}
       <Tab.Screen name="History" component={HistoryScreen} />
       <Tab.Screen name="Settings" component={SettingsScreen} />
     </Tab.Navigator>
@@ -51,6 +54,7 @@ function PlainTabBar({ state, descriptors, navigation }) {
           Subjects: "document-text",
           Store: "library",
           History: "time",
+          // ArticlesList: "newspaper",
           Settings: "settings-outline",
         }[route.name];
 

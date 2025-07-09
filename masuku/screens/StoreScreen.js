@@ -44,27 +44,14 @@ export default function StoreScreen({ navigation }) {
       grade: 7,
       iconName: "telescope",
     },
-    // {
-    //   id: "2",
-    //   title: "Grade 8",
-    //   grade: 8,
-    // },
+
     {
       id: "3",
       title: "Grade 9",
       grade: 9,
       iconName: "sparkles",
     },
-    // {
-    //   id: "4",
-    //   title: "Grade 10",
-    //   grade: 10,
-    // },
-    // {
-    //   id: "5",
-    //   title: "Grade 11",
-    //   grade: 11,
-    // },
+
     {
       id: "6",
       title: "Grade 12",
@@ -77,24 +64,24 @@ export default function StoreScreen({ navigation }) {
   const NewsData = [
  {
   "id": "news-umozdi-launch-001",
-  "title": "Umozdi Goes Live!",
-  "subtitle": "A New Dawn for Zambian Students 🎓📱",
-  "image": store,
+  "title": "Umozdi Is Live!",
+  "subtitle": "A New Dawn for Zambian Students ",
+  "image": science,
   "article": "The wait is over — *Umozdi* is officially live! 🎉\n\nCreated with the heart of the Zambian student in mind, Umozdi is a new mobile revision app designed to help learners across various grades sharpen their knowledge through interactive tests and quizzes. From Lusaka to Livingstone, students now have the power to revise smarter, not harder.\n\n\"We built Umozdi to close the gap between students and quality revision tools,\" said one of the lead developers. \"Whether you're prepping for final exams or brushing up on a tough topic, Umozdi is your go-to companion.\"\n\nThe app offers subject-specific quizzes, timed test sessions, and progress tracking — all tailored to match the Zambian curriculum. 📚✅\n\nTeachers and students alike are already buzzing with excitement. Early users report that the platform feels intuitive, reliable, and—most importantly—motivating.\n\nTo all students across Zambia: Umozdi is calling! Tap in, test yourself, and take your learning journey to new heights. 🚀\n\nDownload it today, and let your revision come alive.",
   "call_to_action": "Explore Umozdi now and get ahead of your class! 🇿🇲"
 },
 {
   "id": "umozdi-how-to-use-001",
   "title": "Getting Started with Umozdi",
-  "subtitle": "Here's How to Use It Efficiently 📚✨",
-  "image": science,
+  "subtitle": "Here's How to Use It Efficiently ",
+  "image": store,
   "article": "Learning just got easier, and smarter, with *Umozdi* — Zambia’s very own revision app for students across all grades. 🇿🇲📱\n\nHere’s how to dive in:\n\n1️⃣ Head to the *Library* section of the app. There, you’ll find materials organized by *Grade*.\n\n2️⃣ Pick the *Subject* you want to revise — from Maths to Science to English and more.\n\n3️⃣ Choose a *Test* from the list. Whether it’s a quick quiz or a full practice exam, you’re in control.\n\n4️⃣ When you're ready, hit *Start*. The test begins immediately, and you can pace yourself as you go.\n\n5️⃣ Need help reading? Tap the *Play* buttons 🔊 — Umozdi will read the questions out loud for you. Perfect for learners who benefit from audio guidance.\n\n6️⃣ To select an answer, simply tap on the option you think is right. The app is interactive and built to respond to your choices.\n\n7️⃣ Once done, view your *Test History* to track progress and learn from your mistakes. Every step brings you closer to confidence and success. ✅\n\nUmozdi is here to empower students — not just with information, but with the tools to understand it. 💡\n\nSo grab your phone, open the app, and take charge of your learning journey today!",
   "call_to_action": "Download Umozdi now and explore your path to better grades!"
 },
 {
   "id": "exam-confidence-guide-002",
   "title": "Get Equipped For Exams!",
-  "subtitle": "Study Tips to Help You Feel Prepared 🛡️",
+  "subtitle": "Study Tips to Help You Feel Prepared",
   "image": scared,
   "article": "Exams can feel a little scary sometimes 😟 — like a big lion roaring at you. But guess what? You are braver than you think 🦁💛!\n\nHere’s how to fight those exam fears and feel strong and ready:\n\n🕒 **Use the Pomodoro Trick**: Study for 25 minutes (like a little race), then take a 5-minute break to stretch, drink water, or dance! After four Pomodoros, take a longer break. It helps your brain stay happy and not tired.\n\n📅 **Make a Study Plan**: Grab a piece of paper and write what you’ll study each day. You don’t have to do it all at once! Maybe:\n- Monday: Math 🧮\n- Tuesday: English 📚\n- Wednesday: Science 🔬\n\n🎯 **Set Small Goals**: Don’t say “I’ll study the whole book.” Try “Today I’ll learn 5 new words” or “I’ll answer 10 questions.” That feels easier and more fun!\n\n🎧 **Listen and Learn**: Apps like *Umozdi* can read the questions out loud to you 🎙️. Just press the play button and listen — like storytime, but for school!\n\n🙏 **Pray Before You Study**: Prayer helps calm your heart and gives you peace. Ask God to help you remember what you read, and to give you courage when you feel nervous. He’s always with you, even during exams.\n\n✅ **Practice Makes You Strong**: Take little tests on Umozdi and check your answers. It’s okay to make mistakes. Mistakes help us learn!\n\n💤 **Rest is Part of Studying**: Your brain needs sleep and fun too. Don’t forget to play and laugh!\n\nRemember, exams are just a way to show what you know. You're not alone — you have tools, time, and faith on your side. You’ve got this! 🚀",
   "call_to_action": "\"I can do all things through Christ who strengthens me.\" — Philippians 4:13 🙏✨"
@@ -144,18 +131,6 @@ export default function StoreScreen({ navigation }) {
 
         <View>
           <Carousel data={NewsData} height={250} />
-{/* 
-          <View style={styles.topPart}>
-            <Image
-              style={styles.storeImage}
-              source={store}
-              width={width}
-              height={270}
-            />
-
-            <Text style={styles.header}>We're Live!</Text>
-            <Text style={styles.subHeader}>The Umodzi library is open!</Text>
-          </View> */}
 
           <View style={styles.footer}>
             <TouchableOpacity style={styles.footerButton}>
@@ -225,17 +200,17 @@ const styles = StyleSheet.create({
   topPart: {
     width: width * 0.8,
     backgroundColor: "white",
-    elevation: 5,
-    borderRadius: 5,
+    elevation: 3,
+    borderRadius: 3,
     padding: 15,
     paddingLeft: 20,
     paddingRight: 20,
     marginBottom: 5,
   },
   cards: {
-    borderRadius: 5,
+    borderRadius: 3,
     width: width * 0.374,
-    elevation: 5,
+    elevation: 3,
     padding: 20,
     backgroundColor: "#fff",
     flexDirection: "row",
@@ -257,7 +232,7 @@ const styles = StyleSheet.create({
     fontSize: 14,
     color: "#000",
     textAlign: "left",
-    marginBottom: 20,
+    // marginBottom: 20,
     width: width * 0.45,
     fontFamily: "Fredoka_400Regular",
     fontWeight: 600,
@@ -275,11 +250,11 @@ const styles = StyleSheet.create({
   footerButton: {
     width: width * 0.4,
     backgroundColor: "white",
-    elevation: 5,
+    elevation: 3,
     height: 230,
     marginRight: 10,
     top: 5,
-    borderRadius: 5,
+    borderRadius: 3,
     justifyContent: "center",
     alignContent: "center",
     alignItems: "center",
