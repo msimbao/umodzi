@@ -109,7 +109,7 @@ export default function SettingsScreen({ navigation }) {
 
         <TouchableOpacity
           style={[styles.cards, styles.premiumButtom]}
-          onPress={ resetIntro}
+          // onPress={ resetIntro}
         >
           <Text style={styles.title}>Clear Data </Text>
           <Ionicons name={"chevron-forward"} size={30} color={"#333"} />
