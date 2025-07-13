@@ -9,7 +9,7 @@
     "ios": "expo start --ios",
     "web": "expo start --web",
     "lint": "expo lint",
-    "build:web": "expo export -p web && npx workbox-cli generateSW workbox-config.js"
+    "build:web": "expo export -p web && workbox-cli generateSW workbox-config.js"
   },
   "dependencies": {
     "@expo-google-fonts/fredoka": "^0.4.0",
