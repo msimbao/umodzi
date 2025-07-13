@@ -22,25 +22,25 @@ import SubjectsScreen from "../screens/SubjectsScreen";
 const Stack = createNativeStackNavigator();
 
 export default function App() {
-  const [isLoading, setIsLoading] = useState(true);
-  const [initialRoute, setInitialRoute] = useState('Intro');
+  // const [isLoading, setIsLoading] = useState(true);
+  const [initialRoute, setInitialRoute] = useState('Main');
 
-  useEffect(() => {
-    const checkIntroSeen = async () => {
-      const value = await AsyncStorage.getItem('hasSeenIntro');
-      setInitialRoute(value ? 'Main' : 'Intro');
-      setIsLoading(false);
-    };
-    checkIntroSeen();
-  }, []);
+  // useEffect(() => {
+  //   const checkIntroSeen = async () => {
+  //     const value = await AsyncStorage.getItem('hasSeenIntro');
+  //     setInitialRoute(value ? 'Main' : 'Intro');
+  //     setIsLoading(false);
+  //   };
+  //   checkIntroSeen();
+  // }, []);
 
-  if (isLoading) {
-    return (
-      <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
-        <ActivityIndicator size="large" />
-      </View>
-    );
-  }
+  // if (isLoading) {
+  //   return (
+  //     <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
+  //       <ActivityIndicator size="large" />
+  //     </View>
+  //   );
+  // }
 
   return (
     <>

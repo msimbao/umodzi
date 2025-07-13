@@ -9,12 +9,10 @@ import {
 } from "react-native";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import { ThemedButton } from "react-native-really-awesome-button";
-
 import { Fredoka_400Regular } from "@expo-google-fonts/fredoka";
 import { Jersey25_400Regular } from "@expo-google-fonts/jersey-25";
 import * as SplashScreen from "expo-splash-screen";
 import SvgBackground from "@/components/SvgBackground";
-
 import { useFonts } from "expo-font";
 import * as Font from "expo-font";
 import { Asset } from "expo-asset";
