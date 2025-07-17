@@ -43,7 +43,7 @@ export default function App() {
   // }
 
   return (
-    <>
+    <NavigationContainer>
       <Stack.Navigator initialRouteName={initialRoute} screenOptions={{ headerShown: false }}>
         <Stack.Screen name="Intro" component={IntroScreen} />
         <Stack.Screen name="Main" component={MainTabs} />
@@ -60,6 +60,6 @@ export default function App() {
         <Stack.Screen name="SubjectList" component={SubjectListScreen} />
 
       </Stack.Navigator>
-    </>
+    </NavigationContainer>
   );
 }
